@@ -12,14 +12,14 @@ class Dispatcher implements IDispatcher
 		}
 		$this->listeners[$name][] = $listener;
 	}
-	
+
 	public function detach($name, $listener)
 	{
 		if (! isset($this->listeners[$name]))
 		{
 			return false;
 		}
-		
+
 		foreach ($this->listeners[$name] as $index => $callable)
 		{
 			if ($listener == $callable)
@@ -28,27 +28,27 @@ class Dispatcher implements IDispatcher
 			}
 		}
 	}
-	
+
 	public function getListeners($name)
 	{
 		if (! isset($this->listeners[$name]))
 		{
 			$this->listeners[$name] = array();
 		}
-		
+
 		return $this->listeners[$name];
 	}
-	
+
 	public function notify(IEvent $event)
 	{
 		foreach ($this->getListeners($event->getName()) as $callable)
 		{
 			call_user_func($callable, $event);
 		}
-		
+
 		return $event;
 	}
-	
+
 	public function notifyUntil(IEvent $event, $state = true)
 	{
 		foreach ($this->getListeners($event->getName()) as $callable)
@@ -60,7 +60,7 @@ class Dispatcher implements IDispatcher
 				break;
 			}
 		}
-		
+
 		return $event;
 	}
 }

@@ -23,7 +23,7 @@ class RoutingRuleCompiler implements IRoutingRuleCompiler
 	 * provided by IRoutingRule
 	 *
 	 * @param IRoutingRule $rule
-	 * @return CompiledRule 
+	 * @return CompiledRule
 	 */
 	public function compile(IRoutingRule $rule)
 	{
@@ -71,17 +71,17 @@ class RoutingRuleCompiler implements IRoutingRuleCompiler
 	/**
 	 * Takes requirement array as parameter, transforms requirement names
 	 * to their relevant regular expression representation
-	 * 
+	 *
 	 * array(
 	 *     'month'=>'int'
-	 * ) 
-	 * 
+	 * )
+	 *
 	 * becomes (will be transformed to)
-	 * 
+	 *
 	 * array(
 	 *     'month'=>'(?<month>[0-9]+)'
 	 * )
-	 * 
+	 *
 	 * @param array $requirements
 	 * @return array
 	 */
@@ -97,7 +97,7 @@ class RoutingRuleCompiler implements IRoutingRuleCompiler
 				throw new InvalidArgumentException('Requirement "'.$requirement.'" for route "'.$name.'" not found in patterns');
 
 			$pattern = $this->patterns[$requirement];
-			$requirements[$name] = 
+			$requirements[$name] =
 				'(?<'.$name.'>'.$pattern.')';
 		}
 		return $requirements;

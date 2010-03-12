@@ -11,7 +11,6 @@ class FrontendApplication extends Application
 	{
 		return array(
 			new FrameworkPackage(),
-			new OutletPackage(),
 			new FrontendPackage(),
 		);
 	}

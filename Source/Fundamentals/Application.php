@@ -39,7 +39,7 @@ class Application
 		{
 			require $path;
 		}
-		
+
 		foreach ($this->packages as $package)
 		{
 			$package->register($this->container);

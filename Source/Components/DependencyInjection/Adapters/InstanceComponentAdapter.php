@@ -5,7 +5,7 @@ class InstanceComponentAdapter implements IComponentAdapter
 	protected
 		$key,
 		$instance;
-	
+
 	public function __construct($key, $instance)
 	{
 		$this->key      = $key;
@@ -21,7 +21,7 @@ class InstanceComponentAdapter implements IComponentAdapter
 	{
 		return $this->instance;
 	}
-	
+
 	public function getKey()
 	{
 		return $this->key;

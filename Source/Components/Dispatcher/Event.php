@@ -2,7 +2,7 @@
 
 class Event implements IEvent
 {
-	protected 
+	protected
 		$sender       = null,
 		$name         = '',
 		$parameters   = null,
@@ -14,7 +14,7 @@ class Event implements IEvent
 	 *
 	 * @param stdclass $sender
 	 * @param string $name
-	 * @param array $parameters 
+	 * @param array $parameters
 	 */
 	public function __construct($sender, $name, $parameters=array())
 	{
@@ -24,27 +24,27 @@ class Event implements IEvent
 		$this->handled = false;
 		$this->value = null;
 	}
-	
+
 	public function getSender()
 	{
 		return $this->sender;
 	}
-	
+
 	public function getName()
 	{
 		return $this->name;
 	}
-	
+
 	public function getParameters()
 	{
 		return $this->parameters;
 	}
-	
+
 	public function isHandled()
 	{
 		return $this->handled;
 	}
-	
+
 	public function setHandled($bool)
 	{
 		$this->handled = $bool;
@@ -59,11 +59,11 @@ class Event implements IEvent
 	{
 		return $this->value;
 	}
-	
+
 	/**
 	 * Implement ArrayAccess
-	 * 
-	 * @param mixed $offset 
+	 *
+	 * @param mixed $offset
 	 */
 	public function offsetExists($offset)
 	{
@@ -79,11 +79,11 @@ class Event implements IEvent
 	{
 		return $this->parameters[$offset];
 	}
-	
+
 	/**
 	 * Implement ArrayAccess
-	 * 
-	 * @param mixed $offset 
+	 *
+	 * @param mixed $offset
 	 * @param mixed $value
 	 */
 	public function offsetSet($offset, $value)

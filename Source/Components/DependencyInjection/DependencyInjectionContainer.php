@@ -25,6 +25,11 @@ class DependencyInjectionContainer implements IDependencyInjectionContainer
 		$this->setComponentAdapter($adapter);
 	}
 
+	public function createChildContainer()
+	{
+		return new DependencyInjectionContainer($this, $this->factory);
+	}
+
 	public function setConstant($key, $value)
 	{
 		$this->constants[$key] = $value;
@@ -54,37 +59,62 @@ class DependencyInjectionContainer implements IDependencyInjectionContainer
 		$this->adapters[$adapter->getKey()] = $adapter;
 	}
 
-	public function getComponentAdapter($key)
+	public function getComponentAdapter($component)
 	{
-		if (isset($this->adapters[$key]))
-		{
-			return $this->adapters[$key];
-		}
+		if (isset($this->adapters[$component]))
+			return $this->adapters[$component];
 
-		if (isset($this->definitions[$key]))
+		if (isset($this->definitions[$component]))
 		{
-			$adapter = $this->factory->createAdapterFromDef($key, $this->definitions[$key]);
+			$adapter = $this->factory->createAdapterFromDef($component, $this->definitions[$component]);
 			$this->setComponentAdapter($adapter);
 			return $adapter;
 		}
 
 		return !is_null($this->parent)
-			? $this->parent->getComponentAdapter($key)
+			? $this->parent->getComponentAdapter($component)
 			: null;
 	}
 
-	public function getComponentInstance($key)
+	public function getAdaptersOfType($type)
 	{
-		$adapter = $this->getComponentAdapter($key);
-		return is_null($adapter)
-			? null
-			: $adapter->getInstance($this);
+		if (isset($this->adapters[$type]) || isset($this->definitions[$type]))
+			return array($this->getComponentAdapter($type));
+
+		$typeReflection = new ReflectionClass($type);
+		$found = array();
+		$result = array();
+		$definitionsAndAdapters = array_merge($this->definitions, $this->adapters);
+		foreach ($definitionsAndAdapters as $key => $component)
+		{
+			if (isset($result[$component->getClass()]))
+				continue;
+			if ($type == $component->getClass())
+			{
+				$found[] = $this->getComponentAdapter($key);
+				$result[$component->getClass()] = true;
+			}
+			else if (class_exists($component->getClass(), true))
+			{
+				$componentReflection = new ReflectionClass($component->getClass());
+				$implements = $typeReflection->isInterface() && $componentReflection->implementsInterface($type);
+				$extends    = $componentReflection->isSubclassOf($type);
+				if ($implements || $extends)
+				{
+					$found[] = $this->getComponentAdapter($key);
+					$result[$component->getClass()] = true;
+				}
+			}
+		}
+
+		return $found;
 	}
 
-	public function registerComponent($componentKey, $class)
+	public function registerComponent($component)
 	{
-		$definition = $this->factory->createComponentDefinition($class, array());
-		$this->definitions[$componentKey] = $definition;
+		$definition = $this->factory->createComponentDefinition($component, array());
+		$this->definitions[$component] = $definition;
+		unset($this->adapters[$component]);
 		return $definition;
 	}
 
@@ -93,58 +123,23 @@ class DependencyInjectionContainer implements IDependencyInjectionContainer
 		return $this->definitions;
 	}
 
-	public function getClassInstance($class, array $arguments = array())
+	public function getInstanceOf($component)
 	{
-		$adapter = new ConstructorComponentAdapter($class, $class, $arguments);
-		return $adapter->getInstance($this);
+		// $component is a named Component
+		$adapter = $this->getComponentAdapter($component);
+		if(! is_null($adapter))
+			return $adapter->getInstance($this);
+
+		// $component is a class or interface name
+		$adapters = $this->getAdaptersOfType($component);
+		if (count($adapters) == 0)
+			throw new InjecteeArgumentException("Cannot find adapters for '{$component}' component");
+		else if (count($adapters) == 1)
+		{
+			$adapter = array_shift($adapters);
+			return $adapter->getInstance($this);
+		}
+		else
+			throw new AmbiguousArgumentException("Class '{$component}' is ambiguous, too many similar classes found");
 	}
 }
-
-
-
-
-
-
-$mainConfig = array(
-	'constants' => array(
-		'event_dispatcher.class' => 'Dispacher',
-		'database.class'          => 'Outlet',
-		'database.user'           => 'root',
-		'database.passsword'      => 'very secret',
-	),
-	'components' => array(
-		'event_dispatcher' => array(
-			'class'       => array('constant' => 'event_dispatcher.class'),
-			'constructor' => array(),
-			'scope'       => 'shared'
-		),
-		'outlet_orm' => array(
-			'class'       => array('constant' => 'database.class'),
-			'constructor' => array(
-				'reference' => 'event_dispatcher',
-				'constant'  => 'database.user',
-				'constant'  => 'databse.password',
-				'value'     => '2',
-				'class'     => 'SomeClass',
-			),
-			'scope' => 'shared',
-			'calls' => array(
-				'preconfigure',
-				'configure' => array(
-					'value'    => 'special',
-					'constant' => 'database.class',
-				),
-			),
-		),
-		'some_service' => array(
-			'class'       => array('constant' => 'look here'),
-			'constructor' => array(),
-			'scope'       => 'transient',
-		),
-	),
-	'classes' => array(
-		'MySpecialClass' => array(
-			'constructor' => ''
-		),
-	)
-);

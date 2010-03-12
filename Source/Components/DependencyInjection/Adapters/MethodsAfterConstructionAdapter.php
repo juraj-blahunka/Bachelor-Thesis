@@ -22,11 +22,33 @@ class MethodsAfterConstructionAdapter extends DecoratingComponentAdapter
 		foreach ($this->getMethods() as $method)
 		{
 			list($methodName, $arguments) = $method;
-			$resolved = array();
-			for ($i = 0; $i < count($arguments); $i++)
-				$resolved[] = $arguments[$i]->resolve($container, $this, '');
-			
-			call_user_func_array(array($instance, $methodName), $resolved);
+
+			$methodReflection = new ReflectionMethod($instance, $methodName);
+
+			if (count($arguments))
+			{
+				$resolved = array();
+				for ($i = 0; $i < count($arguments); $i++)
+					$resolved[] = $arguments[$i]->resolve($container, $this, '');
+
+				call_user_func_array(array($instance, $methodName), $resolved);
+			}
+			else if($methodReflection && $methodReflection->getParameters())
+			{
+				$argsToPass = array();
+				$parameters  = $methodReflection->getParameters();
+				foreach ($parameters as $parameter)
+				{
+					$parameterClassReflection = $parameter->getClass();
+					if (! $parameterClassReflection)
+						throw new InjecteeArgumentException("Argument {$parameter->getName()} requires a value and no object");
+					$argsToPass[] = $container->getInstanceOf($parameterClassReflection->getName());
+				}
+
+				call_user_func_array(array($instance, $methodName), $argsToPass);
+			}
+			else
+				call_user_func(array($instance, $methodName));
 		}
 		return $instance;
 	}

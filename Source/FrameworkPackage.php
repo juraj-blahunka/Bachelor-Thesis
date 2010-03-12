@@ -1,7 +1,7 @@
 <?php
 
-require dirname(__FILE__).'/Components/Package/IPackage.php';
-require dirname(__FILE__).'/Components/Package/IClassLoader.php';
+require dirname(__FILE__).'/Components/Package/Interfaces/IPackage.php';
+require dirname(__FILE__).'/Components/Package/Interfaces/IClassLoader.php';
 require dirname(__FILE__).'/Components/Package/BasePackage.php';
 require dirname(__FILE__).'/Components/Package/ClassToFileRelationMapLoader.php';
 require dirname(__FILE__).'/Components/Package/PearClassLoader.php';
@@ -13,7 +13,7 @@ class FrameworkPackage extends BasePackage
 	{
 		return 'Framework';
 	}
-	
+
 	public function registerClassLoaders()
 	{
 		return array(
@@ -31,6 +31,7 @@ class FrameworkPackage extends BasePackage
 
 'InjecteeArgumentException'     => 'DependencyInjection/Exceptions/InjecteeArgumentException.php',
 'CyclicInstantiationException'  => 'DependencyInjection/Exceptions/CyclicInstantiationException.php',
+'AmbiguousArgumentException'    => 'DependencyInjection/Exceptions/AmbiguousArgumentException.php',
 
 'DependencyInjectionContainer'  => 'DependencyInjection/DependencyInjectionContainer.php',
 'DefaultContainerFactory'       => 'DependencyInjection/DefaultContainerFactory.php',
@@ -47,13 +48,12 @@ class FrameworkPackage extends BasePackage
 
 'ConstantArgument'              => 'DependencyInjection/Arguments/ConstantArgument.php',
 'ValueArgument'                 => 'DependencyInjection/Arguments/ValueArgument.php',
-'ReferenceArgument'             => 'DependencyInjection/Arguments/ReferenceArgument.php',
-'ClassArgument'                 => 'DependencyInjection/Arguments/ClassArgument.php',
+'ComponentArgument'             => 'DependencyInjection/Arguments/ComponentArgument.php',
 'ArrayArgument'                 => 'DependencyInjection/Arguments/ArrayArgument.php',
 
 // Event Dispatcher
-'IEvent'      => 'Dispatcher/IEvent.php',
-'IDispatcher' => 'Dispatcher/IDispatcher.php',
+'IEvent'      => 'Dispatcher/Interfaces/IEvent.php',
+'IDispatcher' => 'Dispatcher/Interfaces/IDispatcher.php',
 'Event'       => 'Dispatcher/Event.php',
 'Dispatcher'  => 'Dispatcher/Dispatcher.php',
 

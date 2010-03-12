@@ -33,5 +33,5 @@ class ClassToFileRelationMapLoader implements IClassLoader
 		}
 		return false;
 	}
-	
+
 }

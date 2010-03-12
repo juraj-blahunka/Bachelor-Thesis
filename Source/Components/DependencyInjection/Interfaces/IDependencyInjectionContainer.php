@@ -2,22 +2,24 @@
 
 interface IDependencyInjectionContainer
 {
+	// child container
+	function createChildContainer();
+
 	// constants
 	function setConstant($key, $value);
 	function getConstant($key);
 	function addConstants(array $constants);
 	function getConstants();
 
-	// components through adapters
+	// components adapters
 	function setComponentAdapter(IComponentAdapter $adapter);
 	function getComponentAdapter($key);
-	function getComponentInstance($key);
+	function getAdaptersOfType($type);
 
-	// components through definitions
-	function registerComponent($componentKey, $class);
+	// definitions of adapters
+	function registerComponent($component);
 	function getDefinitions();
 
-	// class resolving
-	function getClassInstance($class, array $arguments);
-
+	// component instantiation
+	function getInstanceOf($component);
 }

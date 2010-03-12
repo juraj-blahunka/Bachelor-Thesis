@@ -11,7 +11,7 @@ class RouteMatcher implements IRouteMatcher
 			$matches,
 			$rule->getRule()->getParameters()
 		);
-		
+
 		$route->setController($vars['controller']);
 		$route->setAction($vars['action']);
 		unset($vars['controller'], $vars['action']);

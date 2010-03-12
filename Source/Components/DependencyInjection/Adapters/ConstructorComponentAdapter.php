@@ -16,35 +16,39 @@ class ConstructorComponentAdapter extends AbstractComponentAdapter
 	public function getInstance(IDependencyInjectionContainer $container)
 	{
 		if ($this->preventCyclic)
-			throw new CyclicInstantiationException("Cyclic instantiation of {$this->getKey()} component");
+			throw new CyclicInstantiationException("Cyclic instantiation of {$this->getKey()} component, with '{$this->getClass()}' class");
 
 		$this->preventCyclic = true;
-		
-		$reflection = new ReflectionClass($this->getClass());
 
-		$argumentsForConstructor = array();
-
+		$reflection  = new ReflectionClass($this->getClass());
 		$constructor = $reflection->getConstructor();
-		
+		$instance    = null;
+
 		if (count($this->arguments))
 		{
+			$argstoPass = array();
 			foreach ($this->arguments as $argument)
-			$argumentsForConstructor[] = $argument->resolve($container, $this, null);
+				$argstoPass[] = $argument->resolve($container, $this);
+			$instance = $reflection->newInstanceArgs($argstoPass);
 		}
-		else if (count($constructor->getParameters()))
+		else if ($constructor && count($constructor->getParameters()))
 		{
-			// try to guess the args.
+			$argstoPass = array();
+			$parameters = $constructor->getParameters();
+			foreach ($parameters as $argument)
+			{
+				$argumentClassReflection = $argument->getClass();
+				if (! $argumentClassReflection)
+					throw new InjecteeArgumentException("{$argument->getName()} requires a value and no object");
+				$argstoPass[] = $container->getInstanceOf($argumentClassReflection->getName());
+			}
+			$instance = $reflection->newInstanceArgs($argstoPass);
 		}
+		else
+			$instance = $reflection->newInstance();
 
-		throw new Exception('Tu som skoncil, pokracovat v magickom vytvarani (hladani argumentov do konstruktora)');
-		
-
-		
-		$instance = is_null($reflection->getConstructor())
-			? $reflection->newInstance()
-			: $reflection->newInstanceArgs($argumentsForConstructor);
-		
 		$this->preventCyclic = false;
+
 		return $instance;
 	}
 

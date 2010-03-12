@@ -1,5 +1,3 @@
 <?php
 
-class InjecteeArgumentException extends Exception
-{
-}
+class InjecteeArgumentException extends Exception {}

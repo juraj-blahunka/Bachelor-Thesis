@@ -6,9 +6,10 @@ class FrontendPackage extends ApplicationPackage implements IPackage
 	{
 		return 'Frontend';
 	}
+
 	public function register()
 	{
-		
+
 	}
 
 	public function registerClassLoaders()

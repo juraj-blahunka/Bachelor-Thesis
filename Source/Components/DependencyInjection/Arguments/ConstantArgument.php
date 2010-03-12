@@ -10,7 +10,7 @@ class ConstantArgument implements IInjecteeArgument
 		$this->constantId = $constantId;
 	}
 
-	public function resolve(IDependencyInjectionContainer $container, IComponentAdapter $adapter, $expectedType)
+	public function resolve(IDependencyInjectionContainer $container, IComponentAdapter $adapter)
 	{
 		$value = $container->getConstant($this->constantId);
 		if (is_null($value))

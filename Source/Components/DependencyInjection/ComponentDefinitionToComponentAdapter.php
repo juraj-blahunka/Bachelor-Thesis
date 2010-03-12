@@ -30,7 +30,7 @@ class ComponentDefinitionToComponentAdapter implements IComponentDefinitionToCom
 
 	protected function createArgument($type, $value)
 	{
-		if (in_array($type, array('value', 'constant', 'reference', 'class')))
+		if (in_array($type, array('value', 'constant', 'component')))
 		{
 			$classNameArgument = ucfirst($type).'Argument';
 			return new $classNameArgument($value);

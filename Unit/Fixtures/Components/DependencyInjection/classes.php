@@ -1,5 +1,19 @@
 <?php
 
+class ExpectsArray
+{
+	public
+		$options;
+
+	function __construct(array $options)
+	{
+		$this->options = array_merge(array(
+			'default1' => 'this is default string',
+			'default2' => 'this is another default string',
+		), $options);
+	}
+}
+
 interface IForTested {}
 
 class Tested

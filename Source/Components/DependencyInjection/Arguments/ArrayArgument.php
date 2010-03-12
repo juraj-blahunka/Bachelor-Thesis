@@ -8,13 +8,13 @@ class ArrayArgument implements IInjecteeArgument
 	public function __construct(array $array)
 	{
 		$this->array = $array;
-		
+
 	}
-	public function resolve(IDependencyInjectionContainer $container, IComponentAdapter $adapter, $expectedType)
+	public function resolve(IDependencyInjectionContainer $container, IComponentAdapter $adapter)
 	{
 		$resolved = array();
 		foreach ($this->array as $index => $item)
-			$resolved[$index] = $item->resolve($container, $adapter, $expectedType);
+			$resolved[$index] = $item->resolve($container, $adapter);
 		return $resolved;
 	}
 }

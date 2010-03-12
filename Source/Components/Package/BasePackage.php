@@ -13,4 +13,6 @@ abstract class BasePackage implements IPackage
 			$classLoader->registerClassLoader();
 		}
 	}
+
+	abstract function registerClassLoaders();
 }

@@ -7,7 +7,7 @@ class RoutingRule implements IRoutingRule
 		$pattern,
 		$parameters,
 		$requirements;
-	
+
 	public function __construct($name, $pattern, $parameters, $requirements = array())
 	{
 		$this->name         = $name;
@@ -15,7 +15,7 @@ class RoutingRule implements IRoutingRule
 		$this->parameters   = $parameters;
 		$this->requirements = $requirements;
 	}
-	
+
 	public function getName()
 	{
 		return $this->name;

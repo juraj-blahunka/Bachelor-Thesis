@@ -9,7 +9,7 @@ class ValueArgument implements IInjecteeArgument
 	{
 		$this->value = $value;
 	}
-	public function resolve(IDependencyInjectionContainer $container, IComponentAdapter $adapter, $expectedType)
+	public function resolve(IDependencyInjectionContainer $container, IComponentAdapter $adapter)
 	{
 		return $this->value;
 	}
