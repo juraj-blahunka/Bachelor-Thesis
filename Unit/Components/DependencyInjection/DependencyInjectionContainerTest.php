@@ -60,6 +60,8 @@ class DependencyInjectionContainerTest extends PHPUnit_Framework_TestCase
 			->addMethod('second');
 
 		$create = $this->object->getInstanceOf('other');
+
+		$this->assertThat($create,	$this->isInstanceOf('CreateThis'));
 	}
 
 	public function testMyTestingTestToTestAllThingsToTest()
@@ -109,6 +111,29 @@ class DependencyInjectionContainerTest extends PHPUnit_Framework_TestCase
 		$this->object->registerComponent('SimpleTouchable');
 		$this->setExpectedException('AmbiguousArgumentException');
 		$instance = $this->object->getInstanceOf('DependsOnTouchable');
+	}
+
+	public function testUndefinedComponentWithSpecifiedArguments()
+	{
+		$depends = $this->object->getInstanceOf('DependsOnTouchable', array(
+			new ComponentArgument('AlternativeTouchable')
+		));
+
+		$this->assertThat($depends->touchable,	$this->isInstanceOf('AlternativeTouchable'));
+
+		$depends = $this->object->getInstanceOf('DependsOnTouchable', array(
+			new ComponentArgument('SimpleTouchable')
+		));
+
+		$this->assertThat($depends->touchable,	$this->isInstanceOf('SimpleTouchable'));
+	}
+
+	public function testUnregisteredClassInstance()
+	{
+		$this->object->registerComponent('SimpleTouchable');
+		$depends = $this->object->getInstanceOf('DependsOnTouchable');
+		$this->assertThat($depends, $this->isInstanceOf('DependsOnTouchable'));
+		$this->assertThat($depends->touchable, $this->isInstanceof('SimpleTouchable'));
 	}
 
 	/**

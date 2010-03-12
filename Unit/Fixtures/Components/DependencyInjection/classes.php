@@ -35,7 +35,7 @@ class Undefined
 }
 
 class CreateThis {
-	private 
+	private
 		$container,
 		$someValue,
 		$afterConstructionExecuted = false,

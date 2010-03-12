@@ -123,7 +123,7 @@ class DependencyInjectionContainer implements IDependencyInjectionContainer
 		return $this->definitions;
 	}
 
-	public function getInstanceOf($component)
+	public function getInstanceOf($component, array $withArguments = array())
 	{
 		// $component is a named Component
 		$adapter = $this->getComponentAdapter($component);
@@ -133,9 +133,14 @@ class DependencyInjectionContainer implements IDependencyInjectionContainer
 		// $component is a class or interface name
 		$adapters = $this->getAdaptersOfType($component);
 		if (count($adapters) == 0)
-			throw new InjecteeArgumentException("Cannot find adapters for '{$component}' component");
+		{
+			// no adapters found, try to create a new adapter
+			$adapter = $this->factory->createConstructorAdapter(null, $component, $withArguments);
+			return $adapter->getInstance($this);
+		}
 		else if (count($adapters) == 1)
 		{
+			// found exactly one adapter with the specified type
 			$adapter = array_shift($adapters);
 			return $adapter->getInstance($this);
 		}
