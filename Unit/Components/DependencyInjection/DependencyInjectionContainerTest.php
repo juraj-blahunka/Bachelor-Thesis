@@ -21,10 +21,6 @@ class DependencyInjectionContainerTest extends PHPUnit_Framework_TestCase
 	protected function setUp()
 	{
 		$this->object = new DependencyInjectionContainer;
-
-		$this->object->addConstants(array(
-			'for.creation.only' => '1234567890',
-		));
 	}
 
 	/**
@@ -35,8 +31,13 @@ class DependencyInjectionContainerTest extends PHPUnit_Framework_TestCase
 	{
 	}
 
+/*
+
 	public function testMethodsAfterCreationExecution()
 	{
+		$this->object->addConstants(array(
+			'for.creation.only' => '1234567890',
+		));
 		$this->object->registerComponent('Undefined');
 		$this->object->registerComponent('other')
 			->setClass('CreateThis')
@@ -135,6 +136,7 @@ class DependencyInjectionContainerTest extends PHPUnit_Framework_TestCase
 		$this->assertThat($depends, $this->isInstanceOf('DependsOnTouchable'));
 		$this->assertThat($depends->touchable, $this->isInstanceof('SimpleTouchable'));
 	}
+*/
 
 	/**
 	 * @todo Implement testGetClassInstance().

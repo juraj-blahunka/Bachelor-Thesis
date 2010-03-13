@@ -14,7 +14,7 @@ class ConstantArgument implements IInjecteeArgument
 	{
 		$value = $container->getConstant($this->constantId);
 		if (is_null($value))
-			throw new InjecteeArgumentException("No constant with id {$constantId} found!");
+			throw new InjecteeArgumentException("No constant with id {$this->constantId} found!");
 		return $value;
 	}
 }

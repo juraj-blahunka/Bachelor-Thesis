@@ -8,8 +8,8 @@ class ArrayArgument implements IInjecteeArgument
 	public function __construct(array $array)
 	{
 		$this->array = $array;
-
 	}
+
 	public function resolve(IDependencyInjectionContainer $container, IComponentAdapter $adapter)
 	{
 		$resolved = array();

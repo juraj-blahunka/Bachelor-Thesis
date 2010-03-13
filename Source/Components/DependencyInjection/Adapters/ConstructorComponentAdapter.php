@@ -24,10 +24,10 @@ class ConstructorComponentAdapter extends AbstractComponentAdapter
 		$constructor = $reflection->getConstructor();
 		$instance    = null;
 
-		if (count($this->arguments))
+		if (count($this->getArguments()))
 		{
 			$argstoPass = array();
-			foreach ($this->arguments as $argument)
+			foreach ($this->getArguments() as $argument)
 				$argstoPass[] = $argument->resolve($container, $this);
 			$instance = $reflection->newInstanceArgs($argstoPass);
 		}
