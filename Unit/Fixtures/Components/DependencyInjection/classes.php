@@ -95,7 +95,7 @@ class PunchReceiver
 		$punchable->punch();
 		$this->wasHit++;
 	}
-	
+
 	public function fromWeakPunch(WeakPunch $punchable)
 	{
 		$punchable->punch();

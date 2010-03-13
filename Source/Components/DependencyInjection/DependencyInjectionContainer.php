@@ -82,17 +82,17 @@ class DependencyInjectionContainer implements IDependencyInjectionContainer
 			return array($this->getComponentAdapter($type));
 
 		$typeReflection = new ReflectionClass($type);
-		$found = array();
 		$result = array();
+		$foundClasses = array();
 		$definitionsAndAdapters = array_merge($this->definitions, $this->adapters);
 		foreach ($definitionsAndAdapters as $key => $component)
 		{
-			if (isset($result[$component->getClass()]))
+			if (isset($foundClasses[$component->getClass()]))
 				continue;
 			if ($type == $component->getClass())
 			{
-				$found[] = $this->getComponentAdapter($key);
-				$result[$component->getClass()] = true;
+				$result[] = $this->getComponentAdapter($key);
+				$foundClasses[$component->getClass()] = true;
 			}
 			else if (class_exists($component->getClass(), true))
 			{
@@ -101,13 +101,13 @@ class DependencyInjectionContainer implements IDependencyInjectionContainer
 				$extends    = $componentReflection->isSubclassOf($type);
 				if ($implements || $extends)
 				{
-					$found[] = $this->getComponentAdapter($key);
-					$result[$component->getClass()] = true;
+					$result[] = $this->getComponentAdapter($key);
+					$foundClasses[$component->getClass()] = true;
 				}
 			}
 		}
 
-		return $found;
+		return $result;
 	}
 
 	public function registerComponent($component)

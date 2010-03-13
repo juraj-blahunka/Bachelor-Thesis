@@ -14,7 +14,7 @@ class DefaultContainerFactoryTest extends PHPUnit_Framework_TestCase
 
 	protected function setUp()
 	{
-		$this->object = new DefaultContainerFactory;
+		$this->object = new DefaultContainerFactory(null);
 	}
 
 	protected function tearDown()
@@ -23,17 +23,27 @@ class DefaultContainerFactoryTest extends PHPUnit_Framework_TestCase
 
 	public function testCreateComponentDefinition()
 	{
+		$definition = $this->object->createComponentDefinition('HelloClass', array());
+		$this->assertThat($definition, $this->isInstanceOf('IComponentDefinition'));
 	}
 
 	public function testCreateInstanceAdapter()
 	{
+		$adapter = $this->object->createInstanceAdapter(null, new stdClass());
+		$this->assertThat($adapter, $this->isInstanceOf('InstanceComponentAdapter'));
+		$this->assertThat($adapter->getKey(), $this->equalTo(null));
 	}
 
 	public function testCreateConstructorAdapter()
 	{
+		$adapter = $this->object->createConstructorAdapter(null, 'HelloClass', array());
+		$this->assertThat($adapter, $this->isInstanceOf('ConstructorComponentAdapter'));
+
 	}
 
 	public function testCreateAdapterFromDef()
 	{
+		$adapter = $this->object->createAdapterFromDef(null, new ComponentDefinition('HelloClass'));
+		$this->assertThat($adapter, $this->isInstanceOf('IComponentAdapter'));
 	}
 }
