@@ -63,11 +63,13 @@ class FrameworkPackage extends BasePackage
 'IRouteMatcher'        => 'Router/Interfaces/IRouteMatcher.php',
 'IRoutingRule'         => 'Router/Interfaces/IRoutingRule.php',
 'IRoutingRuleCompiler' => 'Router/Interfaces/IRoutingRuleCompiler.php',
+'IUrlCreator'          => 'Router/Interfaces/IUrlCreator.php',
 'CompiledRule'         => 'Router/CompiledRule.php',
 'Route'                => 'Router/Route.php',
 'RouteMatcher'         => 'Router/RouteMatcher.php',
 'RoutingRule'          => 'Router/RoutingRule.php',
 'RoutingRuleCompiler'  => 'Router/RoutingRuleCompiler.php',
+'UrlCreator'           => 'Router/UrlCreator.php',
 
 				) // end array
 			) // end new ClassLoader
