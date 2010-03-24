@@ -1,6 +1,6 @@
 <?php
 
-class Dispatcher implements IDispatcher
+class EventEmitter implements IEventEmitter
 {
 	protected $listeners = array();
 

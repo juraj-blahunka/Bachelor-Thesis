@@ -114,6 +114,11 @@ class EventTest extends PHPUnit_Framework_TestCase
 			false,
 			$this->equalTo(isset($this->object['some_param']))
 		);
+
+		$this->assertThat(
+			$this->object['undefined_property'],
+			$this->equalTo(null)
+		);
 	}
 }
 ?>

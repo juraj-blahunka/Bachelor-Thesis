@@ -77,7 +77,9 @@ class Event implements IEvent
 	 */
 	public function offsetGet($offset)
 	{
-		return $this->parameters[$offset];
+		return isset($this->parameters[$offset]) 
+			? $this->parameters[$offset]
+			: null;
 	}
 
 	/**

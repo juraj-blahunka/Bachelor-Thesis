@@ -52,10 +52,10 @@ class FrameworkPackage extends BasePackage
 'ArrayArgument'                 => 'DependencyInjection/Arguments/ArrayArgument.php',
 
 // Event Dispatcher
-'IEvent'      => 'Dispatcher/Interfaces/IEvent.php',
-'IDispatcher' => 'Dispatcher/Interfaces/IDispatcher.php',
-'Event'       => 'Dispatcher/Event.php',
-'Dispatcher'  => 'Dispatcher/Dispatcher.php',
+'IEvent'        => 'Events/Interfaces/IEvent.php',
+'IEventEmitter' => 'Events/Interfaces/IEventEmitter.php',
+'Event'         => 'Events/Event.php',
+'EventEmitter'  => 'Events/EventEmitter.php',
 
 // Router
 'ICompiledRule'        => 'Router/Interfaces/ICompiledRule.php',

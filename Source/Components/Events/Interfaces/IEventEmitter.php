@@ -1,6 +1,6 @@
 <?php
 
-interface IDispatcher
+interface IEventEmitter
 {
 	function attach($name, $listener);
 	function detach($name, $listener);
