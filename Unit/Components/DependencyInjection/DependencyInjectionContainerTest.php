@@ -206,6 +206,23 @@ class DependencyInjectionContainerTest extends PHPUnit_Framework_TestCase
 		$this->assertThat($result[2]->getClass(), $this->equalTo('StrongPunch'));
 	}
 
+	public function testGetDefinition_NonExistingComponentKey()
+	{
+		$this->assertThat(
+			$this->object->getDefinition('non_existing_key'),
+			$this->equalTo(null)
+		);
+	}
+
+	public function testGetDefinition_DefinedComponent()
+	{
+		$definition = $this->object->registerComponent('WeakPunch');
+		$this->assertThat(
+			$this->object->getDefinition('WeakPunch'),
+			$this->equalTo($definition)
+		);
+	}
+
 	public function testGetDefinitions_AreEmpty()
 	{
 		$this->assertThat(

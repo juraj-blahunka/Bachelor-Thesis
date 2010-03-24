@@ -118,6 +118,13 @@ class DependencyInjectionContainer implements IDependencyInjectionContainer
 		return $definition;
 	}
 
+	public function getDefinition($component)
+	{
+		return isset($this->definitions[$component])
+			? $this->definitions[$component]
+			: null;
+	}
+
 	public function getDefinitions()
 	{
 		return $this->definitions;

@@ -18,6 +18,7 @@ interface IDependencyInjectionContainer
 
 	// definitions of adapters
 	function registerComponent($component);
+	function getDefinition($component);
 	function getDefinitions();
 
 	// component instantiation
