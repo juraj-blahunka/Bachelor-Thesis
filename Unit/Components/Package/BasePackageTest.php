@@ -29,6 +29,28 @@ class BasePackageStub extends BasePackage
 	{
 		return 'BasePackageStub';
 	}
+	
+	public function registerPackages()
+	{
+		return array(
+			new InternalPackageStub()
+		);
+	}
+}
+
+class InternalPackageStub implements IPackage
+{
+	static public $registered = false;
+
+	public function getPackageName()
+	{
+		return 'InternalPackageStub';
+	}
+
+	public function register()
+	{
+		self::$registered = true;
+	}
 }
 
 class BasePackageTest extends PHPUnit_Framework_TestCase
@@ -47,6 +69,7 @@ class BasePackageTest extends PHPUnit_Framework_TestCase
 		$package->register();
 
 		$this->assertTrue(ClassLoaderStub::$registered);
+		$this->assertTrue(InternalPackageStub::$registered);
 	}
 }
 ?>

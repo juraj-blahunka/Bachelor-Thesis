@@ -3,7 +3,8 @@
 abstract class BasePackage implements IPackage
 {
 	private
-		$classLoaders;
+		$classLoaders,
+		$packages;
 
 	public function register()
 	{
@@ -12,7 +13,15 @@ abstract class BasePackage implements IPackage
 		{
 			$classLoader->registerClassLoader();
 		}
+		$this->packages = $this->registerPackages();
+		foreach ($this->packages as $package)
+		{
+			$package->register();
+		}
+
 	}
 
 	abstract function registerClassLoaders();
+
+	abstract function registerPackages();
 }

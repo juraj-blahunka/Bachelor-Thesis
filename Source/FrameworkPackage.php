@@ -14,6 +14,11 @@ class FrameworkPackage extends BasePackage
 		return 'Framework';
 	}
 
+	public function registerPackages()
+	{
+		return array();
+	}
+
 	public function registerClassLoaders()
 	{
 		return array(
