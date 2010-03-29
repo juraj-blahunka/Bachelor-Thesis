@@ -24,12 +24,12 @@ class BasePackageStub extends BasePackage
 			new ClassLoaderStub()
 		);
 	}
-	
+
 	public function getPackageName()
 	{
 		return 'BasePackageStub';
 	}
-	
+
 	public function registerPackages()
 	{
 		return array(
