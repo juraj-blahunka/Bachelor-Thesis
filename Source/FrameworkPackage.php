@@ -3,8 +3,8 @@
 require dirname(__FILE__).'/Components/Package/Interfaces/IPackage.php';
 require dirname(__FILE__).'/Components/Package/Interfaces/IClassLoader.php';
 require dirname(__FILE__).'/Components/Package/BasePackage.php';
-require dirname(__FILE__).'/Components/Package/ClassToFileRelationMapLoader.php';
-require dirname(__FILE__).'/Components/Package/PearClassLoader.php';
+require dirname(__FILE__).'/Components/Package/Loader/ClassToFileRelationMapLoader.php';
+require dirname(__FILE__).'/Components/Package/Loader/PearClassLoader.php';
 
 
 class FrameworkPackage extends BasePackage

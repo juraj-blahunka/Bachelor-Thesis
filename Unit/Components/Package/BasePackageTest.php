@@ -72,4 +72,3 @@ class BasePackageTest extends PHPUnit_Framework_TestCase
 		$this->assertTrue(InternalPackageStub::$registered);
 	}
 }
-?>
