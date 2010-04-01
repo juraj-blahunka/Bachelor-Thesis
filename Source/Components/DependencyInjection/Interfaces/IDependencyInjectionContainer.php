@@ -22,5 +22,6 @@ interface IDependencyInjectionContainer
 	function getDefinitions();
 
 	// component instantiation
-	function getInstanceOf($component, array $withArguments = array());
+	function getInstanceOf($component);
+	function getInstanceOfWith($component, array $arguments);
 }

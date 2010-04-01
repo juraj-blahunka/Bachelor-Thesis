@@ -130,7 +130,7 @@ class DependencyInjectionContainer implements IDependencyInjectionContainer
 		return $this->definitions;
 	}
 
-	public function getInstanceOf($component, array $withArguments = array())
+	public function getInstanceOf($component)
 	{
 		// $component is a named Component
 		$adapter = $this->getComponentAdapter($component);
@@ -142,7 +142,7 @@ class DependencyInjectionContainer implements IDependencyInjectionContainer
 		if (count($adapters) == 0)
 		{
 			// no adapters found, try to create a new adapter
-			$adapter = $this->factory->createConstructorAdapter(null, $component, $withArguments);
+			$adapter = $this->factory->createConstructorAdapter(null, $component, array());
 			return $adapter->getInstance($this);
 		}
 		else if (count($adapters) == 1)
@@ -153,5 +153,11 @@ class DependencyInjectionContainer implements IDependencyInjectionContainer
 		}
 		else
 			throw new AmbiguousArgumentException("Class '{$component}' is ambiguous, too many similar classes found");
+	}
+
+	public function getInstanceOfWith($component, array $arguments)
+	{
+		$adapter = $this->factory->createConstructorAdapter(null, $component, $arguments);
+		return $adapter->getInstance($this);
 	}
 }
