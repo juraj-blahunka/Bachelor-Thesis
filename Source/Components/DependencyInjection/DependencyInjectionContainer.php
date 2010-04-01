@@ -1,5 +1,35 @@
 <?php
 
+/**
+ * DependencyInjectionContainer.
+ *
+ * usage:
+ *
+ * <code>
+ *   $container = new DependencyInjectionContainer();
+ *
+ *   $container->addConstants(array(
+ *     'key'       => 'my value',
+ *     'other key' => 'other value',
+ *   ));
+ *
+ *   $container->registerComponent('SimpleClass');
+ *
+ *   $container->registerComponent('my_component')
+ *     ->setClass('Dependable')
+ *     ->addArgument('component' 'SimpleClass');
+ *     ->addArgument('constant', 'key')
+ *     ->addArgument('constant', 'other key');
+ *
+ *   $object = $container->getInstanceOf('my_component');
+ *
+ *   $custom = $container->getInstanceOfWith('Dependable', array(
+ *     new SimpleDerivedClass(),
+ *     array('constant', 'key'),
+ *     'just another value',
+ *   ));
+ * </code>
+ */
 class DependencyInjectionContainer implements IDependencyInjectionContainer
 {
 	const
@@ -12,6 +42,12 @@ class DependencyInjectionContainer implements IDependencyInjectionContainer
 		$definitions,
 		$adapters;
 
+	/**
+	 * Constructor.
+	 *
+	 * @param IDependencyInjectionContainer $parent
+	 * @param IDependencyInjectionContainerFactory $factory
+	 */
 	public function __construct(IDependencyInjectionContainer $parent = null, IDependencyInjectionContainerFactory $factory = null)
 	{
 		$this->parent  = $parent;
@@ -25,16 +61,35 @@ class DependencyInjectionContainer implements IDependencyInjectionContainer
 		$this->setComponentAdapter($adapter);
 	}
 
+	/**
+	 * Create child container, child container refers to Parent, if requested
+	 * adapters or constants are not found in child's repository.
+	 *
+	 * @return DependencyInjectionContainer The child container
+	 */
 	public function createChildContainer()
 	{
 		return new DependencyInjectionContainer($this, $this->factory);
 	}
 
+	/**
+	 * Set constant with specified $key.
+	 * 
+	 * @param string $key
+	 * @param string $value 
+	 */
 	public function setConstant($key, $value)
 	{
 		$this->constants[$key] = $value;
 	}
 
+	/**
+	 * Get constant assigned to $key, if searched constant is not found,
+	 * look into parent's constant repository.
+	 *
+	 * @param string $key
+	 * @return string
+	 */
 	public function getConstant($key)
 	{
 		return isset($this->constants[$key])
@@ -44,21 +99,46 @@ class DependencyInjectionContainer implements IDependencyInjectionContainer
 				: null);
 	}
 
+	/**
+	 * Add more constants to container's repository. 
+	 * 
+	 * @param array $constants Array of 'key' => 'constant' mapping
+	 */
 	public function addConstants(array $constants)
 	{
 		$this->constants = array_merge($this->constants, $constants);
 	}
 
+	/**
+	 * Get all constants in container's repository.
+	 *
+	 * @return array Array of 'key' => 'value' mapping
+	 */
 	public function getConstants()
 	{
 		return $this->constants;
 	}
 
+	/**
+	 * Add a component adapter to container's repository
+	 *
+	 * @param IComponentAdapter $adapter 
+	 */
 	public function setComponentAdapter(IComponentAdapter $adapter)
 	{
 		$this->adapters[$adapter->getKey()] = $adapter;
 	}
 
+	/**
+	 * If specified adapter is found, return the associated adapter.
+	 * If a definition assigned to $component is found, create and add new
+	 * adapter to adapter repository, return adapter.
+	 * If container has parent, try to retrieve adapter from it's repository.
+	 * Else return null.
+	 *
+	 * @param string $component
+	 * @return IComponentAdapter
+	 */
 	public function getComponentAdapter($component)
 	{
 		if (isset($this->adapters[$component]))
@@ -76,6 +156,14 @@ class DependencyInjectionContainer implements IDependencyInjectionContainer
 			: null;
 	}
 
+	/**
+	 * Find an array of component adapters, which are assigned to $type in
+	 * class binding, which classes are equal to $type, which extend $type or
+	 * implement $type.
+	 *
+	 * @param string $type
+	 * @return array Array of IComponentAdapter instances
+	 */
 	public function getAdaptersOfType($type)
 	{
 		if (isset($this->adapters[$type]) || isset($this->definitions[$type]))
@@ -110,6 +198,12 @@ class DependencyInjectionContainer implements IDependencyInjectionContainer
 		return $result;
 	}
 
+	/**
+	 * Create new component definition with $component key in repository.
+	 *
+	 * @param string $component
+	 * @return ComponentDefinition Builder for fluent interface interaction
+	 */
 	public function registerComponent($component)
 	{
 		$definition = $this->factory->createComponentDefinition($component, array());
@@ -118,6 +212,12 @@ class DependencyInjectionContainer implements IDependencyInjectionContainer
 		return $definition;
 	}
 
+	/**
+	 * Find defined class or component in component definition repository.
+	 *
+	 * @param string $component
+	 * @return ComponentDefinition
+	 */
 	public function getDefinition($component)
 	{
 		return isset($this->definitions[$component])
@@ -125,11 +225,28 @@ class DependencyInjectionContainer implements IDependencyInjectionContainer
 			: null;
 	}
 
+	/**
+	 * Get component definition repository array
+	 *
+	 * @return array Array of ComponentDefinition instances
+	 */
 	public function getDefinitions()
 	{
 		return $this->definitions;
 	}
 
+	/**
+	 * Instantiate component, which is either a component name or 
+	 * component class. 
+	 * 
+	 * If lookup in definition and adapter repository fails, create adapter 
+	 * with class set to $component.
+	 *
+	 * @param string $component
+	 * @return mixed Instance of $component
+	 * 
+	 * @throws AmbiguousArgumentException When adapter count is more than 1
+	 */
 	public function getInstanceOf($component)
 	{
 		// $component is a named Component
@@ -155,6 +272,14 @@ class DependencyInjectionContainer implements IDependencyInjectionContainer
 			throw new AmbiguousArgumentException("Class '{$component}' is ambiguous, too many similar classes found");
 	}
 
+	/**
+	 * Instantiate component adapter created from 
+	 * $component class and $arguments array.
+	 *
+	 * @param string $component
+	 * @param array $arguments
+	 * @return mixed
+	 */
 	public function getInstanceOfWith($component, array $arguments)
 	{
 		$definition = $this->factory->createComponentDefinition($component, $arguments);
