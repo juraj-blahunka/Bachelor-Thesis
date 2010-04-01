@@ -1,6 +1,6 @@
 <?php
 
-abstract class AbstractComponentAdapter implements IComponentAdapter
+abstract class AbstractComponentAdapter extends BaseComponentAdapter
 {
 	protected
 		$key,

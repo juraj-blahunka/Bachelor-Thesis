@@ -13,6 +13,11 @@ class ConstructorComponentAdapter extends AbstractComponentAdapter
 		$this->preventCyclic = false;
 	}
 
+	public function getArguments()
+	{
+		return $this->arguments;
+	}
+
 	public function getInstance(IDependencyInjectionContainer $container)
 	{
 		if ($this->preventCyclic)
@@ -26,22 +31,12 @@ class ConstructorComponentAdapter extends AbstractComponentAdapter
 
 		if (count($this->getArguments()))
 		{
-			$argstoPass = array();
-			foreach ($this->getArguments() as $argument)
-				$argstoPass[] = $argument->resolve($container, $this);
-			$instance = $reflection->newInstanceArgs($argstoPass);
+			$resolved = $this->resolveArguments($container, $this->getArguments());
+			$instance = $reflection->newInstanceArgs($resolved);
 		}
 		else if ($constructor && count($constructor->getParameters()))
 		{
-			$argstoPass = array();
-			$parameters = $constructor->getParameters();
-			foreach ($parameters as $argument)
-			{
-				$argumentClassReflection = $argument->getClass();
-				if (! $argumentClassReflection)
-					throw new InjecteeArgumentException("{$argument->getName()} requires a value and no object");
-				$argstoPass[] = $container->getInstanceOf($argumentClassReflection->getName());
-			}
+			$argstoPass = $this->getArgumentsOfMethod($container, $constructor);
 			$instance = $reflection->newInstanceArgs($argstoPass);
 		}
 		else
@@ -50,10 +45,5 @@ class ConstructorComponentAdapter extends AbstractComponentAdapter
 		$this->preventCyclic = false;
 
 		return $instance;
-	}
-
-	public function getArguments()
-	{
-		return $this->arguments;
 	}
 }

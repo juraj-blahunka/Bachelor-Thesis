@@ -48,6 +48,7 @@ class FrameworkPackage extends BasePackage
 'ComponentDefinition'           => 'DependencyInjection/ComponentDefinition.php',
 'ComponentDefinitionToComponentAdapter' => 'DependencyInjection/ComponentDefinitionToComponentAdapter.php',
 
+'BaseComponentAdapter'          => 'DependencyInjection/Adapters/BaseComponentAdapter.php',
 'AbstractComponentAdapter'      => 'DependencyInjection/Adapters/AbstractComponentAdapter.php',
 'DecoratingComponentAdapter'    => 'DependencyInjection/Adapters/DecoratingComponentAdapter.php',
 'ConstructorComponentAdapter'   => 'DependencyInjection/Adapters/ConstructorComponentAdapter.php',

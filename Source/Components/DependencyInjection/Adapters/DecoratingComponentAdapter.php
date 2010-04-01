@@ -1,6 +1,6 @@
 <?php
 
-abstract class DecoratingComponentAdapter implements IComponentAdapter
+abstract class DecoratingComponentAdapter extends BaseComponentAdapter
 {
 	private
 		$adapter;
