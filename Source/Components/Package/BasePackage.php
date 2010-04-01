@@ -6,17 +6,20 @@ abstract class BasePackage implements IPackage
 		$classLoaders,
 		$packages;
 
-	public function register()
+	public function register(IDependencyInjectionContainer $container)
 	{
 		$this->classLoaders  = $this->registerClassLoaders();
 		foreach ($this->classLoaders as $classLoader)
 		{
 			$classLoader->registerClassLoader();
 		}
+		
+		$this->registerWiring($container);
+
 		$this->packages = $this->registerPackages();
 		foreach ($this->packages as $package)
 		{
-			$package->register();
+			$package->register($container);
 		}
 
 	}
@@ -24,4 +27,6 @@ abstract class BasePackage implements IPackage
 	abstract function registerClassLoaders();
 
 	abstract function registerPackages();
+
+	abstract function registerWiring(IDependencyInjectionContainer $container);
 }

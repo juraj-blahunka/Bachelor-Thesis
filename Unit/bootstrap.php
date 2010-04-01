@@ -19,5 +19,15 @@ ini_set('display_startup_errors', 1);
 ini_set('display_errors', 1);
 
 require TEST_ROOT.'./../Source/FrameworkPackage.php';
+require TEST_ROOT.'./../Source/Components/DependencyInjection/Interfaces/IComponentAdapter.php';
+require TEST_ROOT.'./../Source/Components/DependencyInjection/Interfaces/IComponentDefinitionToComponentAdapter.php';
+require TEST_ROOT.'./../Source/Components/DependencyInjection/Interfaces/IDependencyInjectionContainerFactory.php';
+require TEST_ROOT.'./../Source/Components/DependencyInjection/Interfaces/IDependencyInjectionContainer.php';
+require TEST_ROOT.'./../Source/Components/DependencyInjection/Adapters/InstanceComponentAdapter.php';
+require TEST_ROOT.'./../Source/Components/DependencyInjection/ComponentDefinitionToComponentAdapter.php';
+require TEST_ROOT.'./../Source/Components/DependencyInjection/DefaultContainerFactory.php';
+require TEST_ROOT.'./../Source/Components/DependencyInjection/DependencyInjectionContainer.php';
+
+
 $package = new FrameworkPackage();
-$package->register();
+$package->register(new DependencyInjectionContainer());

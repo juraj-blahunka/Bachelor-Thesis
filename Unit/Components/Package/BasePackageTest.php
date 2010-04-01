@@ -36,6 +36,11 @@ class BasePackageStub extends BasePackage
 			new InternalPackageStub()
 		);
 	}
+
+	public function registerWiring(IDependencyInjectionContainer $container)
+	{
+
+	}
 }
 
 class InternalPackageStub implements IPackage
@@ -47,7 +52,7 @@ class InternalPackageStub implements IPackage
 		return 'InternalPackageStub';
 	}
 
-	public function register()
+	public function register(IDependencyInjectionContainer $container)
 	{
 		self::$registered = true;
 	}
@@ -65,8 +70,9 @@ class BasePackageTest extends PHPUnit_Framework_TestCase
 
 	public function testRegister()
 	{
+		$container = $this->getMock('IDependencyInjectionContainer');
 		$package = new BasePackageStub();
-		$package->register();
+		$package->register($container);
 
 		$this->assertTrue(ClassLoaderStub::$registered);
 		$this->assertTrue(InternalPackageStub::$registered);
