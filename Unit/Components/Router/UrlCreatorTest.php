@@ -41,26 +41,26 @@ class UrlCreatorTest extends PHPUnit_Framework_TestCase
 	public function testMakeUrl_WithNoParams()
 	{
 		$this->setExpectedException('InvalidArgumentException');
-		$url = $this->object->makeUrl(array(), $this->rule);
+		$url = $this->object->makeUrl($this->rule);
 	}
 
 	public function testMakeUrl_WithAllParams()
 	{
-		$url = $this->object->makeUrl(array(
+		$url = $this->object->makeUrl($this->rule, array(
 			'controller' => 'main',
 			'action'     => 'my-action',
 			'year'       => '2010'
-		), $this->rule);
+		));
 
 		$this->assertThat($url, $this->equalTo('/main/my-action/2010'));
 	}
 
 	public function testMakeUrl_WithDefaultParam()
 	{
-		$url = $this->object->makeUrl(array(
+		$url = $this->object->makeUrl($this->rule, array(
 			'action' => 'my-action',
 			'year'   => '2010'
-		), $this->rule);
+		));
 
 		$this->assertThat($url, $this->equalTo('/Default/my-action/2010'));
 	}

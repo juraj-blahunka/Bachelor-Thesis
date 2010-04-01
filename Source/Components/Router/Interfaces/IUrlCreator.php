@@ -2,5 +2,5 @@
 
 interface IUrlCreator
 {
-	function makeUrl(array $parameters, IRoutingRule $rule);
+	function makeUrl(IRoutingRule $rule, array $parameters = array());
 }

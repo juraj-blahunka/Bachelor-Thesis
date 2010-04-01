@@ -2,7 +2,7 @@
 
 class UrlCreator implements IUrlCreator
 {
-	public function makeUrl(array $parameters, IRoutingRule $rule)
+	public function makeUrl(IRoutingRule $rule, array $parameters = array())
 	{
 		$vars = array_merge($rule->getParameters(), $parameters);
 		$url  = $this->replaceVariablesWithParameters($rule->getPattern(), $vars);
