@@ -22,7 +22,13 @@ class ComponentDefinitionToComponentAdapter implements IComponentDefinitionToCom
 		$objectArguments = array();
 		foreach ($arguments as $argument)
 		{
-			list($type, $value) = $argument;
+			if (is_array($argument))
+				list($type, $value) = $argument;
+			else
+			{
+				$type  = 'value';
+				$value = $argument;
+			}
 			$objectArguments[] = $this->createArgument($type, $value);
 		}
 		return $objectArguments;

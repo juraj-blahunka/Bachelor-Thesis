@@ -157,7 +157,8 @@ class DependencyInjectionContainer implements IDependencyInjectionContainer
 
 	public function getInstanceOfWith($component, array $arguments)
 	{
-		$adapter = $this->factory->createConstructorAdapter(null, $component, $arguments);
+		$definition = $this->factory->createComponentDefinition($component, $arguments);
+		$adapter    = $this->factory->createAdapterFromDef($component, $definition);
 		return $adapter->getInstance($this);
 	}
 }
