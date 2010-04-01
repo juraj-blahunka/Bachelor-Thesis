@@ -109,4 +109,23 @@ class PunchReceiver
 		$this->wasHit++;
 		$this->wasHit++;
 	}
+
+	public function fromDefaultToNull(WeakPunch $weak = null)
+	{
+		if ($weak != null)
+		{
+			$weak->punch();
+			$this->wasHit++;
+		}
+	}
+}
+
+class PartiallyDependsOnPunchables
+{
+	public $punchable;
+
+	public function __construct(IPunchable $a, IPunchable $punchable = null)
+	{
+		$this->punchable = $punchable;
+	}
 }

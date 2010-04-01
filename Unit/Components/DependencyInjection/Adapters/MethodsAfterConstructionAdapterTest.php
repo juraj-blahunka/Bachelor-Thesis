@@ -94,6 +94,24 @@ class MethodsAfterConstructionAdapterTest extends PHPUnit_Framework_TestCase
 
 	public function testGetInstanceWithZeroMethods()
 	{
+		$methodsAdapter = new MethodsAfterConstructionAdapter(
+			$this->noMethods, $this->adapter
+		);
+		$instance = $methodsAdapter->getInstance($this->container);
 
+		$this->assertThat($this->against->wasHit, $this->equalTo(0));
+	}
+
+	public function testGetInstance_WithDefaultParameters()
+	{
+		$methods = array(
+			array('fromDefaultToNull', array())
+		);
+		$methodsAdapter = new MethodsAfterConstructionAdapter(
+			$methods , $this->adapter
+		);
+		$instance = $methodsAdapter->getInstance($this->container);
+
+		$this->assertThat($this->against->wasHit, $this->equalTo(0));
 	}
 }
