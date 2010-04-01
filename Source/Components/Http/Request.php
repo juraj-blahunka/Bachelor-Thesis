@@ -1,6 +1,8 @@
 <?php
 
-class Request
+interface IRequest {}
+
+class Request implements IRequest
 {
 	private
 		$parameters,
@@ -18,7 +20,7 @@ class Request
 		$this->cookies    = $cookies;
 		$this->server     = $server;
 	}
-	
+
 	public function hasParameter($parameterKey)
 	{
 		return isset($this->parameters[$parameterKey]);
@@ -51,8 +53,13 @@ class Request
 	public function getServer($serverKey, $defaultValue = null)
 	{
 		return $this->hasServer($serverKey)
-			? $serverKey
+			? $this->server[$serverKey]
 			: $defaultValue;
+	}
+
+	public function isXmlHttpRequest()
+	{
+		return $this->getServer('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest';
 	}
 }
 
