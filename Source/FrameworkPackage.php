@@ -3,7 +3,7 @@
 require dirname(__FILE__).'/Components/Package/Interfaces/IPackage.php';
 require dirname(__FILE__).'/Components/Package/Interfaces/IClassLoader.php';
 require dirname(__FILE__).'/Components/Package/BasePackage.php';
-require dirname(__FILE__).'/Components/Package/Loader/ClassToFileRelationMapLoader.php';
+require dirname(__FILE__).'/Components/Package/Loader/ClassMapLoader.php';
 require dirname(__FILE__).'/Components/Package/Loader/PearClassLoader.php';
 
 
@@ -22,7 +22,7 @@ class FrameworkPackage extends BasePackage
 	public function registerClassLoaders()
 	{
 		return array(
-			new ClassToFileRelationMapLoader(
+			new ClassMapLoader(
 				dirname(__FILE__).'/Components',
 				array(
 

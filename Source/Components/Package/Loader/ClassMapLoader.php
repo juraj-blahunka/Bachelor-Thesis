@@ -1,6 +1,6 @@
 <?php
 
-class ClassToFileRelationMapLoader implements IClassLoader
+class ClassMapLoader implements IClassLoader
 {
 	private
 		$directory,
