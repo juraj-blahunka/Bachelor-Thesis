@@ -2,6 +2,8 @@
 
 /**
  * DependencyInjectionContainer.
+ * @package Components
+ * @subpackage DependencyInjection
  *
  * usage:
  *
@@ -74,9 +76,9 @@ class DependencyInjectionContainer implements IDependencyInjectionContainer
 
 	/**
 	 * Set constant with specified $key.
-	 * 
+	 *
 	 * @param string $key
-	 * @param string $value 
+	 * @param string $value
 	 */
 	public function setConstant($key, $value)
 	{
@@ -100,8 +102,8 @@ class DependencyInjectionContainer implements IDependencyInjectionContainer
 	}
 
 	/**
-	 * Add more constants to container's repository. 
-	 * 
+	 * Add more constants to container's repository.
+	 *
 	 * @param array $constants Array of 'key' => 'constant' mapping
 	 */
 	public function addConstants(array $constants)
@@ -122,7 +124,7 @@ class DependencyInjectionContainer implements IDependencyInjectionContainer
 	/**
 	 * Add a component adapter to container's repository
 	 *
-	 * @param IComponentAdapter $adapter 
+	 * @param IComponentAdapter $adapter
 	 */
 	public function setComponentAdapter(IComponentAdapter $adapter)
 	{
@@ -236,15 +238,15 @@ class DependencyInjectionContainer implements IDependencyInjectionContainer
 	}
 
 	/**
-	 * Instantiate component, which is either a component name or 
-	 * component class. 
-	 * 
-	 * If lookup in definition and adapter repository fails, create adapter 
+	 * Instantiate component, which is either a component name or
+	 * component class.
+	 *
+	 * If lookup in definition and adapter repository fails, create adapter
 	 * with class set to $component.
 	 *
 	 * @param string $component
 	 * @return mixed Instance of $component
-	 * 
+	 *
 	 * @throws AmbiguousArgumentException When adapter count is more than 1
 	 */
 	public function getInstanceOf($component)
@@ -273,7 +275,7 @@ class DependencyInjectionContainer implements IDependencyInjectionContainer
 	}
 
 	/**
-	 * Instantiate component adapter created from 
+	 * Instantiate component adapter created from
 	 * $component class and $arguments array.
 	 *
 	 * @param string $component
