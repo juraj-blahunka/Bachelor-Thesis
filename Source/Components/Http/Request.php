@@ -1,6 +1,19 @@
 <?php
 
-interface IRequest {}
+interface IRequest
+{
+	function hasParameter($parameterKey);
+	function getParameter($parameterKey, $defaultValue = null);
+	function setParameter($parameterKey, $parameterValue);
+
+	function hasCookie($cookieKey);
+	function getCookie($cookieKey, $defaultValue = null);
+
+	function hasServer($serverKey);
+	function getServer($serverKey, $defaultValue = null);
+
+	function isXmlHttpRequest();
+}
 
 class Request implements IRequest
 {
@@ -19,6 +32,8 @@ class Request implements IRequest
 		$this->parameters = array_merge($get, $post);
 		$this->cookies    = $cookies;
 		$this->server     = $server;
+
+		$this->cleanRequest();
 	}
 
 	public function hasParameter($parameterKey)
@@ -31,6 +46,11 @@ class Request implements IRequest
 		return $this->hasParameter($parameterKey)
 			? $this->parameters[$parameterKey]
 			: $defaultValue;
+	}
+
+	public function setParameter($parameterKey, $parameterValue)
+	{
+		$this->parameters[$parameterKey] = $parameterValue;
 	}
 
 	public function hasCookie($cookieKey)
@@ -60,6 +80,38 @@ class Request implements IRequest
 	public function isXmlHttpRequest()
 	{
 		return $this->getServer('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest';
+	}
+
+	protected function cleanRequest()
+	{
+		if (get_magic_quotes_gpc())
+		{
+			$this->parameters = $this->deepStripSlashes($this->parameters);
+			$this->cookies    = $this->deepStripSlashes($this->cookies);
+		}
+	}
+
+	protected function deepStripSlashes($value)
+	{
+		return is_array($value)
+			? array_map(array($this, 'deepStripSlashes'), $value)
+			: stripslashes($value);
+	}
+}
+
+class RoutableRequest extends Request
+{
+	private
+		$route;
+
+	public function setRoute(IRoute $route)
+	{
+		$this->route = $route;
+	}
+
+	public function getRoute()
+	{
+		return $this->route;
 	}
 }
 
