@@ -32,16 +32,13 @@
  *   ));
  * </code>
  */
-class DependencyInjectionContainer implements IDependencyInjectionContainer
+class DependencyInjectionContainer extends ContainerBuilder implements IDependencyInjectionContainer
 {
 	const
 		CONTAINER_KEY = 'dependency_injection_container';
 
 	protected
 		$parent,
-		$factory,
-		$constants,
-		$definitions,
 		$adapters;
 
 	/**
@@ -52,12 +49,9 @@ class DependencyInjectionContainer implements IDependencyInjectionContainer
 	 */
 	public function __construct(IDependencyInjectionContainer $parent = null, IDependencyInjectionContainerFactory $factory = null)
 	{
-		$this->parent  = $parent;
-		$this->factory = is_null($factory) ? new DefaultContainerFactory() : $factory;
-
-		$this->constants   = array();
-		$this->definitions = array();
-		$this->adapters    = array();
+		parent::__construct($factory);
+		$this->parent   = $parent;
+		$this->adapters = array();
 
 		$adapter = $this->factory->createInstanceAdapter(self::CONTAINER_KEY, $this);
 		$this->setComponentAdapter($adapter);
@@ -75,50 +69,31 @@ class DependencyInjectionContainer implements IDependencyInjectionContainer
 	}
 
 	/**
-	 * Set constant with specified $key.
-	 *
-	 * @param string $key
-	 * @param string $value
-	 */
-	public function setConstant($key, $value)
-	{
-		$this->constants[$key] = $value;
-	}
-
-	/**
 	 * Get constant assigned to $key, if searched constant is not found,
 	 * look into parent's constant repository.
 	 *
 	 * @param string $key
-	 * @return string
+	 * @return mixed
 	 */
 	public function getConstant($key)
 	{
-		return isset($this->constants[$key])
-			? $this->constants[$key]
-			: (!is_null($this->parent)
-				? $this->parent->getConstant($key)
-				: null);
+		$constant = parent::getConstant($key);
+		return (is_null($constant) && (!is_null($this->parent)))
+			? $this->parent->getConstant($key)
+			: $constant;
 	}
 
 	/**
-	 * Add more constants to container's repository.
+	 * Create new component definition with $component key in repository.
+	 * Dispose of already created adapter associated with $component
 	 *
-	 * @param array $constants Array of 'key' => 'constant' mapping
+	 * @param string $component
+	 * @return ComponentDefinition Builder for fluent interface interaction
 	 */
-	public function addConstants(array $constants)
+	public function registerComponent($component)
 	{
-		$this->constants = array_merge($this->constants, $constants);
-	}
-
-	/**
-	 * Get all constants in container's repository.
-	 *
-	 * @return array Array of 'key' => 'value' mapping
-	 */
-	public function getConstants()
-	{
-		return $this->constants;
+		unset($this->adapters[$component]);
+		return parent::registerComponent($component);
 	}
 
 	/**
@@ -198,43 +173,6 @@ class DependencyInjectionContainer implements IDependencyInjectionContainer
 		}
 
 		return $result;
-	}
-
-	/**
-	 * Create new component definition with $component key in repository.
-	 *
-	 * @param string $component
-	 * @return ComponentDefinition Builder for fluent interface interaction
-	 */
-	public function registerComponent($component)
-	{
-		$definition = $this->factory->createComponentDefinition($component, array());
-		$this->definitions[$component] = $definition;
-		unset($this->adapters[$component]);
-		return $definition;
-	}
-
-	/**
-	 * Find defined class or component in component definition repository.
-	 *
-	 * @param string $component
-	 * @return ComponentDefinition
-	 */
-	public function getDefinition($component)
-	{
-		return isset($this->definitions[$component])
-			? $this->definitions[$component]
-			: null;
-	}
-
-	/**
-	 * Get component definition repository array
-	 *
-	 * @return array Array of ComponentDefinition instances
-	 */
-	public function getDefinitions()
-	{
-		return $this->definitions;
 	}
 
 	/**

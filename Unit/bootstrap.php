@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -22,10 +22,12 @@ require TEST_ROOT.'./../Source/FrameworkPackage.php';
 require TEST_ROOT.'./../Source/Components/DependencyInjection/Interfaces/IComponentAdapter.php';
 require TEST_ROOT.'./../Source/Components/DependencyInjection/Interfaces/IComponentDefinitionToComponentAdapter.php';
 require TEST_ROOT.'./../Source/Components/DependencyInjection/Interfaces/IDependencyInjectionContainerFactory.php';
+require TEST_ROOT.'./../Source/Components/DependencyInjection/Interfaces/IContainerBuilder.php';
 require TEST_ROOT.'./../Source/Components/DependencyInjection/Interfaces/IDependencyInjectionContainer.php';
 require TEST_ROOT.'./../Source/Components/DependencyInjection/Adapters/InstanceComponentAdapter.php';
 require TEST_ROOT.'./../Source/Components/DependencyInjection/ComponentDefinitionToComponentAdapter.php';
 require TEST_ROOT.'./../Source/Components/DependencyInjection/DefaultContainerFactory.php';
+require TEST_ROOT.'./../Source/Components/DependencyInjection/ContainerBuilder.php';
 require TEST_ROOT.'./../Source/Components/DependencyInjection/DependencyInjectionContainer.php';
 
 

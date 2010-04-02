@@ -59,6 +59,14 @@ class ConstructorComponentAdapterTest extends PHPUnit_Framework_TestCase
 		$this->assertThat($instance->punchable, $this->isInstanceOf('IPunchable'));
 	}
 
+	public function testGetInstance_DefaultArgument()
+	{
+		$this->container->registerComponent('MediumPunch');
+		$adapter = new ConstructorComponentAdapter(null, 'PartiallyDependsOnPunchables');
+		$instance = $adapter->getInstance($this->container);
+		$this->assertThat($instance->punchable, $this->equalTo(null));
+	}
+
 	public function testCyclicInstantiation()
 	{
 		$this->setExpectedException('CyclicInstantiationException');

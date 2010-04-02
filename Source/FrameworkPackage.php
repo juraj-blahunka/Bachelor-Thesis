@@ -21,7 +21,7 @@ class FrameworkPackage extends BasePackage
 
 	public function registerWiring(IDependencyInjectionContainer $container)
 	{
-		
+
 	}
 
 	public function registerClassLoaders()
@@ -33,6 +33,7 @@ class FrameworkPackage extends BasePackage
 
 // Dependency Injection Container
 'IDependencyInjectionContainerFactory' => 'DependencyInjection/Interfaces/IDependencyInjectionContainerFactory.php',
+'IContainerBuilder'             => 'DependencyInjection/Interfaces/IContainerBuilder.php',
 'IDependencyInjectionContainer' => 'DependencyInjection/Interfaces/IDependencyInjectionContainer.php',
 'IComponentAdapter'             => 'DependencyInjection/Interfaces/IComponentAdapter.php',
 'IInjecteeArgument'             => 'DependencyInjection/Interfaces/IInjecteeArgument.php',
@@ -43,11 +44,13 @@ class FrameworkPackage extends BasePackage
 'CyclicInstantiationException'  => 'DependencyInjection/Exceptions/CyclicInstantiationException.php',
 'AmbiguousArgumentException'    => 'DependencyInjection/Exceptions/AmbiguousArgumentException.php',
 
+'ContainerBuilder'              => 'DependencyInjection/ContainerBuilder.php',
 'DependencyInjectionContainer'  => 'DependencyInjection/DependencyInjectionContainer.php',
 'DefaultContainerFactory'       => 'DependencyInjection/DefaultContainerFactory.php',
 'ComponentDefinition'           => 'DependencyInjection/ComponentDefinition.php',
 'ComponentDefinitionToComponentAdapter' => 'DependencyInjection/ComponentDefinitionToComponentAdapter.php',
 
+'BaseComponentAdapter'          => 'DependencyInjection/Adapters/BaseComponentAdapter.php',
 'AbstractComponentAdapter'      => 'DependencyInjection/Adapters/AbstractComponentAdapter.php',
 'DecoratingComponentAdapter'    => 'DependencyInjection/Adapters/DecoratingComponentAdapter.php',
 'ConstructorComponentAdapter'   => 'DependencyInjection/Adapters/ConstructorComponentAdapter.php',
