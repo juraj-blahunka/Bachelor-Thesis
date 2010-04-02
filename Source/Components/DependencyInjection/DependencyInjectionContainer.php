@@ -69,6 +69,34 @@ class DependencyInjectionContainer extends ContainerBuilder implements IDependen
 	}
 
 	/**
+	 * Get constant assigned to $key, if searched constant is not found,
+	 * look into parent's constant repository.
+	 *
+	 * @param string $key
+	 * @return mixed
+	 */
+	public function getConstant($key)
+	{
+		$constant = parent::getConstant($key);
+		return (is_null($constant) && (!is_null($this->parent)))
+			? $this->parent->getConstant($key)
+			: $constant;
+	}
+
+	/**
+	 * Create new component definition with $component key in repository.
+	 * Dispose of already created adapter associated with $component
+	 *
+	 * @param string $component
+	 * @return ComponentDefinition Builder for fluent interface interaction
+	 */
+	public function registerComponent($component)
+	{
+		unset($this->adapters[$component]);
+		return parent::registerComponent($component);
+	}
+
+	/**
 	 * Add a component adapter to container's repository
 	 *
 	 * @param IComponentAdapter $adapter

@@ -31,19 +31,16 @@ class ContainerBuilder implements IContainerBuilder
 	}
 
 	/**
-	 * Get constant assigned to $key, if searched constant is not found,
-	 * look into parent's constant repository.
+	 * Get constant assigned to $key.
 	 *
 	 * @param string $key
-	 * @return string
+	 * @return mixed
 	 */
 	public function getConstant($key)
 	{
 		return isset($this->constants[$key])
 			? $this->constants[$key]
-			: (!is_null($this->parent)
-				? $this->parent->getConstant($key)
-				: null);
+			: null;
 	}
 
 	/**
@@ -76,7 +73,6 @@ class ContainerBuilder implements IContainerBuilder
 	{
 		$definition = $this->factory->createComponentDefinition($component, array());
 		$this->definitions[$component] = $definition;
-		unset($this->adapters[$component]);
 		return $definition;
 	}
 
