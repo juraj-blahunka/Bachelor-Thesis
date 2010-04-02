@@ -9,8 +9,8 @@ class ContainerBuilder implements IContainerBuilder
 
 	/**
 	 * Constructor.
-	 * 
-	 * @param IDependencyInjectionContainerFactory $factory 
+	 *
+	 * @param IDependencyInjectionContainerFactory $factory
 	 */
 	public function __construct(IDependencyInjectionContainerFactory $factory = null)
 	{

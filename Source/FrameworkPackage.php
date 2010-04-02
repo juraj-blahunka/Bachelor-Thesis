@@ -21,7 +21,7 @@ class FrameworkPackage extends BasePackage
 
 	public function registerWiring(IDependencyInjectionContainer $container)
 	{
-		
+
 	}
 
 	public function registerClassLoaders()
