@@ -1,38 +1,22 @@
 <?php
 
-class HeaderCollection
+class HeaderCollection extends ArrayCollection
 {
-	private $headers;
-
-	public function __construct(array $headers = array())
-	{
-		$this->setFromArray($headers);
-	}
-
 	public function setValue($name, $value)
 	{
-		$this->headers[$this->normalizeHeaderName($name)] = $value;
+		$this->values[$this->normalizeHeaderName($name)] = $value;
 	}
 
 	public function getValue($name, $default = null)
 	{
-		return isset($this->headers[$name])
-			? $this->headers[$name]
+		return $this->hasValue($name)
+			? $this->values[$this->normalizeHeaderName($name)]
 			: $default;
 	}
 
-	public function setFromArray(array $headers)
+	public function hasValue($name)
 	{
-		$this->headers = array();
-		foreach ($headers as $name => $value)
-		{
-			$this->setValue($name, $value);
-		}
-	}
-
-	public function getArray()
-	{
-		return $this->headers;
+		return isset($this->values[$this->normalizeHeaderName($name)]);
 	}
 
 	protected function normalizeHeaderName($name)
