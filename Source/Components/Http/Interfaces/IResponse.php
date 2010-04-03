@@ -2,4 +2,5 @@
 
 interface IResponse
 {
+	function dispatch();
 }
