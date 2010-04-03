@@ -26,6 +26,11 @@ class ArrayCollection implements ICollection
 		return isset($this->values[$name]);
 	}
 
+	public function deleteValue($name)
+	{
+		unset($this->values[$name]);
+	}
+
 	public function setFromArray(array $values)
 	{
 		$this->values = array();

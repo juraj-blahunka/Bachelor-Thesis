@@ -19,6 +19,11 @@ class HeaderCollection extends ArrayCollection
 		return isset($this->values[$this->normalizeHeaderName($name)]);
 	}
 
+	public function deleteValue($name)
+	{
+		unset($this->values[$this->normalizeHeaderName($name)]);
+	}
+
 	protected function normalizeHeaderName($name)
 	{
 		return strtolower($name);
