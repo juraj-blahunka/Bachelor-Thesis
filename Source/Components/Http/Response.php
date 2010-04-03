@@ -1,8 +1,9 @@
 <?php
 
-interface IResponse {}
-
 class Response implements IResponse
 {
-
+	public function send()
+	{
+		echo 'Response';
+	}
 }
