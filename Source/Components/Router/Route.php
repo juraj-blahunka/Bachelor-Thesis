@@ -25,15 +25,18 @@ class Route implements IRoute
 	public function setAction($action)
 	{
 		$this->action = $action;
+		return $this;
 	}
 
 	public function setController($controller)
 	{
 		$this->controller = $controller;
+		return $this;
 	}
 
 	public function setParameters(array $params)
 	{
 		$this->parameters = $params;
+		return $this;
 	}
 }
