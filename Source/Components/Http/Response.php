@@ -40,6 +40,11 @@ class Response implements IResponse
 		return $this->content();
 	}
 
+	public function write($content)
+	{
+		$this->content .= $content;
+	}
+
 	protected function dispatchContent()
 	{
 		echo $this->getContent();
