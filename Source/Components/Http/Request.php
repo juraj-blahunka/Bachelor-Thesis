@@ -83,22 +83,3 @@ class Request implements IRequest
 			: stripslashes($value);
 	}
 }
-
-class RoutableRequest extends Request
-{
-	private
-		$route;
-
-	public function setRoute(IRoute $route)
-	{
-		$this->route = $route;
-	}
-
-	public function getRoute()
-	{
-		return $this->route;
-	}
-}
-
-// usage
-$r = new Request();
