@@ -8,7 +8,7 @@ class RoutingRule implements IRoutingRule
 		$parameters,
 		$requirements;
 
-	public function __construct($name, $pattern, $parameters, $requirements = array())
+	public function __construct($name, $pattern, $parameters, array $requirements = array())
 	{
 		$this->name         = $name;
 		$this->pattern      = $pattern;

@@ -71,6 +71,7 @@ class FrameworkPackage extends BasePackage
 'EventEmitter'  => 'Events/EventEmitter.php',
 
 // Router
+'IRouter'              => 'Router/Interfaces/IRouter.php',
 'IRouterFactory'       => 'Router/Interfaces/IRouterFactory.php',
 'ICompiledRule'        => 'Router/Interfaces/ICompiledRule.php',
 'IRoute'               => 'Router/Interfaces/IRoute.php',
@@ -78,13 +79,16 @@ class FrameworkPackage extends BasePackage
 'IRoutingRule'         => 'Router/Interfaces/IRoutingRule.php',
 'IRoutingRuleCompiler' => 'Router/Interfaces/IRoutingRuleCompiler.php',
 'IUrlCreator'          => 'Router/Interfaces/IUrlCreator.php',
-'RouterFactory'        => 'Router/RouterFactory.php',
-'CompiledRule'         => 'Router/CompiledRule.php',
+
 'Route'                => 'Router/Route.php',
-'RouteMatcher'         => 'Router/RouteMatcher.php',
-'RoutingRule'          => 'Router/RoutingRule.php',
-'RoutingRuleCompiler'  => 'Router/RoutingRuleCompiler.php',
-'UrlCreator'           => 'Router/UrlCreator.php',
+'RouterFactory'        => 'Router/RouterFactory.php',
+
+'CompiledRule'         => 'Router/Rules/CompiledRule.php',
+'RoutingRule'          => 'Router/Rules/RoutingRule.php',
+
+'RouteMatcher'         => 'Router/Helpers/RouteMatcher.php',
+'RoutingRuleCompiler'  => 'Router/Helpers/RoutingRuleCompiler.php',
+'UrlCreator'           => 'Router/Helpers/UrlCreator.php',
 
 				) // end array
 			) // end new ClassLoader
