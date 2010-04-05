@@ -19,8 +19,10 @@ class RouteMatcherTest extends PHPUnit_Framework_TestCase
 
 	protected function setUp()
 	{
-		$this->object   = new RouteMatcher;
-		$this->compiler = new RoutingRuleCompiler();
+		$this->object   = new RouteMatcher();
+		$this->compiler = new RoutingRuleCompiler(
+			new RouterFactory()
+		);
 	}
 
 	protected function tearDown()

@@ -5,13 +5,16 @@ class RoutingRuleCompiler implements IRoutingRuleCompiler
 	/**
 	 * Relation between name of requirement and its regular expression
 	 *
-	 * @var array
+	 * @var IRouterFactory $factory
+	 * @var array $patterns
 	 */
 	protected
+		$factory,
 		$patterns;
 
-	public function __construct(array $patterns = array())
+	public function __construct(IRouterFactory $factory, array $patterns = array())
 	{
+		$this->factory  = $factory;
 		$this->patterns = array_merge(array(
 			'string' => '[a-zA-Z0-9-_]+',
 			'int'    => '[0-9]+',
@@ -50,7 +53,7 @@ class RoutingRuleCompiler implements IRoutingRuleCompiler
 
 		$regex = '/^'.$regex.'$/';
 
-		return new CompiledRule($rule, $regex);
+		return $this->factory->createCompiledRule($rule, $regex);
 	}
 
 	/**
