@@ -6,4 +6,9 @@ class RouterFactory implements IRouterFactory
 	{
 		return new CompiledRule($rule, $regex);
 	}
+
+	public function createRoute()
+	{
+		return new Route();
+	}
 }
