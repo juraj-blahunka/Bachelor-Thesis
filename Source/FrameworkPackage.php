@@ -71,12 +71,14 @@ class FrameworkPackage extends BasePackage
 'EventEmitter'  => 'Events/EventEmitter.php',
 
 // Router
+'IRouterFactory'       => 'Router/Interfaces/IRouterFactory.php',
 'ICompiledRule'        => 'Router/Interfaces/ICompiledRule.php',
 'IRoute'               => 'Router/Interfaces/IRoute.php',
 'IRouteMatcher'        => 'Router/Interfaces/IRouteMatcher.php',
 'IRoutingRule'         => 'Router/Interfaces/IRoutingRule.php',
 'IRoutingRuleCompiler' => 'Router/Interfaces/IRoutingRuleCompiler.php',
 'IUrlCreator'          => 'Router/Interfaces/IUrlCreator.php',
+'RouterFactory'        => 'Router/RouterFactory.php',
 'CompiledRule'         => 'Router/CompiledRule.php',
 'Route'                => 'Router/Route.php',
 'RouteMatcher'         => 'Router/RouteMatcher.php',
