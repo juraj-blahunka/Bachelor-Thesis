@@ -55,13 +55,13 @@ class Response implements IResponse
 		$headers = $this->getHeaders()->getArray();
 		foreach ($headers as $name => $value)
 		{
-
+			header($name.': '.$value);
 		}
 
 		$cookies = $this->getCookies()->getArray();
 		foreach ($cookies as $name => $value)
 		{
-
+			setcookie($name, $value['value'], $value['expire'], $value['path'], $value['domain'], $value['secure'], $value['httponly']);
 		}
 	}
 }
