@@ -18,10 +18,11 @@ class RouteTest extends PHPUnit_Framework_TestCase
 	 */
 	protected function setUp()
 	{
-		$this->object = new Route;
-		$this->object->setController('c');
-		$this->object->setAction('a');
-		$this->object->setParameters(array());
+		$this->object = new Route();
+		$this->object->setController('c')
+			->setAction('a')
+			->setParameters(array())
+			->setPackage('Frontend');
 	}
 
 	/**
@@ -48,6 +49,14 @@ class RouteTest extends PHPUnit_Framework_TestCase
 		);
 	}
 
+	public function testGetPackage()
+	{
+		$this->assertThat(
+			$this->object->getPackage(),
+			$this->equalTo('Frontend')
+		);
+	}
+
 	public function testGetParameters()
 	{
 		$this->assertEquals(
@@ -71,6 +80,15 @@ class RouteTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(
 			'someController',
 			$this->object->getController()
+		);
+	}
+
+	public function testSetPackage()
+	{
+		$this->object->setPackage('OtherPackage');
+		$this->assertThat(
+			$this->object->getPackage(),
+			$this->equalTo('OtherPackage')
 		);
 	}
 

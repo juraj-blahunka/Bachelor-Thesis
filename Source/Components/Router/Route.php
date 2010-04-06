@@ -3,6 +3,7 @@
 class Route implements IRoute
 {
 	private
+		$package,
 		$controller,
 		$action,
 		$parameters = array();
@@ -15,6 +16,11 @@ class Route implements IRoute
 	public function getController()
 	{
 		return $this->controller;
+	}
+
+	public function getPackage()
+	{
+		return $this->package;
 	}
 
 	public function getParameters()
@@ -31,6 +37,12 @@ class Route implements IRoute
 	public function setController($controller)
 	{
 		$this->controller = $controller;
+		return $this;
+	}
+
+	public function setPackage($package)
+	{
+		$this->package = $package;
 		return $this;
 	}
 
