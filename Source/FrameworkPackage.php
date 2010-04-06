@@ -90,6 +90,20 @@ class FrameworkPackage extends BasePackage
 'RoutingRuleCompiler'  => 'Router/Helpers/RoutingRuleCompiler.php',
 'UrlCreator'           => 'Router/Helpers/UrlCreator.php',
 
+// Http
+'IRequest'              => 'Http/Interfaces/IRequest.php',
+'IResponse'             => 'Http/Interfaces/IResponse.php',
+
+'BaseCollection'        => 'Http/Collections/BaseCollection.php',
+'CookieCollection'      => 'Http/Collections/CookieCollection.php',
+'HeaderCollection'      => 'Http/Collections/HeaderCollection.php',
+
+'HttpException'         => 'Http/Exceptions/HttpException.php',
+'NotFoundHttpException' => 'Http/Exceptions/NotFoundHttpException.php',
+
+'Request'          => 'Http/Request.php',
+'Response'         => 'Http/Response.php',
+
 				) // end array
 			) // end new ClassLoader
 		); // end return array

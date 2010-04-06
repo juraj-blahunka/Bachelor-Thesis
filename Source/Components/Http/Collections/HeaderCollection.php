@@ -1,6 +1,6 @@
 <?php
 
-class HeaderCollection extends ArrayCollection
+class HeaderCollection extends BaseCollection
 {
 	public function setValue($name, $value)
 	{

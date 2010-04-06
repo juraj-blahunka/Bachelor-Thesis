@@ -1,6 +1,6 @@
 <?php
 
-class CookieCollection extends ArrayCollection
+class CookieCollection extends BaseCollection
 {
 
 }

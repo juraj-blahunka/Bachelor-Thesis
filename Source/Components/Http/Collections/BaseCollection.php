@@ -1,6 +1,6 @@
 <?php
 
-class ArrayCollection implements ICollection
+class BaseCollection
 {
 	protected $values;
 
