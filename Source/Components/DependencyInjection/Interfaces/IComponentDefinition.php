@@ -12,6 +12,9 @@ interface IComponentDefinition
 
 	function setScope($scope);
 	function getScope();
+	function setTransient();
+	function setShared();
+	function setDefaultScope();
 
 	function setMethods(array $methods);
 	function getMethods();

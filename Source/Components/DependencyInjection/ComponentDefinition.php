@@ -2,9 +2,6 @@
 
 class ComponentDefinition implements IComponentDefinition
 {
-	const
-		DEFAULT_SCOPE = 'transient';
-
 	protected
 		$class,
 		$arguments,
@@ -15,7 +12,7 @@ class ComponentDefinition implements IComponentDefinition
 	{
 		$this->setClass($class);
 		$this->setArguments($arguments);
-		$this->setScope(self::DEFAULT_SCOPE);
+		$this->setDefaultScope();
 		$this->methods = array();
 	}
 
@@ -56,6 +53,24 @@ class ComponentDefinition implements IComponentDefinition
 	public function getScope()
 	{
 		return $this->scope;
+	}
+
+	public function setDefaultScope()
+	{
+		$this->setShared();
+		return $this;
+	}
+
+	public function setShared()
+	{
+		$this->setScope('shared');
+		return $this;
+	}
+
+	public function setTransient()
+	{
+		$this->setScope('transient');
+		return $this;
 	}
 
 	public function setMethods(array $methods)

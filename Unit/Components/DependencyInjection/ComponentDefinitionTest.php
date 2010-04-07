@@ -85,7 +85,7 @@ class ComponentDefinitionTest extends PHPUnit_Framework_TestCase
 	public function testGetScope()
 	{
 		$this->assertThat(
-			'transient',
+			'shared',
 			$this->equalTo($this->object->getScope())
 		);
 	}

@@ -25,6 +25,7 @@ class ComponentDefinitionToComponentAdapterTest extends PHPUnit_Framework_TestCa
 	public function testConvert()
 	{
 		$definition = new ComponentDefinition('HelloClass');
+		$definition->setTransient();
 		$adapter = $this->object->convert(null, $definition);
 
 		$this->assertThat($adapter, $this->isInstanceOf('ConstructorComponentAdapter'));
@@ -35,7 +36,6 @@ class ComponentDefinitionToComponentAdapterTest extends PHPUnit_Framework_TestCa
 	public function testConvertShared()
 	{
 		$definition = new ComponentDefinition('HelloClass');
-		$definition->setScope('shared');
 
 		$adapter = $this->object->convert(null, $definition);
 
@@ -46,12 +46,11 @@ class ComponentDefinitionToComponentAdapterTest extends PHPUnit_Framework_TestCa
 	public function testWithArguments()
 	{
 		$definition = new ComponentDefinition('HelloClass');
-		$definition->addArgument('value', 'my value');
-		$definition->addArgument('constant', 'constant_key');
-		$definition->addArgument('component', 'component_key');
-		$definition->addArgument('array', array(
-			array('value', 'another value')
-		));
+		$definition->addArgument('value', 'my value')
+			->addArgument('constant', 'constant_key')
+			->addArgument('component', 'component_key')
+			->addArgument('array', array(array('value', 'another value')))
+			->setTransient();
 
 		$adapter = $this->object->convert(null, $definition);
 
@@ -68,7 +67,8 @@ class ComponentDefinitionToComponentAdapterTest extends PHPUnit_Framework_TestCa
 	public function testWithUnrecognizedArguments()
 	{
 		$definition = new ComponentDefinition('HelloClass');
-		$definition->addArgument('unrecognized', null);
+		$definition->addArgument('unrecognized', null)
+			->setTransient();
 
 		$this->setExpectedException('InvalidArgumentException');
 		$adapter = $this->object->convert(null, $definition);
@@ -77,7 +77,8 @@ class ComponentDefinitionToComponentAdapterTest extends PHPUnit_Framework_TestCa
 	public function testWithMethodAfterConstruction()
 	{
 		$definition = new ComponentDefinition('HelloClass');
-		$definition->addMethod('methodName');
+		$definition->addMethod('methodName')
+			->setTransient();
 
 		$adapter = $this->object->convert(null, $definition);
 
