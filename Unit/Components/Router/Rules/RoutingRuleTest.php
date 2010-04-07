@@ -22,8 +22,9 @@ class RoutingRuleTest extends PHPUnit_Framework_TestCase
 			'defaultRoute',
 			'/',
 			array(
+				'package'    => 'Frontend',
 				'controller' => 'Home',
-				'action' => 'Index'
+				'action'     => 'Index'
 			),
 			array(
 				'controller'=>'string'
@@ -58,7 +59,11 @@ class RoutingRuleTest extends PHPUnit_Framework_TestCase
 	public function testGetParameters()
 	{
 		$this->assertEquals(
-			array('controller'=>'Home', 'action'=>'Index'),
+			array(
+				'package' => 'Frontend',
+				'controller'=>'Home',
+				'action'=>'Index'
+			),
 			$this->o->getParameters()
 		);
 	}

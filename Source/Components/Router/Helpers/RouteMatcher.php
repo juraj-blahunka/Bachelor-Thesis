@@ -12,9 +12,11 @@ class RouteMatcher implements IRouteMatcher
 			$rule->getRule()->getParameters()
 		);
 
-		$route->setController($vars['controller']);
-		$route->setAction($vars['action']);
-		unset($vars['controller'], $vars['action']);
+		$route->setController($vars['controller'])
+			->setAction($vars['action'])
+			->setPackage($vars['package']);
+
+		unset($vars['controller'], $vars['action'], $vars['package']);
 		$route->setParameters($vars);
 
 		return true;

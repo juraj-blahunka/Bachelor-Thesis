@@ -4,18 +4,25 @@ class RouterManager implements IRouter
 {
 	private
 		$rules,
+		$baseUrl,
 		$factory,
 		$matcher,
 		$compiler,
 		$creator;
 
-	public function __construct(IRouterFactory $factory, IRouteMatcher $matcher, IRoutingRuleCompiler $compiler, IUrlCreator $creator)
+	public function __construct($baseUrl, IRouterFactory $factory, IRouteMatcher $matcher, IRoutingRuleCompiler $compiler, IUrlCreator $creator)
 	{
 		$this->rules    = array();
+		$this->baseUrl  = rtrim($baseUrl, '/') . '/';
 		$this->factory  = $factory;
 		$this->matcher  = $matcher;
 		$this->compiler = $compiler;
 		$this->creator  = $creator;
+	}
+
+	public function getBaseUrl()
+	{
+		return $this->baseUrl;
 	}
 
 	public function addRule(IRoutingRule $rule)
@@ -38,11 +45,14 @@ class RouterManager implements IRouter
 			throw new Exception("Routing rule {$name} not found");
 
 		$rule = $this->rules[$name]->getRule();
-		return $this->creator->makeUrl($rule, $parameters);
+		$part = $this->creator->makeUrl($rule, $parameters);
+		$url  = $this->getBaseUrl() . ltrim($part, '/');
+		return $url;
 	}
 
 	public function fetchRoute($url)
 	{
+		$url   = '/' . str_replace($this->getBaseUrl(), '', $url);
 		$route = $this->factory->createRoute();
 		foreach ($this->rules as $rule)
 		{

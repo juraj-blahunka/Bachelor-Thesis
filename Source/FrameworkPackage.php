@@ -89,6 +89,7 @@ class FrameworkPackage extends BasePackage
 'RouteMatcher'         => 'Router/Helpers/RouteMatcher.php',
 'RoutingRuleCompiler'  => 'Router/Helpers/RoutingRuleCompiler.php',
 'UrlCreator'           => 'Router/Helpers/UrlCreator.php',
+'RouterManager'        => 'Router/RouterManager.php',
 
 // Http
 'IRequest'              => 'Http/Interfaces/IRequest.php',

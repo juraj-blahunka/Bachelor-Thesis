@@ -38,6 +38,7 @@ class RouteMatcherTest extends PHPUnit_Framework_TestCase
 				array(
 					'controller' => 'Home',
 					'action'     => 'Index',
+					'package'    => 'Frontend',
 				)
 			)
 		);
@@ -50,7 +51,8 @@ class RouteMatcherTest extends PHPUnit_Framework_TestCase
 				'Controller Rule',
 				'/{controller}',
 				array(
-					'action' => 'Index'
+					'action' => 'Index',
+					'package'    => 'Frontend',
 				)
 			)
 		);
@@ -65,6 +67,7 @@ class RouteMatcherTest extends PHPUnit_Framework_TestCase
 				array(
 					'controller' => 'Home',
 					'action'     => 'Index',
+					'package'    => 'Frontend',
 				)
 			)
 		);
@@ -79,6 +82,7 @@ class RouteMatcherTest extends PHPUnit_Framework_TestCase
 				array(
 					'controller' => 'C',
 					'action' => 'A',
+					'package'    => 'Frontend',
 				)
 			)
 		);
@@ -93,8 +97,7 @@ class RouteMatcherTest extends PHPUnit_Framework_TestCase
 				array(
 					'controller' => 'post',
 					'action'     => 'index',
-					'year'       => '2010',
-					'month'      => '10',
+					'package'    => 'Frontend',
 				),
 				array(
 					'action'     => 'string',
@@ -117,15 +120,9 @@ class RouteMatcherTest extends PHPUnit_Framework_TestCase
 			'matched default route'
 		);
 
-		$this->assertEquals(
-			'Home',
-			$route->getController()
-		);
-
-		$this->assertEquals(
-			'Index',
-			$route->getAction()
-		);
+		$this->assertEquals('Home', $route->getController());
+		$this->assertEquals('Index', $route->getAction());
+		$this->assertEquals('Frontend', $route->getPackage());
 
 		// nothing to find
 		$route = new Route();
