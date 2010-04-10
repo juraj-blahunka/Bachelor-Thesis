@@ -28,6 +28,9 @@ class FrameworkPackage extends BasePackage
 	public function registerClassLoaders()
 	{
 		return array(
+			new ClassMapLoader(dirname(__FILE__).'/Utils', array(
+				'ArrayUtil' => 'ArrayUtil.php',
+			)),
 			new ClassMapLoader(
 				dirname(__FILE__).'/Components',
 				array(
