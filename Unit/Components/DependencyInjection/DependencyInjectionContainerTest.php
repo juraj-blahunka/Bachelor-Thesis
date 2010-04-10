@@ -299,6 +299,12 @@ class DependencyInjectionContainerTest extends PHPUnit_Framework_TestCase
 		$this->object->getInstanceOf('IPunchable');
 	}
 
+	public function testGetInstanceOf_WithUndefinedTypes()
+	{
+		$this->setExpectedException('InjecteeArgumentException');
+		$this->object->getInstanceOf('PunchInTheFaceCauseItFails');
+	}
+
 	public function testGetInstanceOfWith_DeclaredArguments()
 	{
 		$depends = $this->object->getInstanceOfWith('DependsOnPunchable', array(

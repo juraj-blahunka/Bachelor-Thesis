@@ -129,3 +129,11 @@ class PartiallyDependsOnPunchables
 		$this->punchable = $punchable;
 	}
 }
+
+class PunchInTheFaceCauseItFails
+{
+	public function __construct($undefinedArgumentType)
+	{
+
+	}
+}
