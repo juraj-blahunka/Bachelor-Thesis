@@ -22,9 +22,11 @@ abstract class BaseComponentAdapter implements IComponentAdapter
 				$result[] = $parameter->getDefaultValue();
 			else
 			{
-				$parameterClass = $parameter->getClass();
-				if (! $parameterClass)
-					throw new InjecteeArgumentException("Argument {$parameter->getName()} requires a value and no object");
+				try {
+					$parameterClass = $parameter->getClass();
+				} catch (ReflectionException  $e) {
+					throw new InjecteeArgumentException("Argument '{$parameter->getName()}' cannot be instantiated, it is either a Value or an Unknown type, caused by: {$e->getMessage()}");
+				}
 				$result[] = $container->getInstanceOf($parameterClass->getName());
 			}
 		}
