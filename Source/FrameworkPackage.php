@@ -3,6 +3,7 @@
 require dirname(__FILE__).'/Components/Package/Interfaces/IPackage.php';
 require dirname(__FILE__).'/Components/Package/Interfaces/IClassLoader.php';
 require dirname(__FILE__).'/Components/Package/BasePackage.php';
+require dirname(__FILE__).'/Components/Package/Loader/AbstractClassLoader.php';
 require dirname(__FILE__).'/Components/Package/Loader/ClassMapLoader.php';
 require dirname(__FILE__).'/Components/Package/Loader/PearClassLoader.php';
 

@@ -1,39 +1,34 @@
 <?php
 
-class PearClassLoader implements IClassLoader
+class PearClassLoader extends AbstractClassLoader
 {
 	protected
 		$directories,
-		$prefixes,
-		$callback;
+		$prefixes;
 
-	public function __construct($prefixes, $directories)
+	public function __construct(array $prefixes, array $directories)
 	{
+		parent::__construct();
 		$this->directories = $directories;
 		$this->prefixes    = $prefixes;
-		$this->callback    = array($this, 'loadClass');
 	}
 
-	public function registerClassLoader()
-	{
-		spl_autoload_register($this->callback);
-	}
-
-	public function unregisterClassLoader()
-	{
-		spl_autoload_unregister($this->callback);
-	}
-
-	public function loadClass($class)
+	protected function getPrefix($class)
 	{
 		$classParts = explode('_', $class);
-		$prefix = array_shift($classParts);
-		if (($index = array_search($prefix, $this->prefixes)) > -1)
-		{
-			$path = str_replace('_', '/', $class);
-			include $this->directories[$index].'/../'.$path.'.php';
-			return class_exists($class);
-		}
-		return false;
+		return array_shift($classParts);
+	}
+
+	public function resourceExists($class)
+	{
+		return in_array($this->getPrefix($class), $this->prefixes);
+	}
+
+	public function importResource($class)
+	{
+		$index = array_search($this->getPrefix($class), $this->prefixes);
+		$path = str_replace('_', '/', $class);
+		include $this->directories[$index].'/../'.$path.'.php';
+		return class_exists($class);
 	}
 }

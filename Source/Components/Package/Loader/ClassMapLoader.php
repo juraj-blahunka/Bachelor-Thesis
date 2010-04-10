@@ -1,37 +1,26 @@
 <?php
 
-class ClassMapLoader implements IClassLoader
+class ClassMapLoader extends AbstractClassLoader
 {
 	private
 		$directory,
-		$map,
-		$callback;
+		$map;
 
 	public function __construct($directory, array $map)
 	{
+		parent::__construct();
 		$this->directory = $directory;
 		$this->map       = $map;
-		$this->callback  = array($this, 'loadClass');
 	}
 
-	public function registerClassLoader()
+	public function resourceExists($class)
 	{
-		spl_autoload_register($this->callback);
+		return isset($this->map[$class]);
 	}
 
-	public function unregisterClassLoader()
+	public function importResource($class)
 	{
-		spl_autoload_unregister($this->callback);
+		include($this->directory.'/'.$this->map[$class]);
+		return class_exists($class);
 	}
-
-	public function loadClass($class)
-	{
-		if (isset($this->map[$class]))
-		{
-			include($this->directory.'/'.$this->map[$class]);
-			return class_exists($class);
-		}
-		return false;
-	}
-
 }
