@@ -18,4 +18,9 @@ class ArrayUtilTest extends PHPUnit_Framework_TestCase
 		$this->assertTrue(ArrayUtil::inArrayCaseInsensitive('SMALL CAPS', $this->array));
 		$this->assertTrue(ArrayUtil::inArrayCaseInsensitive('mixed caps', $this->array));
 	}
+
+	public function testInArrayCaseInsensitive_NotFound()
+	{
+		$this->assertFalse(ArrayUtil::inArrayCaseInsensitive('undefined', $this->array));
+	}
 }
