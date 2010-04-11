@@ -109,6 +109,15 @@ class FrameworkPackage extends BasePackage
 'Request'          => 'Http/Request.php',
 'Response'         => 'Http/Response.php',
 
+// Cache
+'IClassReflectionCache'  => 'Cache/Reflection/Interfaces/IClassReflectionCache.php',
+'IMethodReflectionCache' => 'Cache/Reflection/Interfaces/IMethodReflectionCache.php',
+'IReflectionCache'       => 'Cache/Reflection/Interfaces/IReflectionCache.php',
+'ClassReflectionCache'   => 'Cache/Reflection/ClassReflectionCache.php',
+'MethodReflectionCache'  => 'Cache/Reflection/MethodReflectionCache.php',
+'ReflectionCache'        => 'Cache/Reflection/ReflectionCache.php',
+
+
 				) // end array
 			) // end new ClassLoader
 		); // end return array
