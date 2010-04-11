@@ -13,12 +13,12 @@ class MethodReflectionCache implements IMethodReflectionCache
 
 	public function retrieveMethod($class, $method)
 	{
-		return $this->collection[$class . '.' . $key];
+		return $this->collection[$class . '.' . $method];
 	}
 
 	public function hasMethod($class, $method)
 	{
-		return isset($this->collection[$class . '.' . $key]);
+		return isset($this->collection[$class . '.' . $method]);
 	}
 
 	public function deleteMethod($class, $method)
