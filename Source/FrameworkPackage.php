@@ -119,7 +119,21 @@ class FrameworkPackage extends BasePackage
 
 
 				) // end array
-			) // end new ClassLoader
+			),
+			new ClassMapLoader(
+				dirname(__FILE__).'/Fundamentals',
+				array(
+// Naming
+'ISimpleNameStrategy' => 'Naming/Interfaces/ISimpleNameStrategy.php',
+'INameStrategy'       => 'Naming/Interfaces/INameStrategy.php',
+
+'AbstractNameStrategy' => 'Naming/AbstractNameStrategy.php',
+'ActionNameStrategy'   => 'Naming/ActionNameStrategy.php',
+'CommandNameStrategy'  => 'Naming/CommandNameStrategy.php',
+'ControllerNameStrategy' => 'Naming/ControllerNameStrategy.php'
+
+				)
+			) // end class loader
 		); // end return array
 	}
 }
