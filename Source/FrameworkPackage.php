@@ -56,7 +56,6 @@ class FrameworkPackage extends BasePackage
 'ComponentDefinitionToComponentAdapter' => 'DependencyInjection/ComponentDefinitionToComponentAdapter.php',
 
 'BaseComponentAdapter'          => 'DependencyInjection/Adapters/BaseComponentAdapter.php',
-'AbstractComponentAdapter'      => 'DependencyInjection/Adapters/AbstractComponentAdapter.php',
 'DecoratingComponentAdapter'    => 'DependencyInjection/Adapters/DecoratingComponentAdapter.php',
 'ConstructorComponentAdapter'   => 'DependencyInjection/Adapters/ConstructorComponentAdapter.php',
 'TransientComponentAdapter'     => 'DependencyInjection/Adapters/TransientComponentAdapter.php',
@@ -109,6 +108,15 @@ class FrameworkPackage extends BasePackage
 
 'Request'          => 'Http/Request.php',
 'Response'         => 'Http/Response.php',
+
+// Cache
+'IClassReflectionCache'  => 'Cache/Reflection/Interfaces/IClassReflectionCache.php',
+'IMethodReflectionCache' => 'Cache/Reflection/Interfaces/IMethodReflectionCache.php',
+'IReflectionCache'       => 'Cache/Reflection/Interfaces/IReflectionCache.php',
+'ClassReflectionCache'   => 'Cache/Reflection/ClassReflectionCache.php',
+'MethodReflectionCache'  => 'Cache/Reflection/MethodReflectionCache.php',
+'ReflectionCache'        => 'Cache/Reflection/ReflectionCache.php',
+
 
 				) // end array
 			) // end new ClassLoader

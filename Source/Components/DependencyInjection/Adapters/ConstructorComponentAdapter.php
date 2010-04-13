@@ -1,16 +1,29 @@
 <?php
 
-class ConstructorComponentAdapter extends AbstractComponentAdapter
+class ConstructorComponentAdapter extends BaseComponentAdapter
 {
 	private
+		$key,
+		$class,
 		$arguments,
 		$preventCyclic;
 
 	public function __construct($key, $class, array $arguments = array())
 	{
-		parent::__construct($key, $class, $arguments);
+		$this->key   = $key;
+		$this->class = $class;
 		$this->arguments     = $arguments;
 		$this->preventCyclic = false;
+	}
+
+	public function getKey()
+	{
+		return $this->key;
+	}
+
+	public function getClass()
+	{
+		return $this->class;
 	}
 
 	public function getArguments()

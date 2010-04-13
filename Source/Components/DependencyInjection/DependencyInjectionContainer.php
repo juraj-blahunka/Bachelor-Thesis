@@ -146,7 +146,6 @@ class DependencyInjectionContainer extends ContainerBuilder implements IDependen
 		if (isset($this->adapters[$type]) || isset($this->definitions[$type]))
 			return array($this->getComponentAdapter($type));
 
-		$typeReflection = new ReflectionClass($type);
 		$result = array();
 		$foundClasses = array();
 		$definitionsAndAdapters = array_merge($this->definitions, $this->adapters);
@@ -162,6 +161,7 @@ class DependencyInjectionContainer extends ContainerBuilder implements IDependen
 			else if (class_exists($component->getClass(), true))
 			{
 				$componentReflection = new ReflectionClass($component->getClass());
+				$typeReflection      = new ReflectionClass($type);
 				$implements = $typeReflection->isInterface() && $componentReflection->implementsInterface($type);
 				$extends    = $componentReflection->isSubclassOf($type);
 				if ($implements || $extends)
