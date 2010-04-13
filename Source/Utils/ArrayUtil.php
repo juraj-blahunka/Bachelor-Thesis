@@ -2,7 +2,7 @@
 
 class ArrayUtil
 {
-	public static function inArrayCaseInsensitive($needle, $haystack)
+	static public function inArrayCaseInsensitive($needle, $haystack)
 	{
 		foreach ($haystack as $value)
 		{
