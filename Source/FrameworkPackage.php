@@ -29,7 +29,8 @@ class FrameworkPackage extends BasePackage
 	{
 		return array(
 			new ClassMapLoader(dirname(__FILE__).'/Utils', array(
-				'ArrayUtil' => 'ArrayUtil.php',
+				'ArrayUtil'  => 'ArrayUtil.php',
+				'StringUtil' => 'StringUtil.php',
 			)),
 			new ClassMapLoader(
 				dirname(__FILE__).'/Components',
