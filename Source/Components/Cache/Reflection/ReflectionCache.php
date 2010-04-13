@@ -45,6 +45,7 @@ class ReflectionCache implements IReflectionCache
 	{
 		if ($this->hasMethod($class, $method))
 			return $this->methods->retrieveMethod($class, $method);
+		throw new OutOfBoundsException("{$class} doesn't declare '{$method}' method");
 	}
 
 	public function hasMethod($class, $method)
