@@ -27,5 +27,15 @@ class ActionNameStrategyTest extends PHPUnit_Framework_TestCase
 			$this->object->getName('some-action-name'),
 			$this->equalTo('someActionNameAction')
 		);
+
+		$this->assertThat(
+			$this->object->getName(''),
+			$this->equalTo('Action')
+		);
+
+		$this->assertThat(
+			$this->object->getName('underscored_web_method'),
+			$this->equalTo('underscoredWebMethodAction')
+		);
 	}
 }

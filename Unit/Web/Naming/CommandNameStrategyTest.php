@@ -21,7 +21,52 @@ class CommandNameStrategyTest extends PHPUnit_Framework_TestCase
 	{
 	}
 
+	public function testGetName()
+	{
+		$this->assertThat(
+			$this->object->getName('some-inline-action'),
+			$this->equalTo('SomeInlineAction')
+		);
+
+		$this->assertThat(
+			$this->object->getName('underscored_name'),
+			$this->equalTo('UnderscoredName')
+		);
+	}
+
 	public function testGetClassName()
 	{
+		$this->assertThat(
+			$this->object->getClassName('Search/Special/Location'),
+			$this->equalTo('SearchSpecialLocationCommand')
+		);
+
+		$this->assertThat(
+			$this->object->getClassName('Simple-Location'),
+			$this->equalTo('SimpleLocationCommand')
+		);
+
+		$this->assertThat(
+			$this->object->getClassName('Complicated/Within_and-nested/class'),
+			$this->equalTo('ComplicatedWithinAndNestedClassCommand')
+		);
+	}
+
+	public function testGetFileName()
+	{
+		$this->assertThat(
+			$this->object->getFileName('Search/Special/Location'),
+			$this->equalTo('Search/Special/Location')
+		);
+
+		$this->assertThat(
+			$this->object->getFileName('Complicated/Within_and-nested/class'),
+			$this->equalTo('Complicated/WithinAndNested/Class')
+		);
+
+		$this->assertThat(
+			$this->object->getFileName('simple-Location'),
+			$this->equalTo('SimpleLocation')
+		);
 	}
 }

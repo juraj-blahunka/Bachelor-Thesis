@@ -21,7 +21,47 @@ class ControllerNameStrategyTest extends PHPUnit_Framework_TestCase
 	{
 	}
 
+	public function testGetName()
+	{
+		$this->assertThat(
+			$this->object->getName('some-inline-controller'),
+			$this->equalTo('SomeInlineController')
+		);
+
+		$this->assertThat(
+			$this->object->getName('underscored_name'),
+			$this->equalTo('UnderscoredName')
+		);
+	}
+
 	public function testGetClassName()
 	{
+		$this->assertThat(
+			$this->object->getClassName('SearchSpecial'),
+			$this->equalTo('SearchSpecialController')
+		);
+
+		$this->assertThat(
+			$this->object->getClassName('Simple-Location'),
+			$this->equalTo('SimpleLocationController')
+		);
+
+		$this->assertThat(
+			$this->object->getClassName('ComplicatedWithin_and-nested class'),
+			$this->equalTo('ComplicatedWithinAndNestedClassController')
+		);
+	}
+
+	public function getFileName()
+	{
+		$this->assertThat(
+			$this->object->getName('some-inline-controller'),
+			$this->equalTo('SomeInlineController')
+		);
+
+		$this->assertThat(
+			$this->object->getName('underscored_name'),
+			$this->equalTo('UnderscoredName')
+		);
 	}
 }
