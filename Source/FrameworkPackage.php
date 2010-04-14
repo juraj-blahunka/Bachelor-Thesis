@@ -121,15 +121,15 @@ class FrameworkPackage extends BasePackage
 				) // end array
 			),
 			new ClassMapLoader(
-				dirname(__FILE__).'/Fundamentals',
+				dirname(__FILE__).'/Web',
 				array(
 // Naming
 'ISimpleNameStrategy' => 'Naming/Interfaces/ISimpleNameStrategy.php',
 'INameStrategy'       => 'Naming/Interfaces/INameStrategy.php',
 
-'AbstractNameStrategy' => 'Naming/AbstractNameStrategy.php',
-'ActionNameStrategy'   => 'Naming/ActionNameStrategy.php',
-'CommandNameStrategy'  => 'Naming/CommandNameStrategy.php',
+'AbstractNameStrategy'   => 'Naming/AbstractNameStrategy.php',
+'ActionNameStrategy'     => 'Naming/ActionNameStrategy.php',
+'CommandNameStrategy'    => 'Naming/CommandNameStrategy.php',
 'ControllerNameStrategy' => 'Naming/ControllerNameStrategy.php'
 
 				)
