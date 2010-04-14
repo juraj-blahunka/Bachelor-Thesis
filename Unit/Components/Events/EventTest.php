@@ -61,6 +61,43 @@ class EventTest extends PHPUnit_Framework_TestCase
 		);
 	}
 
+	public function testGetDefaultParameter()
+	{
+		$this->assertThat(
+			$this->object->getParameter('undefined'),
+			$this->equalTo(null)
+		);
+	}
+
+	public function testGetDefinedDefaultParameter()
+	{
+		$this->assertThat(
+			$this->object->getParameter('undefined', 'default'),
+			$this->equalTo('default')
+		);
+	}
+
+	public function testSetGetParameter()
+	{
+		$this->object->setParameter('param', 'value');
+		$this->assertThat(
+			$this->object->getParameter('param'),
+			$this->equalTo('value')
+		);
+	}
+
+	public function testHasUndefinedParameter()
+	{
+		$this->assertFalse($this->object->hasParameter('undefined_param'));
+	}
+
+	public function testHasParameter()
+	{
+		$this->assertFalse($this->object->hasParameter('flag'));
+		$this->object->setParameter('flag', 'true');
+		$this->assertTrue($this->object->hasParameter('flag'));
+	}
+
 	public function testIsHandled()
 	{
 		$this->assertEquals(
@@ -73,7 +110,7 @@ class EventTest extends PHPUnit_Framework_TestCase
 			true,
 			$this->object->isHandled()
 		);
-		
+
 	}
 
 	public function testSetHandled()
@@ -99,26 +136,4 @@ class EventTest extends PHPUnit_Framework_TestCase
 			$this->object->getValue()
 		);
 	}
-
-	public function testArrayAccess()
-	{
-		$this->object['some_param'] = 'hello';
-		$this->assertThat(
-			'hello',
-			$this->equalTo($this->object['some_param'])
-		);
-
-		unset($this->object['some_param']);
-
-		$this->assertThat(
-			false,
-			$this->equalTo(isset($this->object['some_param']))
-		);
-
-		$this->assertThat(
-			$this->object['undefined_property'],
-			$this->equalTo(null)
-		);
-	}
 }
-?>

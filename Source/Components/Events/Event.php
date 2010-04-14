@@ -40,6 +40,23 @@ class Event implements IEvent
 		return $this->parameters;
 	}
 
+	public function hasParameter($name)
+	{
+		return isset($this->parameters[$name]);
+	}
+
+	public function getParameter($name, $default = null)
+	{
+		return isset($this->parameters[$name])
+			? $this->parameters[$name]
+			: $default;
+	}
+
+	public function setParameter($name, $value)
+	{
+		$this->parameters[$name] = $value;
+	}
+
 	public function isHandled()
 	{
 		return $this->handled;
@@ -58,48 +75,5 @@ class Event implements IEvent
 	public function getValue()
 	{
 		return $this->value;
-	}
-
-	/**
-	 * Implement ArrayAccess
-	 *
-	 * @param mixed $offset
-	 */
-	public function offsetExists($offset)
-	{
-		return isset($this->parameters[$offset]);
-	}
-
-	/**
-	 * Implement ArrayAccess
-	 *
-	 * @param mixed $offset
-	 */
-	public function offsetGet($offset)
-	{
-		return isset($this->parameters[$offset]) 
-			? $this->parameters[$offset]
-			: null;
-	}
-
-	/**
-	 * Implement ArrayAccess
-	 *
-	 * @param mixed $offset
-	 * @param mixed $value
-	 */
-	public function offsetSet($offset, $value)
-	{
-		$this->parameters[$offset] = $value;
-	}
-
-	/**
-	 * Implement ArrayAccess
-	 *
-	 * @param mixed $offset
-	 */
-	public function offsetUnset($offset)
-	{
-		unset($this->parameters[$offset]);
 	}
 }
