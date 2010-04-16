@@ -9,11 +9,12 @@ class ControllerRunner
 		$this->emitter = $emitter;
 	}
 
-	public function runSafe(IRoute $route)
+	public function run(IRequest $request)
 	{
 		try
 		{
-			return $this->run($route);
+			$route = $this->notifyLoadRoute($request);
+			return $this->respond($route);
 		}
 		catch (Exception $e)
 		{
@@ -28,7 +29,7 @@ class ControllerRunner
 		}
 	}
 
-	public function run(IRoute $route)
+	public function respond(IRoute $route)
 	{
 		// load controller instance
 		$controller = $this->notifyLoadController($route);
@@ -40,6 +41,17 @@ class ControllerRunner
 		$response   = $this->notifyView($response);
 
 		return $this->filterResponse($response);
+	}
+
+	protected function notifyLoadRoute(IRequest $request)
+	{
+		$event = new Event($this, 'route.load', array(
+			'request' => $request
+		));
+		$this->emitter->notifyUntil($event);
+		if (! $event->isHandled())
+			throw new NotFoundHttpException("No route found for request");
+		return $event->getValue();
 	}
 
 	protected function notifyLoadController(IRoute $route)
