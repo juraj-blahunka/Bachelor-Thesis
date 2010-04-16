@@ -367,4 +367,21 @@ class DependencyInjectionContainerTest extends PHPUnit_Framework_TestCase
 			$this->isInstanceOf('MediumPunch')
 		);
 	}
+
+	public function testMerge()
+	{
+		$this->object->registerComponent('MediumPunch');
+		$punch = $this->object->getInstanceOf('MediumPunch');
+		$this->assertThat($punch, $this->isInstanceOf('MediumPunch'));
+
+		$container = new DependencyInjectionContainer();
+		$container->registerComponent('MediumPunch')->setClass('StrongPunch');
+		$punch = $container->getInstanceOf('MediumPunch');
+		$this->assertThat($punch, $this->isInstanceOf('StrongPunch'));
+
+		$this->object->merge($container);
+
+		$punch = $this->object->getInstanceOf('MediumPunch');
+		$this->assertThat($punch, $this->isInstanceOf('StrongPunch'));
+	}
 }
