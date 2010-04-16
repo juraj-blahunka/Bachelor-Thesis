@@ -20,7 +20,7 @@ class FrameworkPackage extends BasePackage
 		return array();
 	}
 
-	public function registerWiring(IDependencyInjectionContainer $container)
+	public function registerWiring(IContainerBuilder $builder)
 	{
 
 	}

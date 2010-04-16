@@ -3,5 +3,5 @@
 interface IPackage
 {
 	function getPackageName();
-	function register(IDependencyInjectionContainer $container);
+	function register(IContainerBuilder $builder);
 }
