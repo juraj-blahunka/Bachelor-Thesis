@@ -1,7 +1,7 @@
 <?php
 
-require dirname(__FILE__).'/Components/Package/Interfaces/IPackage.php';
-require dirname(__FILE__).'/Components/Package/Interfaces/IClassLoader.php';
+require dirname(__FILE__).'/Components/Package/Interface/IPackage.php';
+require dirname(__FILE__).'/Components/Package/Interface/IClassLoader.php';
 require dirname(__FILE__).'/Components/Package/BasePackage.php';
 require dirname(__FILE__).'/Components/Package/Loader/AbstractClassLoader.php';
 require dirname(__FILE__).'/Components/Package/Loader/ClassMapLoader.php';
@@ -37,17 +37,17 @@ class FrameworkPackage extends BasePackage
 				array(
 
 // Dependency Injection Container
-'IDependencyInjectionContainerFactory' => 'DependencyInjection/Interfaces/IDependencyInjectionContainerFactory.php',
-'IContainerBuilder'             => 'DependencyInjection/Interfaces/IContainerBuilder.php',
-'IDependencyInjectionContainer' => 'DependencyInjection/Interfaces/IDependencyInjectionContainer.php',
-'IComponentAdapter'             => 'DependencyInjection/Interfaces/IComponentAdapter.php',
-'IInjecteeArgument'             => 'DependencyInjection/Interfaces/IInjecteeArgument.php',
-'IComponentDefinition'          => 'DependencyInjection/Interfaces/IComponentDefinition.php',
-'IComponentDefinitionToComponentAdapter' => 'DependencyInjection/Interfaces/IComponentDefinitionToComponentAdapter.php',
+'IDependencyInjectionContainerFactory' => 'DependencyInjection/Interface/IDependencyInjectionContainerFactory.php',
+'IContainerBuilder'             => 'DependencyInjection/Interface/IContainerBuilder.php',
+'IDependencyInjectionContainer' => 'DependencyInjection/Interface/IDependencyInjectionContainer.php',
+'IComponentAdapter'             => 'DependencyInjection/Interface/IComponentAdapter.php',
+'IInjecteeArgument'             => 'DependencyInjection/Interface/IInjecteeArgument.php',
+'IComponentDefinition'          => 'DependencyInjection/Interface/IComponentDefinition.php',
+'IComponentDefinitionToComponentAdapter' => 'DependencyInjection/Interface/IComponentDefinitionToComponentAdapter.php',
 
-'InjecteeArgumentException'     => 'DependencyInjection/Exceptions/InjecteeArgumentException.php',
-'CyclicInstantiationException'  => 'DependencyInjection/Exceptions/CyclicInstantiationException.php',
-'AmbiguousArgumentException'    => 'DependencyInjection/Exceptions/AmbiguousArgumentException.php',
+'InjecteeArgumentException'     => 'DependencyInjection/Exception/InjecteeArgumentException.php',
+'CyclicInstantiationException'  => 'DependencyInjection/Exception/CyclicInstantiationException.php',
+'AmbiguousArgumentException'    => 'DependencyInjection/Exception/AmbiguousArgumentException.php',
 
 'ContainerBuilder'              => 'DependencyInjection/ContainerBuilder.php',
 'DependencyInjectionContainer'  => 'DependencyInjection/DependencyInjectionContainer.php',
@@ -55,64 +55,64 @@ class FrameworkPackage extends BasePackage
 'ComponentDefinition'           => 'DependencyInjection/ComponentDefinition.php',
 'ComponentDefinitionToComponentAdapter' => 'DependencyInjection/ComponentDefinitionToComponentAdapter.php',
 
-'BaseComponentAdapter'          => 'DependencyInjection/Adapters/BaseComponentAdapter.php',
-'DecoratingComponentAdapter'    => 'DependencyInjection/Adapters/DecoratingComponentAdapter.php',
-'ConstructorComponentAdapter'   => 'DependencyInjection/Adapters/ConstructorComponentAdapter.php',
-'TransientComponentAdapter'     => 'DependencyInjection/Adapters/TransientComponentAdapter.php',
-'SharedComponentAdapter'        => 'DependencyInjection/Adapters/SharedComponentAdapter.php',
-'InstanceComponentAdapter'      => 'DependencyInjection/Adapters/InstanceComponentAdapter.php',
-'MethodsAfterConstructionAdapter' => 'DependencyInjection/Adapters/MethodsAfterConstructionAdapter.php',
+'BaseComponentAdapter'          => 'DependencyInjection/Adapter/BaseComponentAdapter.php',
+'DecoratingComponentAdapter'    => 'DependencyInjection/Adapter/DecoratingComponentAdapter.php',
+'ConstructorComponentAdapter'   => 'DependencyInjection/Adapter/ConstructorComponentAdapter.php',
+'TransientComponentAdapter'     => 'DependencyInjection/Adapter/TransientComponentAdapter.php',
+'SharedComponentAdapter'        => 'DependencyInjection/Adapter/SharedComponentAdapter.php',
+'InstanceComponentAdapter'      => 'DependencyInjection/Adapter/InstanceComponentAdapter.php',
+'MethodsAfterConstructionAdapter' => 'DependencyInjection/Adapter/MethodsAfterConstructionAdapter.php',
 
-'ConstantArgument'              => 'DependencyInjection/Arguments/ConstantArgument.php',
-'ValueArgument'                 => 'DependencyInjection/Arguments/ValueArgument.php',
-'ComponentArgument'             => 'DependencyInjection/Arguments/ComponentArgument.php',
-'ArrayArgument'                 => 'DependencyInjection/Arguments/ArrayArgument.php',
+'ConstantArgument'              => 'DependencyInjection/Argument/ConstantArgument.php',
+'ValueArgument'                 => 'DependencyInjection/Argument/ValueArgument.php',
+'ComponentArgument'             => 'DependencyInjection/Argument/ComponentArgument.php',
+'ArrayArgument'                 => 'DependencyInjection/Argument/ArrayArgument.php',
 
 // Event Dispatcher
-'IEvent'        => 'Events/Interfaces/IEvent.php',
-'IEventEmitter' => 'Events/Interfaces/IEventEmitter.php',
+'IEvent'        => 'Events/Interface/IEvent.php',
+'IEventEmitter' => 'Events/Interface/IEventEmitter.php',
 'Event'         => 'Events/Event.php',
 'EventEmitter'  => 'Events/EventEmitter.php',
 
 // Router
-'IRouter'              => 'Router/Interfaces/IRouter.php',
-'IRouterFactory'       => 'Router/Interfaces/IRouterFactory.php',
-'ICompiledRule'        => 'Router/Interfaces/ICompiledRule.php',
-'IRoute'               => 'Router/Interfaces/IRoute.php',
-'IRouteMatcher'        => 'Router/Interfaces/IRouteMatcher.php',
-'IRoutingRule'         => 'Router/Interfaces/IRoutingRule.php',
-'IRoutingRuleCompiler' => 'Router/Interfaces/IRoutingRuleCompiler.php',
-'IUrlCreator'          => 'Router/Interfaces/IUrlCreator.php',
+'IRouter'              => 'Router/Interface/IRouter.php',
+'IRouterFactory'       => 'Router/Interface/IRouterFactory.php',
+'ICompiledRule'        => 'Router/Interface/ICompiledRule.php',
+'IRoute'               => 'Router/Interface/IRoute.php',
+'IRouteMatcher'        => 'Router/Interface/IRouteMatcher.php',
+'IRoutingRule'         => 'Router/Interface/IRoutingRule.php',
+'IRoutingRuleCompiler' => 'Router/Interface/IRoutingRuleCompiler.php',
+'IUrlCreator'          => 'Router/Interface/IUrlCreator.php',
 
 'Route'                => 'Router/Route.php',
 'RouterFactory'        => 'Router/RouterFactory.php',
 
-'CompiledRule'         => 'Router/Rules/CompiledRule.php',
-'RoutingRule'          => 'Router/Rules/RoutingRule.php',
+'CompiledRule'         => 'Router/Rule/CompiledRule.php',
+'RoutingRule'          => 'Router/Rule/RoutingRule.php',
 
-'RouteMatcher'         => 'Router/Helpers/RouteMatcher.php',
-'RoutingRuleCompiler'  => 'Router/Helpers/RoutingRuleCompiler.php',
-'UrlCreator'           => 'Router/Helpers/UrlCreator.php',
+'RouteMatcher'         => 'Router/Helper/RouteMatcher.php',
+'RoutingRuleCompiler'  => 'Router/Helper/RoutingRuleCompiler.php',
+'UrlCreator'           => 'Router/Helper/UrlCreator.php',
 'RouterManager'        => 'Router/RouterManager.php',
 
 // Http
-'IRequest'              => 'Http/Interfaces/IRequest.php',
-'IResponse'             => 'Http/Interfaces/IResponse.php',
+'IRequest'              => 'Http/Interface/IRequest.php',
+'IResponse'             => 'Http/Interface/IResponse.php',
 
-'BaseCollection'        => 'Http/Collections/BaseCollection.php',
-'CookieCollection'      => 'Http/Collections/CookieCollection.php',
-'HeaderCollection'      => 'Http/Collections/HeaderCollection.php',
+'BaseCollection'        => 'Http/Collection/BaseCollection.php',
+'CookieCollection'      => 'Http/Collection/CookieCollection.php',
+'HeaderCollection'      => 'Http/Collection/HeaderCollection.php',
 
-'HttpException'         => 'Http/Exceptions/HttpException.php',
-'NotFoundHttpException' => 'Http/Exceptions/NotFoundHttpException.php',
+'HttpException'         => 'Http/Exception/HttpException.php',
+'NotFoundHttpException' => 'Http/Exception/NotFoundHttpException.php',
 
 'Request'          => 'Http/Request.php',
 'Response'         => 'Http/Response.php',
 
 // Cache
-'IClassReflectionCache'  => 'Cache/Reflection/Interfaces/IClassReflectionCache.php',
-'IMethodReflectionCache' => 'Cache/Reflection/Interfaces/IMethodReflectionCache.php',
-'IReflectionCache'       => 'Cache/Reflection/Interfaces/IReflectionCache.php',
+'IClassReflectionCache'  => 'Cache/Reflection/Interface/IClassReflectionCache.php',
+'IMethodReflectionCache' => 'Cache/Reflection/Interface/IMethodReflectionCache.php',
+'IReflectionCache'       => 'Cache/Reflection/Interface/IReflectionCache.php',
 'ClassReflectionCache'   => 'Cache/Reflection/ClassReflectionCache.php',
 'MethodReflectionCache'  => 'Cache/Reflection/MethodReflectionCache.php',
 'ReflectionCache'        => 'Cache/Reflection/ReflectionCache.php',
@@ -124,8 +124,8 @@ class FrameworkPackage extends BasePackage
 				dirname(__FILE__).'/Web',
 				array(
 // Naming
-'ISimpleNameStrategy' => 'Naming/Interfaces/ISimpleNameStrategy.php',
-'INameStrategy'       => 'Naming/Interfaces/INameStrategy.php',
+'ISimpleNameStrategy' => 'Naming/Interface/ISimpleNameStrategy.php',
+'INameStrategy'       => 'Naming/Interface/INameStrategy.php',
 
 'AbstractNameStrategy'   => 'Naming/AbstractNameStrategy.php',
 'ActionNameStrategy'     => 'Naming/ActionNameStrategy.php',
