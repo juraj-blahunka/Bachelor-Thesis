@@ -145,6 +145,11 @@ class FrameworkPackage extends BasePackage
 
 'ControllerRunner' => 'Runner/ControllerRunner.php',
 
+// Controller
+'IController'     => 'Controller/Interface/IController.php',
+'BaseController'  => 'Controller/BaseController.php',
+'Controller'      => 'Controller/Controller.php',
+
 				)
 			) // end class loader
 		); // end return array
