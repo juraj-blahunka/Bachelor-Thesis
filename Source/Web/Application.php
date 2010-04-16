@@ -1,64 +1,57 @@
 <?php
 
-class Application
+abstract class Application
 {
 	protected
 		$environment,
 		$debug,
+		$factory,
+		$container,
 		$packages,
-		$packagePaths,
-		$initialized;
+		$packagePaths;
 
-	public function __construct($environment, $debug)
+	public function __construct($environment, $debug, ApplicationFactory $factory = null)
 	{
 		$this->environment  = $environment;
-		$this->debug        = $debug;
-		$this->initialized  = false;
+		$this->debug        = (bool) $debug;
+		$this->factory      = is_null($factory)
+			? new ApplicationFactory()
+			: $factory;
 
-		$this->packages     = $this->registerPackages();
-		$this->packagePaths = $this->registerPackagePaths();
+		$this->setContainer($this->factory->createContainer());
 	}
 
-	abstract function registerPackages() {}
-
-	abstract function registerPackagePaths() {}
-
-	abstract function getApplicationName() {}
-
-	protected function initialize()
+	public function configure()
 	{
-		if ($this->initialized)
-		{
-			throw new Exception('Application already initalized');
-		}
-		$this->initialized = true;
-
-		$this->container = new DIContainer();
-
+		$this->packagePaths = $this->registerPackagePaths();
 		foreach ($this->packagePaths as $path)
-		{
 			require $path;
-		}
 
+		$this->packages     = $this->registerPackages();
 		foreach ($this->packages as $package)
-		{
 			$package->register($this->container);
-		}
+
+		$builder = $this->registerWiring();
+		$this->container->merge($builder);
+
+		$rules = $this->registerRouting();
+		$this->container->getInstanceOf('RouterManager')->addRules($rules);
 	}
 
 	public function run()
 	{
-		if (! $this->initialized)
-		{
-			$this->initialize();
-		}
-		$request = $this->container->getRequestService();
-		$handler = $this->container->getRequestHandlerService();
-
-		$response = $handler->handle($request);
-
-		$response->send();
+		$request = $this->container->getInstanceOf('Request');
+		$runner  = $this->container->getInstanceOf('ControllerRunner');
+		return $runner->run($request);
 	}
+
+	abstract function registerPackages();
+
+	abstract function registerPackagePaths();
+
+	abstract function registerWiring();
+
+	abstract function registerRouting();
 
 	public function getEnvironment()
 	{
@@ -68,5 +61,15 @@ class Application
 	public function isDebug()
 	{
 		return $this->debug;
+	}
+
+	public function setContainer(IDependencyInjectionContainer $container)
+	{
+		$this->container = $container;
+	}
+
+	public function getContainer()
+	{
+		return $this->container;
 	}
 }
