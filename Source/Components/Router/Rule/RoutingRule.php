@@ -26,6 +26,13 @@ class RoutingRule implements IRoutingRule
 		return $this->parameters;
 	}
 
+	public function getParameter($name, $default = null)
+	{
+		return isset($this->parameters[$name])
+			? $this->parameters[$name]
+			: $default;
+	}
+
 	public function getPattern()
 	{
 		return $this->pattern;
