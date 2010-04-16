@@ -130,7 +130,20 @@ class FrameworkPackage extends BasePackage
 'AbstractNameStrategy'   => 'Naming/AbstractNameStrategy.php',
 'ActionNameStrategy'     => 'Naming/ActionNameStrategy.php',
 'CommandNameStrategy'    => 'Naming/CommandNameStrategy.php',
-'ControllerNameStrategy' => 'Naming/ControllerNameStrategy.php'
+'ControllerNameStrategy' => 'Naming/ControllerNameStrategy.php',
+
+// Runner
+'IControllerLoader'       => 'Runner/Interface/IControllerLoader.php',
+'IActionInvoker'          => 'Runner/Interface/IActionInvoker.php',
+
+'ControllerLoader'        => 'Runner/Loader/ControllerLoader.php',
+'CommandActionInvoker'    => 'Runner/Invoker/CommandActionInvoker.php',
+'ControllerActionInvoker' => 'Runner/Invoker/ControllerActionInvoker.php',
+
+'ControllerInvokerListener' => 'Runner/Listener/ControllerInvokerListener.php',
+'ControllerLoaderListener'  => 'Runner/Listener/ControllerLoaderListener.php',
+
+'ControllerRunner' => 'Runner/ControllerRunner.php',
 
 				)
 			) // end class loader
