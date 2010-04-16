@@ -98,4 +98,19 @@ class ContainerBuilder implements IContainerBuilder
 	{
 		return $this->definitions;
 	}
+
+	/**
+	 * Merge settings with other container/builder, new settings will overwrite
+	 * old one.
+	 *
+	 * @param IContainerBuilder $container
+	 */
+	public function merge($container)
+	{
+		$this->addConstants($container->getConstants());
+		$this->definitions = array_merge(
+			$this->definitions,
+			$container->getDefinitions()
+		);
+	}
 }
