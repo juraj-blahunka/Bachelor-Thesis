@@ -226,4 +226,16 @@ class DependencyInjectionContainer extends ContainerBuilder implements IDependen
 		$adapter    = $this->factory->createAdapterFromDef($component, $definition);
 		return $adapter->getInstance($this);
 	}
+
+	/**
+	 * Merge settings and created component adapters from other container
+	 *
+	 * @param DependencyInjectionContainer $container
+	 */
+	public function merge($container)
+	{
+		parent::merge($container);
+		if ($container instanceof self)
+			$this->adapters = array_merge($this->adapters, $container->adapters);
+	}
 }
