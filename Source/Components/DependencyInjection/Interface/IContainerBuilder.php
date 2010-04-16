@@ -12,4 +12,7 @@ interface IContainerBuilder
 	function registerComponent($component);
 	function getDefinition($component);
 	function getDefinitions();
+
+	// merge with another builder
+	function merge($container);
 }
