@@ -37,7 +37,7 @@ class BasePackageStub extends BasePackage
 		);
 	}
 
-	public function registerWiring(IDependencyInjectionContainer $container)
+	public function registerWiring(IContainerBuilder $container)
 	{
 
 	}
@@ -52,7 +52,7 @@ class InternalPackageStub implements IPackage
 		return 'InternalPackageStub';
 	}
 
-	public function register(IDependencyInjectionContainer $container)
+	public function register(IContainerBuilder $builder)
 	{
 		self::$registered = true;
 	}
