@@ -55,7 +55,7 @@ class ControllerRunner
 		return $event->getValue();
 	}
 
-	protected function notifyInvokeController(IRoute $route, $controller)
+	protected function notifyInvokeController(IRoute $route, IController $controller)
 	{
 		$event = new Event($this, 'controller.invoke', array(
 			'controller' => $controller,
@@ -67,7 +67,7 @@ class ControllerRunner
 		return $event->getValue();
 	}
 
-	protected function notifyView($response)
+	protected function notifyView(IResponse $response)
 	{
 		$event = new Event($this, 'controller.view', array(
 			'response' => $response,
