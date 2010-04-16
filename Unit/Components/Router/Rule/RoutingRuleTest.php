@@ -68,6 +68,24 @@ class RoutingRuleTest extends PHPUnit_Framework_TestCase
 		);
 	}
 
+	public function testGetParameter()
+	{
+		$this->assertThat(
+			$this->o->getParameter('package'),
+			$this->equalTo('Frontend')
+		);
+
+		$this->assertThat(
+			$this->o->getParameter('undefined'),
+			$this->equalTo(null)
+		);
+
+		$this->assertThat(
+			$this->o->getParameter('undefined', 'default'),
+			$this->equalTo('default')
+		);
+	}
+
 	public function testGetRequirements()
 	{
 		$this->assertEquals(
