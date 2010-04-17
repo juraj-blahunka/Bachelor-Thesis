@@ -5,7 +5,12 @@ class Request implements IRequest
 	private
 		$parameters,
 		$cookies,
-		$server;
+		$server,
+		$httpHost,
+		$basePath,
+		$baseUrl,
+		$requestUri,
+		$pathInfo;
 
 	public function __construct($get = null, $post = null, $cookies = null, $server = null)
 	{
@@ -17,6 +22,12 @@ class Request implements IRequest
 		$this->parameters = array_merge($get, $post);
 		$this->cookies    = $cookies;
 		$this->server     = $server;
+
+		$this->httpHost   = null;
+		$this->basePath   = null;
+		$this->baseUrl    = null;
+		$this->requestUri = null;
+		$this->pathInfo   = null;
 
 		$this->cleanRequest();
 	}
@@ -62,9 +73,153 @@ class Request implements IRequest
 			: $defaultValue;
 	}
 
+	public function isSecure()
+	{
+		return strtolower($this->getServer('HTTPS')) == 'on' ||
+			$this->getServer('HTTPS') == 1 ||
+			strtolower($this->getServer('HTTP_SSL_HTTPS')) == 'on' ||
+			$this->getServer('HTTP_SSL_HTTPS') == 1;
+	}
+
+	public function getProtocol()
+	{
+		return $this->isSecure() ? 'https' : 'http';
+	}
+
+	public function getHost()
+	{
+		if (($server = $this->getServer('HTTP_HOST')) !== null)
+			return $server;
+		if (($server = $this->getServer('SERVER_NAME')) !== null)
+			return $server;
+		if (($server = $this->getServer('SERVER_ADDR')) !== null)
+			return $server;
+		return '';
+	}
+
+	public function getHttpHost()
+	{
+		if ($this->httpHost === null)
+			$this->httpHost = $this->fetchHttpHost();
+		return $this->httpHost;
+	}
+
+	public function getMethod()
+	{
+		$method = $this->getServer('REQUEST_METHOD', 'GET');
+		if (in_array($method, array('GET', 'POST', 'PUT', 'DELETE', 'HEAD')))
+			return $method;
+		return 'GET';
+	}
+
+	public function getBasePath()
+	{
+		if ($this->basePath === null)
+			$this->basePath = $this->fetchBasePath();
+		return $this->basePath;
+	}
+
+	public function getBaseUrl()
+	{
+		if ($this->baseUrl === null)
+			$this->baseUrl = $this->fetchBaseUrl();
+		return $this->baseUrl;
+	}
+
+	public function getRequestUri()
+	{
+		if ($this->requestUri === null)
+			$this->requestUri = $this->fetchRequestUri();
+		return $this->requestUri;
+	}
+
+	public function getPathInfo()
+	{
+		if ($this->pathInfo === null)
+			$this->pathInfo = $this->fetchPathInfo();
+		return $this->pathInfo;
+	}
+
 	public function isXmlHttpRequest()
 	{
 		return $this->getServer('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest';
+	}
+
+	protected function fetchHttpHost()
+	{
+		if (($server = $this->getServer('HTTP_HOST')) !== null)
+			return $server;
+
+		$protocol = $this->getProtocol();
+		$name     = $this->getServer('SERVER_NAME');
+		$port     = $this->getServer('SERVER_PORT');
+
+		return ($protocol === 'http' && $port === 80) || ($protocol === 'https' && $port === 443)
+			? $name
+			: $name . ':' . $port;
+	}
+
+	protected function fetchBasePath()
+	{
+		$basePath = '';
+		$filename = basename($this->getServer('SCRIPT_FILENAME', ''));
+		if (basename($this->getServer('SCRIPT_NAME')) === $filename)
+			$basePath = $this->getServer('SCRIPT_NAME');
+		elseif (basename($this->getServer('PHP_SELF')) === $filename)
+			$basePath = $this->getServer('PHP_SELF');
+		else
+			throw new RuntimeException("Cannot decide base url");
+
+		$requestUri = $this->getRequestUri();
+
+		if (strpos($requestUri, $basePath) === 0)
+		{
+			return $basePath;
+		}
+		echo $basePath . "<br />";
+		if (0 === strpos($requestUri, dirname($basePath)))
+		{
+			$dir = dirname($basePath);
+			return rtrim(dirname($basePath), '/');
+		}
+
+		return rtrim($basePath, '/');
+	}
+
+	protected function fetchBaseUrl()
+	{
+		$filename = basename($this->getServer('SCRIPT_FILENAME', ''));
+		$basePath = $this->getBasePath();
+		return $basePath;
+	}
+
+	protected function fetchRequestUri()
+	{
+		if (($requestUri = $this->getServer('REQUEST_URI')) !== null)
+		{
+			$location = $this->getProtocol() . '://' . $this->getHost();
+			if (strpos($requestUri, $location) === 0)
+				$requestUri = substr($requestUri, strlen($location));
+		}
+		return $requestUri;
+	}
+
+	protected function fetchPathInfo()
+	{
+		if (($path = $this->getServer('PATH_INFO')) !== null)
+			return $path;
+
+		$path       = '';
+		$baseUrl    = $this->getBasePath();
+		$requestUri = $this->getRequestUri();
+		$query      = '?' . $this->getServer('QUERY_STRING', '');
+
+		if (strpos($requestUri, $baseUrl) === 0)
+			$path = '/' . ltrim(substr($requestUri, strlen($baseUrl)), '/');
+		if (($pos = strpos($path, $query)) != 0)
+			$path = substr($path, 0, $pos);
+
+		return $path;
 	}
 
 	protected function cleanRequest()
