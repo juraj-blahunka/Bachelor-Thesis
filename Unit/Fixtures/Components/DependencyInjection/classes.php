@@ -137,3 +137,25 @@ class PunchInTheFaceCauseItFails
 
 	}
 }
+
+class PunchListener
+{
+	public $punchable;
+	protected $receivedEvent = false;
+
+	public function __construct(IPunchable $punchable)
+	{
+		$this->punchable = $punchable;
+	}
+
+	public function handle(IEvent $event)
+	{
+		$this->receivedEvent = true;
+		$this->punchable->punch();
+	}
+
+	public function hasReceivedEvent()
+	{
+		return $this->receivedEvent;
+	}
+}
