@@ -19,4 +19,10 @@ interface IComponentDefinition
 	function setMethods(array $methods);
 	function getMethods();
 	function addMethod($methodName, array $methodArguments = array());
+
+	function setNotes(array $notes);
+	function addNotes(array $notes);
+	function getNotes();
+	function addNote($name, $value);
+	function getNote($name, $default = null);
 }
