@@ -43,7 +43,7 @@ class EventEmitter implements IEventEmitter
 	{
 		foreach ($this->getListeners($event->getName()) as $callable)
 		{
-			call_user_func($callable, $event);
+			$this->emitEvent($event, $callable);
 		}
 
 		return $event;
@@ -53,7 +53,7 @@ class EventEmitter implements IEventEmitter
 	{
 		foreach ($this->getListeners($event->getName()) as $callable)
 		{
-			$result = call_user_func($callable, $event);
+			$result = $this->emitEvent($event, $callable);
 			if (($result === $state) || $event->isHandled())
 			{
 				$event->setHandled(true);
@@ -62,5 +62,10 @@ class EventEmitter implements IEventEmitter
 		}
 
 		return $event;
+	}
+
+	protected function emitEvent(IEvent $event, array $callable)
+	{
+		return call_user_func($callable, $event);
 	}
 }
