@@ -21,6 +21,12 @@ class DefaultContainerFactoryTest extends PHPUnit_Framework_TestCase
 	{
 	}
 
+	public function testCreateContainerBuilder()
+	{
+		$builder = $this->object->createContainerBuilder();
+		$this->assertThat($builder, $this->isInstanceOf('IContainerBuilder'));
+	}
+
 	public function testCreateComponentDefinition()
 	{
 		$definition = $this->object->createComponentDefinition('HelloClass', array());
