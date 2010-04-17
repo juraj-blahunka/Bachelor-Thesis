@@ -6,7 +6,7 @@ class ValueUrlStrategy implements IUrlStrategy
 
 	public function __construct($url)
 	{
-		$this->url = rtrim($url, '/');
+		$this->url = $url;
 	}
 
 	public function getUrl()

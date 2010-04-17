@@ -25,7 +25,7 @@ class RouterManager implements IRouter
 	public function getBaseUrl()
 	{
 		if ($this->baseUrl === null)
-			$this->baseUrl = $this->baseUrlStrategy->getUrl();
+			$this->baseUrl = rtrim($this->baseUrlStrategy->getUrl(), '/');
 		return $this->baseUrl;
 	}
 
