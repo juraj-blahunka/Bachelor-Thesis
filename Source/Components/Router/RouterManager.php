@@ -5,15 +5,17 @@ class RouterManager implements IRouter
 	private
 		$rules,
 		$baseUrl,
+		$baseUrlStrategy,
 		$factory,
 		$matcher,
 		$compiler,
 		$creator;
 
-	public function __construct($baseUrl, IRouterFactory $factory, IRouteMatcher $matcher, IRoutingRuleCompiler $compiler, IUrlCreator $creator)
+	public function __construct(IUrlStrategy $baseUrlStrategy, IRouterFactory $factory, IRouteMatcher $matcher, IRoutingRuleCompiler $compiler, IUrlCreator $creator)
 	{
 		$this->rules    = array();
-		$this->baseUrl  = rtrim($baseUrl, '/') . '/';
+		$this->baseUrl  = null;
+		$this->baseUrlStrategy  = $baseUrlStrategy;
 		$this->factory  = $factory;
 		$this->matcher  = $matcher;
 		$this->compiler = $compiler;
@@ -22,6 +24,8 @@ class RouterManager implements IRouter
 
 	public function getBaseUrl()
 	{
+		if ($this->baseUrl === null)
+			$this->baseUrl = $this->baseUrlStrategy->getUrl();
 		return $this->baseUrl;
 	}
 

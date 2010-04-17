@@ -85,6 +85,7 @@ class FrameworkPackage extends BasePackage
 'IRoutingRule'         => 'Router/Interface/IRoutingRule.php',
 'IRoutingRuleCompiler' => 'Router/Interface/IRoutingRuleCompiler.php',
 'IUrlCreator'          => 'Router/Interface/IUrlCreator.php',
+'IUrlStrategy'         => 'Router/Interface/IUrlStrategy.php',
 
 'Route'                => 'Router/Route.php',
 'RouterFactory'        => 'Router/RouterFactory.php',
@@ -93,6 +94,8 @@ class FrameworkPackage extends BasePackage
 'RoutingRule'          => 'Router/Rule/RoutingRule.php',
 
 'RoutingRuleArrayLoader' => 'Router/Loader/Array.php',
+
+'ValueUrlStrategy'     => 'Router/Helper/ValueUrlStrategy.php',
 
 'RouteMatcher'         => 'Router/Helper/RouteMatcher.php',
 'RoutingRuleCompiler'  => 'Router/Helper/RoutingRuleCompiler.php',
