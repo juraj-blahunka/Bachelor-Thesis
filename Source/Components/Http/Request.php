@@ -176,7 +176,7 @@ class Request implements IRequest
 		{
 			return $basePath;
 		}
-		echo $basePath . "<br />";
+
 		if (0 === strpos($requestUri, dirname($basePath)))
 		{
 			$dir = dirname($basePath);
