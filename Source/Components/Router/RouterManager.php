@@ -54,13 +54,13 @@ class RouterManager implements IRouter
 		return $url;
 	}
 
-	public function fetchRoute($url)
+	public function fetchRoute($path)
 	{
-		$url   = '/' . str_replace($this->getBaseUrl(), '', $url);
+		$path   = '/' . ltrim($path, '/');
 		$route = $this->factory->createRoute();
 		foreach ($this->rules as $rule)
 		{
-			if ($this->matcher->match($url, $rule, $route))
+			if ($this->matcher->match($path, $rule, $route))
 				return $route;
 		}
 		return false;

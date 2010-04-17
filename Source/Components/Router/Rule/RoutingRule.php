@@ -11,7 +11,7 @@ class RoutingRule implements IRoutingRule
 	public function __construct($name, $pattern, array $parameters = array(), array $requirements = array())
 	{
 		$this->name         = $name;
-		$this->pattern      = $pattern;
+		$this->pattern      = '/' . ltrim($pattern, '/');
 		$this->parameters   = $parameters;
 		$this->requirements = $requirements;
 	}

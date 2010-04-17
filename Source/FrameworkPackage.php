@@ -146,6 +146,9 @@ class FrameworkPackage extends BasePackage
 // Events
 'LazyEventEmitter' => 'Events/LazyEventEmitter.php',
 
+// Router
+'RequestBaseUrlStrategy' => 'Router/RequestBaseUrlStrategy.php',
+
 // Runner
 'IControllerLoader'       => 'Runner/Interface/IControllerLoader.php',
 'IActionInvoker'          => 'Runner/Interface/IActionInvoker.php',
