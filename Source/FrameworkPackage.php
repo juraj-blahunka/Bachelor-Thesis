@@ -22,7 +22,11 @@ class FrameworkPackage extends BasePackage
 
 	public function registerWiring(IContainerBuilder $builder)
 	{
-
+		$components = include dirname(__FILE__) . '/Components/Resources/ComponentsConfiguration.php';
+		$web        = include dirname(__FILE__) . '/Web/Resources/WebConfiguration.php';
+		$loader = new ContainerArrayLoader();
+		$builder->merge($loader->load($components));
+		$builder->merge($loader->load($web));
 	}
 
 	public function registerClassLoaders()
