@@ -70,7 +70,7 @@ class ControllerActionInvoker implements IActionInvoker
 			else if ($parameter->isOptional() || $parameter->isDefaultValueAvailable())
 				$result[] = $parameter->getDefaultValue();
 			else
-				throw new InvokerException("Argument {$parameter->getName()} in {$method->getDeclaringClass()->getName()}::{$method->getName()} was not found in parameters");
+				throw new RuntimeException("Argument {$parameter->getName()} in {$method->getDeclaringClass()->getName()}::{$method->getName()} was not found in parameters");
 		}
 		return $result;
 	}
