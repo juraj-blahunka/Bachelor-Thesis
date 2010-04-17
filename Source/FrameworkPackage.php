@@ -49,6 +49,8 @@ class FrameworkPackage extends BasePackage
 'CyclicInstantiationException'  => 'DependencyInjection/Exception/CyclicInstantiationException.php',
 'AmbiguousArgumentException'    => 'DependencyInjection/Exception/AmbiguousArgumentException.php',
 
+'ContainerArrayLoader'          => 'DependencyInjection/Loader/ContainerArrayLoader.php',
+
 'ContainerBuilder'              => 'DependencyInjection/ContainerBuilder.php',
 'DependencyInjectionContainer'  => 'DependencyInjection/DependencyInjectionContainer.php',
 'DefaultContainerFactory'       => 'DependencyInjection/DefaultContainerFactory.php',
