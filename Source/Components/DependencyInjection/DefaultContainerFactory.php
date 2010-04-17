@@ -12,6 +12,11 @@ class DefaultContainerFactory implements IDependencyInjectionContainerFactory
 			: $converter;
 	}
 
+	public function createContainerBuilder()
+	{
+		return new ContainerBuilder($this);
+	}
+
 	public function createComponentDefinition($class, array $arguments)
 	{
 		return new ComponentDefinition($class, $arguments);

@@ -126,4 +126,29 @@ class ContainerBuilderTest extends PHPUnit_Framework_TestCase
 			))
 		);
 	}
+
+	public function testGetNotedDefinitions_Blank()
+	{
+		$this->assertThat(
+			$this->object->getNotedDefinitions('undefined.note'),
+			$this->equalTo(array())
+		);
+	}
+
+	public function testGetNotedDefinitions_WithDefinedNotes()
+	{
+		$definitions = array();
+		$definitions[] = $this->object->registerComponent('NewComponent')
+			->addNote('controller.load', 'resolve');
+		$definitions[] = $this->object->registerComponent('AnoterLoader')
+			->addNotes(array(
+				'controller.load' => 'resolve',
+				'another.load'    => 'resolve_another',
+			));
+
+		$this->assertThat(
+			$this->object->getNotedDefinitions('controller.load'),
+			$this->equalTo($definitions)
+		);
+	}
 }

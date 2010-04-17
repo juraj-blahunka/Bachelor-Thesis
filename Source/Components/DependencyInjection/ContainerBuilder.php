@@ -113,4 +113,21 @@ class ContainerBuilder implements IContainerBuilder
 			$container->getDefinitions()
 		);
 	}
+
+	/**
+	 * Find an array of noted definitions, which have a note with named $name
+	 *
+	 * @param string $name
+	 * @return array
+	 */
+	public function getNotedDefinitions($name)
+	{
+		$result = array();
+		foreach ($this->definitions as $key => $definition)
+		{
+			if ($definition->getNote($name, null) !== null)
+				$result[] = $definition;
+		}
+		return $result;
+	}
 }

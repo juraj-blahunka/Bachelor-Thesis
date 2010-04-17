@@ -6,7 +6,8 @@ class ComponentDefinition implements IComponentDefinition
 		$class,
 		$arguments,
 		$scope,
-		$methods;
+		$methods,
+		$notes;
 
 	public function __construct($class, array $arguments = array())
 	{
@@ -14,6 +15,7 @@ class ComponentDefinition implements IComponentDefinition
 		$this->setArguments($arguments);
 		$this->setDefaultScope();
 		$this->methods = array();
+		$this->notes   = array();
 	}
 
 	public function setClass($class)
@@ -88,5 +90,35 @@ class ComponentDefinition implements IComponentDefinition
 	public function getMethods()
 	{
 		return $this->methods;
+	}
+
+	public function setNotes(array $notes)
+	{
+		$this->notes = $notes;
+		return $this;
+	}
+
+	public function addNotes(array $notes)
+	{
+		$this->notes = array_merge($this->notes, $notes);
+		return $this;
+	}
+
+	public function getNotes()
+	{
+		return $this->notes;
+	}
+
+	public function addNote($name, $value)
+	{
+		$this->notes[$name] = $value;
+		return $this;
+	}
+
+	public function getNote($name, $default = null)
+	{
+		return isset($this->notes[$name])
+			? $this->notes[$name]
+			: $default;
 	}
 }
