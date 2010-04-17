@@ -12,5 +12,18 @@ interface IRequest
 	function hasServer($serverKey);
 	function getServer($serverKey, $defaultValue = null);
 
+
+	function isSecure();
+	function getProtocol();
+	function getHost();
+	function getHttpHost();
+	function getMethod();
+
+	function getBasePath();
+	function getBaseUrl();
+
+	function getRequestUri();
+	function getPathInfo();
+
 	function isXmlHttpRequest();
 }
