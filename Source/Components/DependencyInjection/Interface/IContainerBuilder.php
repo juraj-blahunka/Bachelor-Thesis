@@ -15,4 +15,7 @@ interface IContainerBuilder
 
 	// merge with another builder
 	function merge($container);
+
+	// find noted component definitions with $name
+	function getNotedDefinitions($name);
 }
