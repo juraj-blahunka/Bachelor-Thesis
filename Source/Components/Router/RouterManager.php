@@ -4,29 +4,29 @@ class RouterManager implements IRouter
 {
 	private
 		$rules,
-		$baseUrl,
-		$baseUrlStrategy,
+		$basePath,
+		$basePathStrategy,
 		$factory,
 		$matcher,
 		$compiler,
 		$creator;
 
-	public function __construct(IUrlStrategy $baseUrlStrategy, IRouterFactory $factory, IRouteMatcher $matcher, IRoutingRuleCompiler $compiler, IUrlCreator $creator)
+	public function __construct(IUrlStrategy $basePathStrategy, IRouterFactory $factory, IRouteMatcher $matcher, IRoutingRuleCompiler $compiler, IUrlCreator $creator)
 	{
 		$this->rules    = array();
-		$this->baseUrl  = null;
-		$this->baseUrlStrategy  = $baseUrlStrategy;
+		$this->basePath = null;
+		$this->basePathStrategy  = $basePathStrategy;
 		$this->factory  = $factory;
 		$this->matcher  = $matcher;
 		$this->compiler = $compiler;
 		$this->creator  = $creator;
 	}
 
-	public function getBaseUrl()
+	public function getBasePath()
 	{
-		if ($this->baseUrl === null)
-			$this->baseUrl = rtrim($this->baseUrlStrategy->getUrl(), '/');
-		return $this->baseUrl;
+		if ($this->basePath === null)
+			$this->basePath = rtrim($this->basePathStrategy->getUrl(), '/');
+		return $this->basePath;
 	}
 
 	public function addRule(IRoutingRule $rule)
@@ -50,7 +50,7 @@ class RouterManager implements IRouter
 
 		$rule = $this->rules[$name]->getRule();
 		$part = $this->creator->makeUrl($rule, $parameters);
-		$url  = $this->getBaseUrl() . ltrim($part, '/');
+		$url  = $this->getBasePath() . ltrim($part, '/');
 		return $url;
 	}
 
