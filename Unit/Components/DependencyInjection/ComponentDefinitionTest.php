@@ -129,4 +129,59 @@ class ComponentDefinitionTest extends PHPUnit_Framework_TestCase
 			$this->equalTo($this->object->getMethods())
 		);
 	}
+
+	public function testSetNotes_GetNotes()
+	{
+		$notes = array(
+			'first'  => 'with this',
+			'second' => 'another',
+		);
+		$ret = $this->object->setNotes($notes);
+		$this->assertThat($ret, $this->identicalTo($this->object));
+		$this->assertThat($this->object->getNotes(), $this->equalTo($notes));
+	}
+
+	public function testGetNotes_Blank()
+	{
+		$this->assertThat($this->object->getNotes(), $this->equalTo(array()));
+	}
+
+	public function testAddNotes()
+	{
+		$this->object->setNotes(array(
+			'first'  => 'to overwrite',
+			'second' => 'stay',
+		));
+		$this->object->addNotes(array(
+			'new'    => 'is great',
+			'first'  => '1',
+		));
+		$this->assertThat($this->object->getNotes(), $this->equalTo(array(
+			'first'  => '1',
+			'second' => 'stay',
+			'new'    => 'is great',
+		)));
+	}
+
+	public function testAddNote()
+	{
+		$this->object->addNote('new', 'value');
+		$this->assertThat(
+			$this->object->getNote('new'),
+			$this->equalTo('value')
+		);
+	}
+
+	public function testGetNote_Undefined()
+	{
+		$this->assertThat(
+			$this->object->getNote('undefined'),
+			$this->equalTo(null)
+		);
+
+		$this->assertThat(
+			$this->object->getNote('undefined', 'default'),
+			$this->equalTo('default')
+		);
+	}
 }
