@@ -136,6 +136,9 @@ class FrameworkPackage extends BasePackage
 'CommandNameStrategy'    => 'Naming/CommandNameStrategy.php',
 'ControllerNameStrategy' => 'Naming/ControllerNameStrategy.php',
 
+// Events
+'LazyEventEmitter' => 'Events/LazyEventEmitter.php',
+
 // Runner
 'IControllerLoader'       => 'Runner/Interface/IControllerLoader.php',
 'IActionInvoker'          => 'Runner/Interface/IActionInvoker.php',

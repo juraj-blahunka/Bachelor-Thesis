@@ -16,7 +16,7 @@ class Event implements IEvent
 	 * @param string $name
 	 * @param array $parameters
 	 */
-	public function __construct($sender, $name, $parameters=array())
+	public function __construct($sender, $name, array $parameters = array())
 	{
 		$this->sender = $sender;
 		$this->name = $name;
