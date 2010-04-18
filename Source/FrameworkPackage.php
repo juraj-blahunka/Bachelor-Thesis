@@ -8,6 +8,9 @@ require dirname(__FILE__).'/Components/Package/Loader/ClassMapLoader.php';
 require dirname(__FILE__).'/Components/Package/Loader/PearClassLoader.php';
 require dirname(__FILE__).'/Components/Package/Loader/FlatFolderClassLoader.php';
 
+require dirname(__FILE__).'/Web/Application/Application.php';
+require dirname(__FILE__).'/Web/Application/ApplicationFactory.php';
+
 
 class FrameworkPackage extends BasePackage
 {

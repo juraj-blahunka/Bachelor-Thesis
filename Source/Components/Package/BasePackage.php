@@ -14,19 +14,25 @@ abstract class BasePackage implements IPackage
 	 */
 	public function register(IContainerBuilder $builder)
 	{
-		$this->classLoaders  = $this->registerClassLoaders();
-		foreach ($this->classLoaders as $classLoader)
+		$this->classLoaders = $this->registerClassLoaders();
+		if (is_array($this->classLoaders))
 		{
-			$classLoader->registerClassLoader();
+			foreach ($this->classLoaders as $classLoader)
+				$classLoader->registerClassLoader();
 		}
-		
+		else
+			$this->classLoaders = array();
+
 		$this->registerWiring($builder);
 
 		$this->packages = $this->registerPackages();
-		foreach ($this->packages as $package)
+		if (is_array($this->packages))
 		{
-			$package->register($builder);
+			foreach ($this->packages as $package)
+				$package->register($builder);
 		}
+		else
+			$this->packages = array();
 	}
 
 	abstract function registerClassLoaders();

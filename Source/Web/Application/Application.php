@@ -24,18 +24,33 @@ abstract class Application
 	public function configure()
 	{
 		$this->packagePaths = $this->registerPackagePaths();
-		foreach ($this->packagePaths as $path)
-			require $path;
+		if (is_array($this->packagePaths))
+		{
+			foreach ($this->packagePaths as $path)
+				require $path;
+		}
+		else
+			$this->packagePaths = array();
 
 		$this->packages     = $this->registerPackages();
-		foreach ($this->packages as $package)
-			$package->register($this->container);
+		if (is_array($this->packages))
+		{
+			foreach ($this->packages as $package)
+				$package->register($this->container);
+		}
+		else
+			$this->packages = array();
 
 		$builder = $this->registerWiring();
-		$this->container->merge($builder);
+		if (is_object($builder))
+			$this->container->merge($builder);
 
 		$rules = $this->registerRouting();
-		$this->container->getInstanceOf('RouterManager')->addRules($rules);
+		if (is_array($rules))
+		{
+			$router = $this->container->getInstanceOf('RouterManager');
+			$router->addRules($rules);
+		}
 	}
 
 	public function run()

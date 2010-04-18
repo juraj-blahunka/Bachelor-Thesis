@@ -43,6 +43,14 @@ class BasePackageStub extends BasePackage
 	}
 }
 
+class BasePackageFallbackStub extends BasePackage
+{
+	public function registerClassLoaders() {}
+	public function getPackagename() { return 'BasePackageFallbackStub'; }
+	public function registerPackages() {}
+	public function registerWiring(IContainerBuilder $container) {}
+}
+
 class InternalPackageStub implements IPackage
 {
 	static public $registered = false;
@@ -60,8 +68,14 @@ class InternalPackageStub implements IPackage
 
 class BasePackageTest extends PHPUnit_Framework_TestCase
 {
+	/*
+	 * @var IDependencyInjectionContainer
+	 */
+	protected $container;
+
 	protected function setUp()
 	{
+		$this->container = $this->getMock('IDependencyInjectionContainer');
 	}
 
 	protected function tearDown()
@@ -70,11 +84,17 @@ class BasePackageTest extends PHPUnit_Framework_TestCase
 
 	public function testRegister()
 	{
-		$container = $this->getMock('IDependencyInjectionContainer');
 		$package = new BasePackageStub();
-		$package->register($container);
+		$package->register($this->container);
 
 		$this->assertTrue(ClassLoaderStub::$registered);
 		$this->assertTrue(InternalPackageStub::$registered);
+	}
+
+	public function testRegisterWithNothing_FallbackMode()
+	{
+		$package = new BasePackageFallbackStub();
+		$package->register($this->container);
+		// nothing happened, no error (Fallback on empty returns)
 	}
 }
