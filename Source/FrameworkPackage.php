@@ -146,6 +146,13 @@ class FrameworkPackage extends BasePackage
 // Events
 'LazyEventEmitter' => 'Events/LazyEventEmitter.php',
 
+// Listener
+'RouteLoadListener'        => 'Listener/RouteLoadListener.php',
+'ControllerInvokeListener' => 'Listener/ControllerInvokeListener.php',
+'ControllerLoadListener'   => 'Listener/ControllerLoadListener.php',
+'BasicViewLoadListener'    => 'Listener/BasicViewLoadListener.php',
+'TwigViewLoadListener'     => 'Listener/TwigViewLoadListener.php',
+
 // Router
 'RequestBaseUrlStrategy' => 'Router/Helper/RequestBaseUrlStrategy.php',
 
@@ -156,9 +163,6 @@ class FrameworkPackage extends BasePackage
 'ControllerLoader'        => 'Runner/Loader/ControllerLoader.php',
 'CommandActionInvoker'    => 'Runner/Invoker/CommandActionInvoker.php',
 'ControllerActionInvoker' => 'Runner/Invoker/ControllerActionInvoker.php',
-
-'ControllerInvokerListener' => 'Runner/Listener/ControllerInvokerListener.php',
-'ControllerLoaderListener'  => 'Runner/Listener/ControllerLoaderListener.php',
 
 'ControllerRunner' => 'Runner/ControllerRunner.php',
 

@@ -54,7 +54,7 @@ class RoutingRuleCompilerTest extends PHPUnit_Framework_TestCase
 		);
 
 		$this->assertEquals(
-			'/^\/(?<controller>[a-zA-Z0-9-_]+)\/(?<action>[a-zA-Z0-9-_]+)\/(?<year>[0-9]+)$/',
+			'/^\/(?<controller>[a-zA-Z0-9-_\s]+)\/(?<action>[a-zA-Z0-9-_\s]+)\/(?<year>[0-9]+)$/',
 			$compiled->getRegex()
 		);
 	}
@@ -85,9 +85,8 @@ class RoutingRuleCompilerTest extends PHPUnit_Framework_TestCase
 		$compiled = $this->object->compile($rule);
 
 		$this->assertEquals(
-			'/^\/(?<controller>[a-zA-Z0-9-_]+)$/',
+			'/^\/(?<controller>[a-zA-Z0-9-_\s]+)$/',
 			$compiled->getRegex()
 		);
 	}
 }
-?>

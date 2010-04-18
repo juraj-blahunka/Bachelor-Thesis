@@ -50,13 +50,13 @@ class RouterManager implements IRouter
 
 		$rule = $this->rules[$name]->getRule();
 		$part = $this->creator->makeUrl($rule, $parameters);
-		$url  = $this->getBasePath() . ltrim($part, '/');
+		$url  = $this->getBasePath() . '/' . ltrim($part, '/');
 		return $url;
 	}
 
 	public function fetchRoute($path)
 	{
-		$path   = '/' . ltrim($path, '/');
+		$path  = '/' . urldecode(ltrim($path, '/'));
 		$route = $this->factory->createRoute();
 		foreach ($this->rules as $rule)
 		{

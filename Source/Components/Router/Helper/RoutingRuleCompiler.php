@@ -16,7 +16,7 @@ class RoutingRuleCompiler implements IRoutingRuleCompiler
 	{
 		$this->factory  = $factory;
 		$this->patterns = array_merge(array(
-			'string' => '[a-zA-Z0-9-_]+',
+			'string' => '[a-zA-Z0-9-_\s]+',
 			'int'    => '[0-9]+',
 		), $patterns);
 	}
