@@ -6,6 +6,7 @@ class Response implements IResponse
 		$headers,
 		$cookies,
 		$content,
+		$view,
 		$variables;
 
 	public function __construct(HeaderCollection $headers, CookieCollection $cookies)
@@ -13,6 +14,7 @@ class Response implements IResponse
 		$this->headers = $headers;
 		$this->cookies = $cookies;
 		$this->setContent('');
+		$this->setView('');
 		$this->setVariables(array());
 	}
 
@@ -45,6 +47,16 @@ class Response implements IResponse
 	public function write($content)
 	{
 		$this->content .= $content;
+	}
+
+	public function setView($view)
+	{
+		$this->view = $view;
+	}
+
+	public function getView()
+	{
+		return $this->view;
 	}
 
 	public function setVariables(array $variables)
