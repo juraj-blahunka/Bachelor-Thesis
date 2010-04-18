@@ -150,6 +150,10 @@ class FrameworkPackage extends BasePackage
 // Events
 'LazyEventEmitter' => 'Events/LazyEventEmitter.php',
 
+// Http
+'IRenderableResponse' => 'Http/Interface/IRenderableResponse.php',
+'RenderableResponse'  => 'Http/RenderableResponse.php',
+
 // Listener
 'RouteLoadListener'        => 'Listener/RouteLoadListener.php',
 'ControllerInvokeListener' => 'Listener/ControllerInvokeListener.php',

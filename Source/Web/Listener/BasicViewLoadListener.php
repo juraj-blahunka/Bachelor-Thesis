@@ -15,16 +15,17 @@ class BasicViewLoadListener
 	public function handle(IEvent $event)
 	{
 		$response = $event->getParameter('response');
-		$filename = $this->directory . '/' . $response->getView() . $this->defaultExt;
+		$filename = $this->directory . '/' . $response->getViewName() . $this->defaultExt;
 		if (! file_exists($filename))
 			return false;
 		ob_start();
 		extract($response->getVariables());
 		include $filename;
 		$content = ob_get_clean();
-		$response->setContent($content);
+		$rendered = $response->getOriginalResponse();
+		$rendered->setContent($content);
 
-		$event->setValue($response);
+		$event->setValue($rendered);
 		return true;
 	}
 }

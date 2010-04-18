@@ -38,7 +38,10 @@ class ControllerRunner
 		$response   = $this->notifyInvokeController($route, $controller);
 
 		// decorate controller with appropriate view
-		$response   = $this->notifyView($response);
+		$response   = ($response instanceof IRenderableResponse)
+			? $this->notifyView($response)
+			: $response;
+		
 
 		return $this->filterResponse($response);
 	}
@@ -79,7 +82,7 @@ class ControllerRunner
 		return $event->getValue();
 	}
 
-	protected function notifyView(IResponse $response)
+	protected function notifyView(IRenderableResponse $response)
 	{
 		$event = new Event($this, 'controller.view', array(
 			'response' => $response,

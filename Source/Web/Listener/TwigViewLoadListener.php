@@ -15,13 +15,16 @@ class TwigViewLoadListener
 	public function handle(IEvent $event)
 	{
 		$response  = $event->getParameter('response');
-		$view      = $response->getView() . $this->defaultExtension;
+
+		$view      = $response->getViewName() . $this->defaultExtension;
 		$variables = $response->getVariables();
 		$template  = $this->twig->loadTemplate($view);
 		$content   = $template->render($response->getVariables());
-		$response->write($content);
 
-		$event->setValue($response);
+		$rendered  = $response->getOriginalResponse();
+		$rendered->write($content);
+
+		$event->setValue($rendered);
 		return true;
 	}
 }

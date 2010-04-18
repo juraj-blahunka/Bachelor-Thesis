@@ -58,9 +58,8 @@ class ControllerActionInvoker implements IActionInvoker
 	 */
 	protected function findArguments(ReflectionMethod $method, array $parameters)
 	{
-		foreach ($parameters as $key => $value) {
+		foreach ($parameters as $key => $value)
 			$parameters[str_replace('-', '_', $key)] = $value;
-		}
 
 		$result = array();
 		foreach ($method->getParameters() as $parameter)
@@ -70,7 +69,7 @@ class ControllerActionInvoker implements IActionInvoker
 			else if ($parameter->isOptional() || $parameter->isDefaultValueAvailable())
 				$result[] = $parameter->getDefaultValue();
 			else
-				throw new RuntimeException("Argument {$parameter->getName()} in {$method->getDeclaringClass()->getName()}::{$method->getName()} was not found in parameters");
+				throw new NotFoundHttpException("Argument {$parameter->getName()} in {$method->getDeclaringClass()->getName()}::{$method->getName()} was not found in parameters");
 		}
 		return $result;
 	}
