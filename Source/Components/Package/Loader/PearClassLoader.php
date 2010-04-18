@@ -27,8 +27,8 @@ class PearClassLoader extends AbstractClassLoader
 	public function importResource($class)
 	{
 		$index = array_search($this->getPrefix($class), $this->prefixes);
-		$path = str_replace('_', '/', $class);
-		include $this->directories[$index].'/../'.$path.'.php';
+		$path = str_replace('_', DIRECTORY_SEPARATOR, $class);
+		include $this->directories[$index] . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . $path . '.php';
 		return class_exists($class);
 	}
 }

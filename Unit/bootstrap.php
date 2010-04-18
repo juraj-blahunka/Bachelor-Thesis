@@ -30,6 +30,5 @@ require TEST_ROOT.'./../Source/Components/DependencyInjection/DefaultContainerFa
 require TEST_ROOT.'./../Source/Components/DependencyInjection/ContainerBuilder.php';
 require TEST_ROOT.'./../Source/Components/DependencyInjection/DependencyInjectionContainer.php';
 
-
 $package = new FrameworkPackage();
 $package->register(new DependencyInjectionContainer());

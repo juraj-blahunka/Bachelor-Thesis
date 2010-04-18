@@ -20,7 +20,7 @@ class ClassMapLoader extends AbstractClassLoader
 
 	public function importResource($class)
 	{
-		include($this->directory.'/'.$this->map[$class]);
+		include($this->directory . DIRECTORY_SEPARATOR . $this->map[$class]);
 		return class_exists($class);
 	}
 }
