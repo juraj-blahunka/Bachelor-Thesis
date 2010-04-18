@@ -9,6 +9,7 @@ require dirname(__FILE__).'/Components/Package/Loader/PearClassLoader.php';
 require dirname(__FILE__).'/Components/Package/Loader/FlatFolderClassLoader.php';
 
 require dirname(__FILE__).'/Web/Application/Application.php';
+require dirname(__FILE__).'/Web/Application/WebApplication.php';
 require dirname(__FILE__).'/Web/Application/ApplicationFactory.php';
 
 
@@ -113,6 +114,7 @@ class FrameworkPackage extends BasePackage
 // Http
 'IRequest'              => 'Http/Interface/IRequest.php',
 'IResponse'             => 'Http/Interface/IResponse.php',
+'IRenderableResponse' => 'Http/Interface/IRenderableResponse.php',
 
 'BaseCollection'        => 'Http/Collection/BaseCollection.php',
 'CookieCollection'      => 'Http/Collection/CookieCollection.php',
@@ -123,6 +125,7 @@ class FrameworkPackage extends BasePackage
 
 'Request'          => 'Http/Request.php',
 'Response'         => 'Http/Response.php',
+'RenderableResponse'  => 'Http/RenderableResponse.php',
 
 // Cache
 'IClassReflectionCache'  => 'Cache/Reflection/Interface/IClassReflectionCache.php',
@@ -149,10 +152,6 @@ class FrameworkPackage extends BasePackage
 
 // Events
 'LazyEventEmitter' => 'Events/LazyEventEmitter.php',
-
-// Http
-'IRenderableResponse' => 'Http/Interface/IRenderableResponse.php',
-'RenderableResponse'  => 'Http/RenderableResponse.php',
 
 // Listener
 'RouteLoadListener'        => 'Listener/RouteLoadListener.php',
