@@ -5,17 +5,13 @@ class Response implements IResponse
 	private
 		$headers,
 		$cookies,
-		$content,
-		$view,
-		$variables;
+		$content;
 
 	public function __construct(HeaderCollection $headers, CookieCollection $cookies)
 	{
 		$this->headers = $headers;
 		$this->cookies = $cookies;
 		$this->setContent('');
-		$this->setView('');
-		$this->setVariables(array());
 	}
 
 	public function dispatch()
@@ -47,26 +43,6 @@ class Response implements IResponse
 	public function write($content)
 	{
 		$this->content .= $content;
-	}
-
-	public function setView($view)
-	{
-		$this->view = $view;
-	}
-
-	public function getView()
-	{
-		return $this->view;
-	}
-
-	public function setVariables(array $variables)
-	{
-		$this->variables = $variables;
-	}
-
-	public function getVariables()
-	{
-		return $this->variables;
 	}
 
 	protected function dispatchContent()
