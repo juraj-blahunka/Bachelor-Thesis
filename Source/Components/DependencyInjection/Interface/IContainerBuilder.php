@@ -9,7 +9,7 @@ interface IContainerBuilder
 	function getConstants();
 
 	// definitions of components
-	function registerComponent($component);
+	function define($component);
 	function getDefinition($component);
 	function getDefinitions();
 

@@ -33,8 +33,8 @@ class LazyEventEmitterTest extends PHPUnit_Framework_TestCase
 	public function testLazyNotification()
 	{
 		// register main types as singletons
-		$this->container->registerComponent('WeakPunch');
-		$this->container->registerComponent('PunchListener');
+		$this->container->define('WeakPunch');
+		$this->container->define('PunchListener');
 		// create lazy callable
 		$this->object->attach('event', array('lazy', 'PunchListener', 'handle'));
 

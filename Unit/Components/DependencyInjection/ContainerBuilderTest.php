@@ -61,7 +61,7 @@ class ContainerBuilderTest extends PHPUnit_Framework_TestCase
 
 	public function testRegisterComponent()
 	{
-		$def = $this->object->registerComponent('Service');
+		$def = $this->object->define('Service');
 		$this->assertThat(
 			$this->object->getDefinition('Service'),
 			$this->identicalTo($def)
@@ -82,7 +82,7 @@ class ContainerBuilderTest extends PHPUnit_Framework_TestCase
 			$this->object->getDefinitions(),
 			$this->equalTo(array())
 		);
-		$def = $this->object->registerComponent('Service');
+		$def = $this->object->define('Service');
 		$this->assertThat(
 			$this->object->getDefinitions(),
 			$this->equalTo(array('Service' => $def))
@@ -95,16 +95,16 @@ class ContainerBuilderTest extends PHPUnit_Framework_TestCase
 			'first'  => 'to overwrite',
 			'second' => 'cannot be overwritten'
 		));
-		$this->object->registerComponent('First')->setClass('To_Overwrite');
-		$second = $this->object->registerComponent('Second');
+		$this->object->define('First')->setClass('To_Overwrite');
+		$second = $this->object->define('Second');
 
 		$builder = new ContainerBuilder();
 		$builder->addConstants(array(
 			'first' => 'new value',
 			'third' => 'unseen',
 		));
-		$first = $builder->registerComponent('First')->setClass('Write_It_Over');
-		$third = $builder->registerComponent('Third');
+		$first = $builder->define('First')->setClass('Write_It_Over');
+		$third = $builder->define('Third');
 
 		$this->object->merge($builder);
 
@@ -138,9 +138,9 @@ class ContainerBuilderTest extends PHPUnit_Framework_TestCase
 	public function testGetNotedDefinitions_WithDefinedNotes()
 	{
 		$definitions = array();
-		$definitions[] = $this->object->registerComponent('NewComponent')
+		$definitions[] = $this->object->define('NewComponent')
 			->addNote('controller.load', 'resolve');
-		$definitions[] = $this->object->registerComponent('AnoterLoader')
+		$definitions[] = $this->object->define('AnoterLoader')
 			->addNotes(array(
 				'controller.load' => 'resolve',
 				'another.load'    => 'resolve_another',

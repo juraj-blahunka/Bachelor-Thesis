@@ -116,7 +116,7 @@ class DependencyInjectionContainerTest extends PHPUnit_Framework_TestCase
 
 	public function testSetComponentAdapterAndGetAdapter_FromDefinitions()
 	{
-		$this->object->registerComponent('hello_class_component');
+		$this->object->define('hello_class_component');
 		$this->assertThat(
 			$this->object->getComponentAdapter('hello_class_component'),
 			$this->isInstanceOf('IComponentAdapter')
@@ -143,7 +143,7 @@ class DependencyInjectionContainerTest extends PHPUnit_Framework_TestCase
 
 	public function testGetAdaptersOfType_ExplicitlySetWithDefinition()
 	{
-		$this->object->registerComponent('WeakPunch');
+		$this->object->define('WeakPunch');
 		$result = $this->object->getAdaptersOfType('WeakPunch');
 
 		$this->assertTrue(count($result) == 1);
@@ -194,9 +194,9 @@ class DependencyInjectionContainerTest extends PHPUnit_Framework_TestCase
 
 	public function testGetAdaptersOfType_ImplementInterface()
 	{
-		$this->object->registerComponent('WeakPunch');
-		$this->object->registerComponent('MediumPunch');
-		$this->object->registerComponent('StrongPunch');
+		$this->object->define('WeakPunch');
+		$this->object->define('MediumPunch');
+		$this->object->define('StrongPunch');
 
 		$result = $this->object->getAdaptersOfType('IPunchable');
 
@@ -216,7 +216,7 @@ class DependencyInjectionContainerTest extends PHPUnit_Framework_TestCase
 
 	public function testGetDefinition_DefinedComponent()
 	{
-		$definition = $this->object->registerComponent('WeakPunch');
+		$definition = $this->object->define('WeakPunch');
 		$this->assertThat(
 			$this->object->getDefinition('WeakPunch'),
 			$this->equalTo($definition)
@@ -233,8 +233,8 @@ class DependencyInjectionContainerTest extends PHPUnit_Framework_TestCase
 
 	public function testGetDefintions_WithDefinedComponents()
 	{
-		$weak   = $this->object->registerComponent('WeakPunch');
-		$strong = $this->object->registerComponent('StrongPunch');
+		$weak   = $this->object->define('WeakPunch');
+		$strong = $this->object->define('StrongPunch');
 
 		$this->assertThat(
 			$this->object->getDefinitions(),
@@ -247,7 +247,7 @@ class DependencyInjectionContainerTest extends PHPUnit_Framework_TestCase
 
 	public function testGetInstanceOf_DefinitionByComponentId()
 	{
-		$this->object->registerComponent('weak_punch_component')
+		$this->object->define('weak_punch_component')
 			->setClass('WeakPunch');
 		$this->assertThat(
 			$this->object->getInstanceOf('weak_punch_component'),
@@ -257,7 +257,7 @@ class DependencyInjectionContainerTest extends PHPUnit_Framework_TestCase
 
 	public function testGetInstanceOf_DefinitionByClass()
 	{
-		$this->object->registerComponent('WeakPunch');
+		$this->object->define('WeakPunch');
 		$this->assertThat(
 			$this->object->getInstanceOf('WeakPunch'),
 			$this->isInstanceOf('WeakPunch')
@@ -278,7 +278,7 @@ class DependencyInjectionContainerTest extends PHPUnit_Framework_TestCase
 
 	public function testGetInstanceOf_RegisteredClassWithCustomId()
 	{
-		$this->object->registerComponent('weak_punch_component')
+		$this->object->define('weak_punch_component')
 			->setClass('WeakPunch');
 		$this->assertThat(
 			$this->object->getInstanceOf('WeakPunch'),
@@ -292,8 +292,8 @@ class DependencyInjectionContainerTest extends PHPUnit_Framework_TestCase
 
 	public function testGetInstanceOf_MoreAdequateComponents()
 	{
-		$this->object->registerComponent('WeakPunch');
-		$this->object->registerComponent('DecoratedPunchable');
+		$this->object->define('WeakPunch');
+		$this->object->define('DecoratedPunchable');
 
 		$this->setExpectedException('AmbiguousArgumentException');
 		$this->object->getInstanceOf('IPunchable');
@@ -344,10 +344,10 @@ class DependencyInjectionContainerTest extends PHPUnit_Framework_TestCase
 
 	public function testChild_getInstanceOf()
 	{
-		$this->object->registerComponent('MediumPunch');
-		$this->object->registerComponent('DecoratedPunchable')
+		$this->object->define('MediumPunch');
+		$this->object->define('DecoratedPunchable')
 			->addArgument('component', 'MediumPunch');
-		$this->object->registerComponent('DependsOnPunchable')
+		$this->object->define('DependsOnPunchable')
 			->addArgument('component', 'DecoratedPunchable');
 
 		$instance = $this->child->getInstanceOf('DependsOnPunchable');
@@ -370,12 +370,12 @@ class DependencyInjectionContainerTest extends PHPUnit_Framework_TestCase
 
 	public function testMerge()
 	{
-		$this->object->registerComponent('MediumPunch');
+		$this->object->define('MediumPunch');
 		$punch = $this->object->getInstanceOf('MediumPunch');
 		$this->assertThat($punch, $this->isInstanceOf('MediumPunch'));
 
 		$container = new DependencyInjectionContainer();
-		$container->registerComponent('MediumPunch')->setClass('StrongPunch');
+		$container->define('MediumPunch')->setClass('StrongPunch');
 		$punch = $container->getInstanceOf('MediumPunch');
 		$this->assertThat($punch, $this->isInstanceOf('StrongPunch'));
 

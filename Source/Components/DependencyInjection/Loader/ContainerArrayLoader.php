@@ -89,7 +89,7 @@ class ContainerArrayLoader
 
 	protected function loadComponent(IContainerBuilder $builder, $name, array $component)
 	{
-		$definition = $builder->registerComponent($name);
+		$definition = $builder->define($name);
 		if (isset($component['class']))
 			$definition->setClass($component['class']);
 		if (isset($component['constructor']))

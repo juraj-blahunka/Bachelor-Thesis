@@ -52,7 +52,7 @@ class ConstructorComponentAdapterTest extends PHPUnit_Framework_TestCase
 
 	public function testGetInstanceWithUnspecifiedArguments()
 	{
-		$this->container->registerComponent('WeakPunch');
+		$this->container->define('WeakPunch');
 		$adapter = new ConstructorComponentAdapter(null, 'DependsOnPunchable');
 		$instance = $adapter->getInstance($this->container);
 		$this->assertThat($instance, $this->isInstanceOf('DependsOnPunchable'));
@@ -61,7 +61,7 @@ class ConstructorComponentAdapterTest extends PHPUnit_Framework_TestCase
 
 	public function testGetInstance_DefaultArgument()
 	{
-		$this->container->registerComponent('MediumPunch');
+		$this->container->define('MediumPunch');
 		$adapter = new ConstructorComponentAdapter(null, 'PartiallyDependsOnPunchables');
 		$instance = $adapter->getInstance($this->container);
 		$this->assertThat($instance->punchable, $this->equalTo(null));
@@ -70,7 +70,7 @@ class ConstructorComponentAdapterTest extends PHPUnit_Framework_TestCase
 	public function testCyclicInstantiation()
 	{
 		$this->setExpectedException('CyclicInstantiationException');
-		$this->container->registerComponent('Cyclic');
+		$this->container->define('Cyclic');
 		$instance = $this->container->getInstanceOf('Cyclic');
 	}
 

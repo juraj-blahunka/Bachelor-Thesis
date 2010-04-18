@@ -69,7 +69,7 @@ class ContainerBuilder implements IContainerBuilder
 	 * @param string $component
 	 * @return ComponentDefinition Builder for fluent interface interaction
 	 */
-	public function registerComponent($component)
+	public function define($component)
 	{
 		$definition = $this->factory->createComponentDefinition($component, array());
 		$this->definitions[$component] = $definition;

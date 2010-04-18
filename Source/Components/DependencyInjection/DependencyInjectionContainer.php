@@ -90,10 +90,10 @@ class DependencyInjectionContainer extends ContainerBuilder implements IDependen
 	 * @param string $component
 	 * @return ComponentDefinition Builder for fluent interface interaction
 	 */
-	public function registerComponent($component)
+	public function define($component)
 	{
 		unset($this->adapters[$component]);
-		return parent::registerComponent($component);
+		return parent::define($component);
 	}
 
 	/**

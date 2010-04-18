@@ -38,8 +38,8 @@ class MethodsAfterConstructionAdapterTest extends PHPUnit_Framework_TestCase
 	protected function setUp()
 	{
 		$this->container = new DependencyInjectionContainer();
-		$this->container->registerComponent('WeakPunch');
-		$this->container->registerComponent('StrongPunch');
+		$this->container->define('WeakPunch');
+		$this->container->define('StrongPunch');
 
 		$this->manyMethods = array(
 			array('fromNothing',   array()),

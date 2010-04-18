@@ -56,6 +56,8 @@ class CommandActionInvoker implements IActionInvoker
 			if (! file_exists($file))
 				continue;
 			include $file;
+			if (class_exists($className))
+				return true;
 		}
 		return class_exists($className);
 	}
