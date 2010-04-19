@@ -11,14 +11,13 @@ class ControllerInvokeListener
 
 	public function handle(IEvent $event)
 	{
-		$action     = $event->getParameter('route')->getAction();
-		$parameters = $event->getParameter('route')->getParameters();
+		$route      = $event->getParameter('route');
 		$controller = $event->getParameter('controller');
 
-		if (! $this->invoker->canInvoke($controller, $action, $parameters))
+		if (! $this->invoker->canInvoke($controller, $route))
 			return false;
 
-		$result = $this->invoker->invoke($controller, $action, $parameters);
+		$result = $this->invoker->invoke($controller, $route);
 		$event->setValue($result);
 		return true;
 	}

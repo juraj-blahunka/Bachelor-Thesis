@@ -16,9 +16,9 @@ class CommandActionInvoker implements IActionInvoker
 		$this->naming      = $naming;
 	}
 
-	public function canInvoke($controller, $action, array $parameters)
+	public function canInvoke($controller, IRoute $route)
 	{
-		$commandName = $this->naming->getName($action);
+		$commandName = $this->naming->getName($route->getAction());
 		if (!($location = $this->findCommandLocation($commandName, $controller->getCommands())))
 			return false;
 
@@ -37,9 +37,9 @@ class CommandActionInvoker implements IActionInvoker
 		return $isController && $isInvokable;
 	}
 
-	public function invoke($controller, $action, array $parameters)
+	public function invoke($controller, IRoute $route)
 	{
-		$location = $this->findCommandLocation($this->naming->getName($action), $controller->getCommands());
+		$location = $this->findCommandLocation($this->naming->getName($route->getAction()), $controller->getCommands());
 		$commandClass = $this->naming->getClassName($location);
 		$commandClass = $this->container->getInstanceOf($commandClass);
 		$commandClass->setContainer($this->container);

@@ -11,9 +11,9 @@ class ControllerActionInvoker implements IActionInvoker
 		$this->naming = $naming;
 	}
 
-	public function canInvoke($controller, $action, array $parameters)
+	public function canInvoke($controller, IRoute $route)
 	{
-		$action = $this->naming->getName($action);
+		$action = $this->naming->getName($route->getAction());
 		$method = $this->getActionMethod($controller, $action);
 		return $method && $method->isPublic() && (! $method->isStatic());
 	}
@@ -22,15 +22,14 @@ class ControllerActionInvoker implements IActionInvoker
 	 * Call controller's action with parameters
 	 *
 	 * @param Object $controller
-	 * @param string $action
-	 * @param array $parameters
+	 * @param IRoute $route
 	 * @return mixed
 	 */
-	public function invoke($controller, $action, array $parameters)
+	public function invoke($controller, IRoute $route)
 	{
-		$action    = $this->naming->getName($action);
+		$action    = $this->naming->getName($route->getAction());
 		$method    = $this->getActionMethod($controller, $action);
-		$arguments = $this->findArguments($method, $parameters);
+		$arguments = $this->findArguments($method, $route->getParameters());
 		return $method->invokeArgs($controller, $arguments);
 	}
 

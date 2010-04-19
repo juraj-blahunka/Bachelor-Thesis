@@ -3,8 +3,8 @@
 interface IControllerLoader
 {
 	/**
-	 * @var string $name
+	 * @var IRoute $route
 	 * @return IController instance or false
 	 */
-	function loadController($name);
+	function loadController(IRoute $route);
 }

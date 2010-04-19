@@ -18,11 +18,12 @@ class ControllerLoader implements IControllerLoader
 	 * Container creates a controller instance or returns false, if
 	 * controller couldn't be created.
 	 *
-	 * @param string $name Name of controller
+	 * @param IRoute $route Routing information about controller
 	 * @return mixed Controller instance or false
 	 */
-	public function loadController($name)
+	public function loadController(IRoute $route)
 	{
+		$name     = $route->getController();
 		$fileName = $this->naming->getFileName($name);
 		$class    = $this->naming->getClassName($name);
 

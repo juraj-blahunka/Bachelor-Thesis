@@ -2,6 +2,6 @@
 
 interface IActionInvoker
 {
-	function canInvoke($controller, $action, array $parameters);
-	function invoke($controller, $action, array $parameters);
+	function canInvoke($controller, IRoute $route);
+	function invoke($controller, IRoute $route);
 }
