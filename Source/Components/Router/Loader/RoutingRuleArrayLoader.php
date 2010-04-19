@@ -5,7 +5,7 @@ class RoutingRuleArrayLoader
 	protected
 		$defaultPackage,
 		$requiredOptions = array('pattern'),
-		$enabledOptions  = array('pattern', 'parameters', 'rule');
+		$enabledOptions  = array('pattern', 'parameters', 'rules');
 
 	public function __construct($defaultPackage = null)
 	{

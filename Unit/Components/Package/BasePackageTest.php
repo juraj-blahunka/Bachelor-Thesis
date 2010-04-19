@@ -30,13 +30,6 @@ class BasePackageStub extends BasePackage
 		return 'BasePackageStub';
 	}
 
-	public function registerPackages()
-	{
-		return array(
-			new InternalPackageStub()
-		);
-	}
-
 	public function registerWiring(IContainerBuilder $container)
 	{
 
@@ -47,23 +40,7 @@ class BasePackageFallbackStub extends BasePackage
 {
 	public function registerClassLoaders() {}
 	public function getPackagename() { return 'BasePackageFallbackStub'; }
-	public function registerPackages() {}
 	public function registerWiring(IContainerBuilder $container) {}
-}
-
-class InternalPackageStub implements IPackage
-{
-	static public $registered = false;
-
-	public function getPackageName()
-	{
-		return 'InternalPackageStub';
-	}
-
-	public function register(IContainerBuilder $builder)
-	{
-		self::$registered = true;
-	}
 }
 
 class BasePackageTest extends PHPUnit_Framework_TestCase
@@ -88,7 +65,6 @@ class BasePackageTest extends PHPUnit_Framework_TestCase
 		$package->register($this->container);
 
 		$this->assertTrue(ClassLoaderStub::$registered);
-		$this->assertTrue(InternalPackageStub::$registered);
 	}
 
 	public function testRegisterWithNothing_FallbackMode()

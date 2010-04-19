@@ -26,7 +26,7 @@ class RoutingRuleArrayLoaderTest extends PHPUnit_Framework_TestCase
 		$data = array(
 			'first' => array(
 				'pattern' => '{controller}/{action}',
-				'params'  => array(
+				'parameters'  => array(
 					'package' => 'Frontend',
 				),
 				'rules'   => array(
@@ -49,7 +49,7 @@ class RoutingRuleArrayLoaderTest extends PHPUnit_Framework_TestCase
 			),
 			'second' => array(
 				'pattern' => '',
-				'params' => array(
+				'parameters' => array(
 					'package' => 'MyPackage'
 				)
 			)

@@ -3,8 +3,7 @@
 abstract class BasePackage implements IPackage
 {
 	private
-		$classLoaders,
-		$packages;
+		$classLoaders;
 
 	/**
 	 * Template method for registering class loaders, nested packages and
@@ -24,20 +23,9 @@ abstract class BasePackage implements IPackage
 			$this->classLoaders = array();
 
 		$this->registerWiring($builder);
-
-		$this->packages = $this->registerPackages();
-		if (is_array($this->packages))
-		{
-			foreach ($this->packages as $package)
-				$package->register($builder);
-		}
-		else
-			$this->packages = array();
 	}
 
 	abstract function registerClassLoaders();
-
-	abstract function registerPackages();
 
 	abstract function registerWiring(IContainerBuilder $container);
 }

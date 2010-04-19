@@ -101,7 +101,7 @@ class ContainerArrayLoader
 			$definition->setArguments($component['constructor']);
 		if (isset($component['notes']))
 			$definition->setNotes($component['notes']);
-		if (isset($component['methods']) && $this->validateMethods($component['methods']))
+		if (isset($component['methods']) && $this->validateMethods($name, $component['methods']))
 			$definition->setMethods($component['methods']);
 		if (isset($component['scope']))
 			$definition->setScope($component['scope']);
@@ -128,7 +128,7 @@ class ContainerArrayLoader
 		{
 			if (! (is_array($method) && (count($method) == 2)))
 				throw new UnexpectedValueException("Method declaration should be array, found in '{$component}'");
-			$this->validateArguments($method[1]);
+			$this->validateArguments($component, $method[1]);
 		}
 		return true;
 	}
