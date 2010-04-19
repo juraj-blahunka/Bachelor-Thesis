@@ -8,6 +8,7 @@ abstract class Application
 		$factory,
 		$container,
 		$packages,
+		$packageCollection,
 		$packagePaths;
 
 	public function __construct($environment, $debug, ApplicationFactory $factory = null)
@@ -47,6 +48,7 @@ abstract class Application
 		}
 		else
 			$this->packagePaths = array();
+		$this->container->setConstant('application.package_paths', $this->packagePaths);
 	}
 
 	protected function loadPackages()

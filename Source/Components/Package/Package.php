@@ -1,6 +1,6 @@
 <?php
 
-abstract class BasePackage implements IPackage
+abstract class Package implements IPackage
 {
 	private
 		$classLoaders;
@@ -24,8 +24,4 @@ abstract class BasePackage implements IPackage
 
 		$this->registerWiring($builder);
 	}
-
-	abstract function registerClassLoaders();
-
-	abstract function registerWiring(IContainerBuilder $container);
 }

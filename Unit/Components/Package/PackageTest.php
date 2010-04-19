@@ -16,7 +16,7 @@ class ClassLoaderStub implements IClassLoader
 	}
 }
 
-class BasePackageStub extends BasePackage
+class PackageStub extends Package
 {
 	public function registerClassLoaders()
 	{
@@ -36,14 +36,14 @@ class BasePackageStub extends BasePackage
 	}
 }
 
-class BasePackageFallbackStub extends BasePackage
+class PackageFallbackStub extends Package
 {
 	public function registerClassLoaders() {}
 	public function getPackagename() { return 'BasePackageFallbackStub'; }
 	public function registerWiring(IContainerBuilder $container) {}
 }
 
-class BasePackageTest extends PHPUnit_Framework_TestCase
+class PackageTest extends PHPUnit_Framework_TestCase
 {
 	/*
 	 * @var IDependencyInjectionContainer
@@ -61,7 +61,7 @@ class BasePackageTest extends PHPUnit_Framework_TestCase
 
 	public function testRegister()
 	{
-		$package = new BasePackageStub();
+		$package = new PackageStub();
 		$package->register($this->container);
 
 		$this->assertTrue(ClassLoaderStub::$registered);
@@ -69,7 +69,7 @@ class BasePackageTest extends PHPUnit_Framework_TestCase
 
 	public function testRegisterWithNothing_FallbackMode()
 	{
-		$package = new BasePackageFallbackStub();
+		$package = new PackageFallbackStub();
 		$package->register($this->container);
 		// nothing happened, no error (Fallback on empty returns)
 	}

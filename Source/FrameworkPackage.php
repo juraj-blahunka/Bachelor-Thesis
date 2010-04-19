@@ -1,6 +1,6 @@
 <?php
 
-class FrameworkPackage extends BasePackage
+class FrameworkPackage extends Package
 {
 	public function getPackageName()
 	{
