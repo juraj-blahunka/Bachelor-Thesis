@@ -2,9 +2,10 @@
 
 class ControllerLoader implements IControllerLoader
 {
-	private $container;
-	private $directories;
-	private $naming;
+	protected
+		$container,
+		$directories,
+		$naming;
 
 	public function __construct(array $directories, IDependencyInjectionContainer $container, INameStrategy $naming)
 	{
@@ -45,7 +46,7 @@ class ControllerLoader implements IControllerLoader
 	 */
 	protected function includeController($class, $fileName)
 	{
-		if (class_exists($class))
+		if (class_exists($class, true))
 			return true;
 
 		foreach ($this->directories as $dir)
@@ -57,6 +58,6 @@ class ControllerLoader implements IControllerLoader
 			if (class_exists($class))
 				return true;
 		}
-		return class_exists($class);
+		return false;
 	}
 }

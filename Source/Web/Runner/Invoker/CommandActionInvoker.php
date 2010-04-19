@@ -46,9 +46,9 @@ class CommandActionInvoker implements IActionInvoker
 		return call_user_func(array($commandClass, 'execute'));
 	}
 
-	protected function includeCommand($location, $className)
+	protected function includeCommand($location, $class)
 	{
-		if (class_exists($className))
+		if (class_exists($class, true))
 			return true;
 		foreach ($this->directories as $dir)
 		{
@@ -56,10 +56,10 @@ class CommandActionInvoker implements IActionInvoker
 			if (! file_exists($file))
 				continue;
 			include $file;
-			if (class_exists($className))
+			if (class_exists($class))
 				return true;
 		}
-		return class_exists($className);
+		return false;
 	}
 
 	protected function getCommandClassReflection($commandClass)
