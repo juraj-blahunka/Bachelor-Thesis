@@ -35,7 +35,7 @@
 class DependencyInjectionContainer extends ContainerBuilder implements IDependencyInjectionContainer
 {
 	const
-		CONTAINER_KEY = 'dependency_injection_container';
+		CONTAINER_KEY = 'container_service';
 
 	protected
 		$parent,

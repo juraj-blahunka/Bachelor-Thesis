@@ -53,14 +53,18 @@ abstract class Application
 
 	protected function loadPackages()
 	{
-		$this->packages = $this->registerPackages();
-		if (is_array($this->packages))
+		$packageArray = $this->registerPackages();
+		if (is_array($packageArray))
 		{
-			foreach ($this->packages as $package)
+			foreach ($packageArray as $package)
 				$package->register($this->container);
 		}
 		else
-			$this->packages = array();
+			$packageArray = array();
+
+		$this->container->define('package_collection_service')->setClass('PackageCollection');
+		$this->packages = $this->container->getInstanceOf('package_collection_service');
+		$this->packages->setPackages($packageArray);
 	}
 
 	protected function loadWiring()
