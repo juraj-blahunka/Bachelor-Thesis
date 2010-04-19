@@ -1,6 +1,6 @@
 <?php
 
-class ControllerRunner
+class ControllerRunner implements IControllerRunner
 {
 	private $emitter;
 
@@ -9,12 +9,12 @@ class ControllerRunner
 		$this->emitter = $emitter;
 	}
 
-	public function run(IRequest $request)
+	public function respondTo(IRequest $request)
 	{
 		try
 		{
 			$route = $this->notifyLoadRoute($request);
-			return $this->respond($route);
+			return $this->run($route);
 		}
 		catch (Exception $e)
 		{
@@ -29,7 +29,7 @@ class ControllerRunner
 		}
 	}
 
-	public function respond(IRoute $route)
+	public function run(IRoute $route)
 	{
 		// load controller instance
 		$controller = $this->notifyLoadController($route);

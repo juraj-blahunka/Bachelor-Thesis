@@ -12,16 +12,16 @@ class Controller extends BaseController
 		return $this->container->getInstanceOf('response_service');
 	}
 
-	public function getRenderableResponse(IResponse $original)
+	public function getRenderableResponse(IResponse $original = null)
 	{
-		return $this->container->getInstanceOfWith('RenderableResponse', array(
-			array('value', $original)
+		return $this->container->getInstanceOfWith('renderable_response_service', array(
+			array('value', is_null($original) ? $this->getResponse() : $original)
 		));
 	}
 
 	public function getRouter()
 	{
-		return $this->container->getInstanceOf('RouterManager');
+		return $this->container->getInstanceOf('router_service');
 	}
 
 	public function render($view, $variables)
@@ -39,7 +39,7 @@ class Controller extends BaseController
 			->setController($controller)
 			->setAction($action)
 			->setParameters($parameters);
-		$runner = $this->container->getInstanceOf('ControllerRunner');
-		return $runner->respond($route);
+		$runner = $this->container->getInstanceOf('controller_runner_service');
+		return $runner->run($route);
 	}
 }

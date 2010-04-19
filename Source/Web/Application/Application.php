@@ -70,7 +70,7 @@ abstract class Application
 
 	protected function loadEvents()
 	{
-		$emitter = $this->container->getInstanceOf('EventEmitter');
+		$emitter = $this->container->getInstanceOf('event_emitter_service');
 		$definitions = $this->container->getNotedDefinitions('listener');
 		foreach ($definitions as $definition)
 		{

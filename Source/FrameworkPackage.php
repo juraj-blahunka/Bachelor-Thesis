@@ -150,6 +150,7 @@ class FrameworkPackage extends BasePackage
 'TwigViewLoadListener'     => 'Listener/TwigViewLoadListener.php',
 
 // Runner
+'IControllerRunner'       => 'Runner/Interface/IControllerRunner.php',
 'IControllerLoader'       => 'Runner/Interface/IControllerLoader.php',
 'IActionInvoker'          => 'Runner/Interface/IActionInvoker.php',
 

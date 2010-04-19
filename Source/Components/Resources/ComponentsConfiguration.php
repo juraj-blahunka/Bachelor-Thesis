@@ -7,10 +7,15 @@ return array(
 	'components' => array(
 
 		// Events
-		'EventEmitter' => array(),
+		'event_emitter_service' => array(
+			'class' => 'EventEmitter',
+		),
 
 		// Cache
-		'ReflectionCache' => array(
+		'ClassReflectionCache', 'MethodReflectionCache',
+
+		'reflection_cache_service' => array(
+			'class' => 'ReflectionCache',
 			'constructor' => array(
 				array('component', 'ClassReflectionCache'),
 				array('component', 'MethodReflectionCache'),
@@ -18,13 +23,11 @@ return array(
 		),
 
 		// Router
+		'RouterFactory', 'RouteMatcher', 'RoutingRuleCompiler', 'UrlCreator',
+
 		'base_path_strategy_service' => array(
 			'class' => 'RequestBaseUrlStrategy',
 		),
-		'RouterFactory'       => array(),
-		'RouteMatcher'        => array(),
-		'RoutingRuleCompiler' => array(),
-		'UrlCreator'          => array(),
 
 		'router_service' => array(
 			'class' => 'RouterManager',
@@ -37,6 +40,10 @@ return array(
 		'response_service' => array(
 			'class' => 'Response',
 			'scope' => 'transient',
+		),
+
+		'renderable_response_service' => array(
+			'class' => 'RenderableResponse',
 		),
 	)
 );

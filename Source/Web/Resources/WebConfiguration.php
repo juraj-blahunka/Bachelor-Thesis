@@ -6,7 +6,7 @@ return array(
 	),
 	'components' => array(
 
-		'EventEmitter' => array(
+		'event_emitter_service' => array(
 			'class' => 'LazyEventEmitter'
 		),
 
@@ -20,7 +20,11 @@ return array(
 					array('route.load', 'handle')
 				),
 			)
-		)
+		),
+
+		'controller_runner_service' => array(
+			'class' => 'ControllerRunner'
+		),
 
 	)
 );
