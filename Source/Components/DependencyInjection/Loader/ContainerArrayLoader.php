@@ -83,7 +83,12 @@ class ContainerArrayLoader
 	{
 		foreach ($components as $name => $component)
 		{
-			$this->loadComponent($builder, $name, $component);
+			// component is valid identifier, only tu put it in collection
+			// of registered classes
+			if (is_numeric($name) && is_string($component))
+				$builder->define($component);
+			else
+				$this->loadComponent($builder, $name, $component);
 		}
 	}
 
@@ -92,13 +97,39 @@ class ContainerArrayLoader
 		$definition = $builder->define($name);
 		if (isset($component['class']))
 			$definition->setClass($component['class']);
-		if (isset($component['constructor']))
+		if (isset($component['constructor']) && $this->validateArguments($name, $component['constructor']))
 			$definition->setArguments($component['constructor']);
 		if (isset($component['notes']))
 			$definition->setNotes($component['notes']);
-		if (isset($component['methods']))
+		if (isset($component['methods']) && $this->validateMethods($component['methods']))
 			$definition->setMethods($component['methods']);
 		if (isset($component['scope']))
 			$definition->setScope($component['scope']);
+	}
+
+	protected function validateArguments($component, $arguments)
+	{
+		if (! is_array($arguments))
+			throw new UnexpectedValueException("Defined arguments in '{$component}' declaration are not an array");
+
+		foreach ($arguments as $arg)
+		{
+			if (! (is_array($arg) && (count($arg) == 2)))
+				throw new UnexpectedValueException("Argument declared in '{$component}' is not a valid argument");
+		}
+		return true;
+	}
+
+	protected function validateMethods($component, $methods)
+	{
+		if (! is_array($methods))
+			throw new UnexpectedValueException("Methods declared in '{$component}' are not valid array declaration");
+		foreach ($methods as $method)
+		{
+			if (! (is_array($method) && (count($method) == 2)))
+				throw new UnexpectedValueException("Method declaration should be array, found in '{$component}'");
+			$this->validateArguments($method[1]);
+		}
+		return true;
 	}
 }

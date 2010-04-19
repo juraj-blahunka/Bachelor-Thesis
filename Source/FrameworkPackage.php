@@ -90,7 +90,7 @@ class FrameworkPackage extends BasePackage
 'CompiledRule'         => 'Router/Rule/CompiledRule.php',
 'RoutingRule'          => 'Router/Rule/RoutingRule.php',
 
-'RoutingRuleArrayLoader' => 'Router/Loader/Array.php',
+'RoutingRuleArrayLoader' => 'Router/Loader/RoutingRuleArrayLoader.php',
 
 'ValueUrlStrategy'       => 'Router/Helper/ValueUrlStrategy.php',
 'RequestBaseUrlStrategy' => 'Router/Helper/RequestBaseUrlStrategy.php',

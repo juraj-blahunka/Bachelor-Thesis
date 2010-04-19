@@ -22,7 +22,7 @@ require $dir.'Components/Package/Loader/ClassMapLoader.php';
 require $dir.'Components/Package/Loader/PearClassLoader.php';
 require $dir.'Components/Package/Loader/FlatFolderClassLoader.php';
 
-require $dir.'Components/Router/Loader/Array.php';
+require $dir.'Components/Router/Loader/RoutingRuleArrayLoader.php';
 
 require $dir.'Web/Application/Application.php';
 require $dir.'Web/Application/WebApplication.php';
