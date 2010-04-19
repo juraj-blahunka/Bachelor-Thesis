@@ -1,18 +1,5 @@
 <?php
 
-require dirname(__FILE__).'/Components/Package/Interface/IPackage.php';
-require dirname(__FILE__).'/Components/Package/Interface/IClassLoader.php';
-require dirname(__FILE__).'/Components/Package/BasePackage.php';
-require dirname(__FILE__).'/Components/Package/Loader/AbstractClassLoader.php';
-require dirname(__FILE__).'/Components/Package/Loader/ClassMapLoader.php';
-require dirname(__FILE__).'/Components/Package/Loader/PearClassLoader.php';
-require dirname(__FILE__).'/Components/Package/Loader/FlatFolderClassLoader.php';
-
-require dirname(__FILE__).'/Web/Application/Application.php';
-require dirname(__FILE__).'/Web/Application/WebApplication.php';
-require dirname(__FILE__).'/Web/Application/ApplicationFactory.php';
-
-
 class FrameworkPackage extends BasePackage
 {
 	public function getPackageName()
@@ -29,6 +16,7 @@ class FrameworkPackage extends BasePackage
 	{
 		$components = include dirname(__FILE__) . '/Components/Resources/ComponentsConfiguration.php';
 		$web        = include dirname(__FILE__) . '/Web/Resources/WebConfiguration.php';
+
 		$loader = new ContainerArrayLoader();
 		$builder->merge($loader->load($components));
 		$builder->merge($loader->load($web));
@@ -104,7 +92,8 @@ class FrameworkPackage extends BasePackage
 
 'RoutingRuleArrayLoader' => 'Router/Loader/Array.php',
 
-'ValueUrlStrategy'     => 'Router/Helper/ValueUrlStrategy.php',
+'ValueUrlStrategy'       => 'Router/Helper/ValueUrlStrategy.php',
+'RequestBaseUrlStrategy' => 'Router/Helper/RequestBaseUrlStrategy.php',
 
 'RouteMatcher'         => 'Router/Helper/RouteMatcher.php',
 'RoutingRuleCompiler'  => 'Router/Helper/RoutingRuleCompiler.php',
@@ -159,9 +148,6 @@ class FrameworkPackage extends BasePackage
 'ControllerLoadListener'   => 'Listener/ControllerLoadListener.php',
 'BasicViewLoadListener'    => 'Listener/BasicViewLoadListener.php',
 'TwigViewLoadListener'     => 'Listener/TwigViewLoadListener.php',
-
-// Router
-'RequestBaseUrlStrategy' => 'Router/Helper/RequestBaseUrlStrategy.php',
 
 // Runner
 'IControllerLoader'       => 'Runner/Interface/IControllerLoader.php',

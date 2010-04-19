@@ -22,7 +22,7 @@ class ControllerRunner
 				'exception' => $e
 			));
 			$this->emitter->notifyUntil($event);
-			if ($event->isHandled())
+			if ($event->isHandled() && $event->hasParameter('response'))
 				return $this->filterResponse($event->getParameter('response'));
 
 			throw $e;

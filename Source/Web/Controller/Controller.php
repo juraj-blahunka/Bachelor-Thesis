@@ -4,12 +4,12 @@ class Controller extends BaseController
 {
 	public function getRequest()
 	{
-		return $this->container->getInstanceOf('Request');
+		return $this->container->getInstanceOf('request_service');
 	}
 
 	public function getResponse()
 	{
-		return $this->container->getInstanceOf('Response');
+		return $this->container->getInstanceOf('response_service');
 	}
 
 	public function getRenderableResponse(IResponse $original)

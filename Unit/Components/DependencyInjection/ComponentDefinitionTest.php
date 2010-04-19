@@ -22,6 +22,14 @@ class ComponentDefinitionTest extends PHPUnit_Framework_TestCase
 	{
 	}
 
+	public function testGetId()
+	{
+		$this->assertThat(
+			$this->object->getId(),
+			$this->equalTo('HelloClass')
+		);
+	}
+
 	public function testSetClass()
 	{
 		$this->object->setClass('AnotherClass');

@@ -22,7 +22,7 @@ class ComponentDefinitionToComponentAdapter implements IComponentDefinitionToCom
 		$objectArguments = array();
 		foreach ($arguments as $argument)
 		{
-			if (is_array($argument))
+			if (is_array($argument) && (count($argument) == 2))
 				list($type, $value) = $argument;
 			else
 			{

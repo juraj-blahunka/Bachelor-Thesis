@@ -3,19 +3,26 @@
 class ComponentDefinition implements IComponentDefinition
 {
 	protected
+		$id,
 		$class,
 		$arguments,
 		$scope,
 		$methods,
 		$notes;
 
-	public function __construct($class, array $arguments = array())
+	public function __construct($id, array $arguments = array())
 	{
-		$this->setClass($class);
+		$this->id = $id;
+		$this->setClass($id);
 		$this->setArguments($arguments);
 		$this->setDefaultScope();
 		$this->methods = array();
 		$this->notes   = array();
+	}
+
+	public function getId()
+	{
+		return $this->id;
 	}
 
 	public function setClass($class)

@@ -4,7 +4,7 @@ abstract class WebApplication extends Application
 {
 	public function run()
 	{
-		$request = $this->container->getInstanceOf('Request');
+		$request = $this->container->getInstanceOf('request_service');
 		$runner  = $this->container->getInstanceOf('ControllerRunner');
 		return $runner->run($request);
 	}
@@ -15,8 +15,10 @@ abstract class WebApplication extends Application
 		$rules = $this->registerRouting();
 		if (is_array($rules))
 		{
-			$router = $this->container->getInstanceOf('RouterManager');
-			$router->addRules($rules);
+			$this->container->getDefinition('router_service')
+				->addMethod('addRules', array(
+					array('value', $rules)
+				));
 		}
 	}
 

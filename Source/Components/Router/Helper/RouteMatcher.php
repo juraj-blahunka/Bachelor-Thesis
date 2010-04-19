@@ -12,6 +12,9 @@ class RouteMatcher implements IRouteMatcher
 			$rule->getRule()->getParameters()
 		);
 
+		if (! $this->checkRequiredVars($vars))
+			return false;
+
 		$route->setController($vars['controller'])
 			->setAction($vars['action'])
 			->setPackage($vars['package']);
@@ -32,5 +35,10 @@ class RouteMatcher implements IRouteMatcher
 			$vars[$key] = $value;
 		}
 		return $vars;
+	}
+
+	private function checkRequiredVars(array $vars)
+	{
+		return isset($vars['controller']) && isset($vars['action']) && isset($vars['package']);
 	}
 }

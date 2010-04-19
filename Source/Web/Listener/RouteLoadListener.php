@@ -4,7 +4,7 @@ class RouteLoadListener
 {
 	protected $router;
 
-	public function  __construct(IRouter $router)
+	public function __construct(IRouter $router)
 	{
 		$this->router = $router;
 	}
@@ -13,6 +13,7 @@ class RouteLoadListener
 	{
 		$request = $event->getParameter('request');
 		$route = $this->router->fetchRoute($request->getPathInfo());
+
 		$event->setValue($route);
 		return $route !== false;
 	}

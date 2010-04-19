@@ -18,11 +18,25 @@ return array(
 		),
 
 		// Router
-
+		'base_path_strategy_service' => array(
+			'class' => 'RequestBaseUrlStrategy',
+		),
 		'RouterFactory'       => array(),
 		'RouteMatcher'        => array(),
 		'RoutingRuleCompiler' => array(),
 		'UrlCreator'          => array(),
 
+		'router_service' => array(
+			'class' => 'RouterManager',
+		),
+		
+		// Http
+		'request_service' => array(
+			'class' => 'Request',
+		),
+		'response_service' => array(
+			'class' => 'Response',
+			'scope' => 'transient',
+		),
 	)
 );
