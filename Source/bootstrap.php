@@ -29,3 +29,4 @@ require $dir.'Components/Router/Loader/RoutingRuleArrayLoader.php';
 require $dir.'Web/Application/Application.php';
 require $dir.'Web/Application/WebApplication.php';
 require $dir.'Web/Application/ApplicationFactory.php';
+require $dir.'Web/Application/PathCollection.php';
