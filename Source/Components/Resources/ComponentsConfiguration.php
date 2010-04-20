@@ -44,6 +44,7 @@ return array(
 
 		'renderable_response_service' => array(
 			'class' => 'RenderableResponse',
+			'scope' => 'transient',
 		),
 	)
 );

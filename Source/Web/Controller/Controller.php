@@ -2,6 +2,8 @@
 
 class Controller extends BaseController
 {
+	private $_response;
+
 	public function getRequest()
 	{
 		return $this->container->getInstanceOf('request_service');
@@ -9,7 +11,9 @@ class Controller extends BaseController
 
 	public function getResponse()
 	{
-		return $this->container->getInstanceOf('response_service');
+		if ($this->_response === null)
+			$this->_response = $this->container->getInstanceOf('response_service');
+		return $this->_response;
 	}
 
 	public function getRenderableResponse(IResponse $original = null)

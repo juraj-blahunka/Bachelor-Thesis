@@ -222,7 +222,15 @@ class DependencyInjectionContainer extends ContainerBuilder implements IDependen
 	 */
 	public function getInstanceOfWith($component, array $arguments)
 	{
-		$definition = $this->factory->createComponentDefinition($component, $arguments)->setTransient();
+		$defined = $this->getDefinition($component);
+		if (! is_null($defined))
+		{
+			$definition = clone $defined;
+			$definition->setArguments($arguments);
+		}
+		else
+			$definition = $this->factory->createComponentDefinition($component, $arguments)->setTransient();
+
 		$adapter    = $this->factory->createAdapterFromDef($component, $definition);
 		return $adapter->getInstance($this);
 	}

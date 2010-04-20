@@ -41,7 +41,7 @@ class ControllerRunner implements IControllerRunner
 		$response   = ($response instanceof IRenderableResponse)
 			? $this->notifyView($response)
 			: $response;
-		
+
 
 		return $this->filterResponse($response);
 	}
@@ -88,7 +88,9 @@ class ControllerRunner implements IControllerRunner
 			'response' => $response,
 		));
 		$this->emitter->notifyUntil($event);
-		return $event->isHandled() ? $event->getValue() : $response;
+		return $event->isHandled()
+			? $event->getValue()
+			: $response->getOriginalResponse();
 	}
 
 	protected function filterResponse($response)

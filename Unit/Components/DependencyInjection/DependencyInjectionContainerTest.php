@@ -322,8 +322,33 @@ class DependencyInjectionContainerTest extends PHPUnit_Framework_TestCase
 		$depends = $this->object->getInstanceOfWith('DependsOnPunchable', array(
 			$argument
 		));
-		
+
 		$this->assertThat($depends->punchable, $this->identicalTo($argument));
+	}
+
+	public function testGetInstanceOfWith_DefinedComponent_AnotherArguments()
+	{
+		$this->object->define('punch_service')->setClass('DependsOnPunchable')
+			->addArgument('component', 'WeakPunch');
+
+		$strong = $this->object->getInstanceOfWith('punch_service', array(
+			array('component', 'StrongPunch')
+		));
+
+		$this->assertThat(
+			$strong,
+			$this->isInstanceOf('DependsOnPunchable')
+		);
+
+		$this->assertThat(
+			$strong->punchable,
+			$this->isInstanceOf('StrongPunch')
+		);
+
+		$this->assertThat(
+			$this->object->getInstanceOf('punch_service')->punchable,
+			$this->isInstanceOf('WeakPunch')
+		);
 	}
 
 	public function testChild_getConstant()
