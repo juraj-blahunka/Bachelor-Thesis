@@ -12,9 +12,12 @@ class PathCollectionTest extends PHPUnit_Framework_TestCase
 	 */
 	protected $object;
 
+	protected $dir;
+
 	protected function setUp()
 	{
 		$this->object = new PathCollection();
+		$this->dir    =  dirname(__FILE__);
 	}
 
 	protected function tearDown()
@@ -25,11 +28,11 @@ class PathCollectionTest extends PHPUnit_Framework_TestCase
 	{
 		$this->object->setPaths(array(
 			'testing.purpose' => array(FIXTURES_ROOT),
-			'another'         => array(dirname(__FILE__)),
+			'another'         => array($this->dir),
 		));
 		$this->assertThat(
 			$this->object->getAll(),
-			$this->equalTo(array(FIXTURES_ROOT, dirname(__FILE__)))
+			$this->equalTo(array(FIXTURES_ROOT, $this->dir))
 		);
 	}
 
@@ -61,6 +64,49 @@ class PathCollectionTest extends PHPUnit_Framework_TestCase
 		$this->assertThat(
 			$this->object->getAll(),
 			$this->equalTo(array())
+		);
+	}
+
+	public function testAddPaths()
+	{
+		$this->object->addPaths('tests', array(
+			FIXTURES_ROOT, $this->dir,
+		));
+		$this->assertThat(
+			$this->object->getAll(),
+			$this->equalTo(array(
+				FIXTURES_ROOT, $this->dir
+			)))
+		;
+	}
+
+	public function testMerge()
+	{
+		$this->object->addPath('tests', FIXTURES_ROOT);
+		$this->object->addPath('tests', dirname($this->dir));
+		$collection = new PathCollection(array(
+			'tests'   => array(FIXTURES_ROOT, $this->dir),
+			'another' => array($this->dir)
+		));
+		$this->object->merge($collection);
+
+		$this->assertThat(
+			$this->object->getAll(),
+			$this->equalTo(array(
+				FIXTURES_ROOT,
+				dirname($this->dir),
+				$this->dir,
+				$this->dir
+			))
+		);
+
+		$this->assertThat(
+			$collection->getAll(),
+			$this->equalTo(array(
+				FIXTURES_ROOT,
+				$this->dir,
+				$this->dir,
+			))
 		);
 	}
 }

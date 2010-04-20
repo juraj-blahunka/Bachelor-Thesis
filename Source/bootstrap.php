@@ -2,12 +2,18 @@
 
 $dir = dirname(__FILE__).DIRECTORY_SEPARATOR;
 
+require $dir.'Components/DependencyInjection/Interface/IComponentDefinition.php';
 require $dir.'Components/DependencyInjection/Interface/IComponentAdapter.php';
 require $dir.'Components/DependencyInjection/Interface/IComponentDefinitionToComponentAdapter.php';
 require $dir.'Components/DependencyInjection/Interface/IDependencyInjectionContainerFactory.php';
 require $dir.'Components/DependencyInjection/Interface/IContainerBuilder.php';
 require $dir.'Components/DependencyInjection/Interface/IDependencyInjectionContainer.php';
+require $dir.'Components/DependencyInjection/Adapter/BaseComponentAdapter.php';
+require $dir.'Components/DependencyInjection/Adapter/DecoratingComponentAdapter.php';
+require $dir.'Components/DependencyInjection/Adapter/SharedComponentAdapter.php';
 require $dir.'Components/DependencyInjection/Adapter/InstanceComponentAdapter.php';
+require $dir.'Components/DependencyInjection/Adapter/ConstructorComponentAdapter.php';
+require $dir.'Components/DependencyInjection/ComponentDefinition.php';
 require $dir.'Components/DependencyInjection/ComponentDefinitionToComponentAdapter.php';
 require $dir.'Components/DependencyInjection/DefaultContainerFactory.php';
 require $dir.'Components/DependencyInjection/ContainerBuilder.php';

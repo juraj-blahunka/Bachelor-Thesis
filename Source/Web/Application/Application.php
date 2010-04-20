@@ -7,6 +7,7 @@ abstract class Application
 		$debug,
 		$factory,
 		$container,
+		$paths,
 		$packages,
 		$packageCollection,
 		$packagePaths;
@@ -20,6 +21,12 @@ abstract class Application
 			: $factory;
 
 		$this->setContainer($this->factory->createContainer());
+
+		$this->container->define('path_collection_service')->setClass('PathCollection');
+		$this->paths = $this->container->getInstanceOf('path_collection_service');
+
+		$this->container->define('package_collection_service')->setClass('PackageCollection');
+		$this->packages = $this->container->getInstanceOf('package_collection_service');
 	}
 
 	public function configure()
@@ -48,6 +55,7 @@ abstract class Application
 		}
 		else
 			$this->packagePaths = array();
+
 		$this->container->setConstant('application.package_paths', $this->packagePaths);
 	}
 
@@ -57,13 +65,12 @@ abstract class Application
 		if (is_array($packageArray))
 		{
 			foreach ($packageArray as $package)
-				$package->register($this->container);
+				$package->register($this->container, $this->paths);
 		}
 		else
 			$packageArray = array();
 
-		$this->container->define('package_collection_service')->setClass('PackageCollection');
-		$this->packages = $this->container->getInstanceOf('package_collection_service');
+
 		$this->packages->setPackages($packageArray);
 	}
 

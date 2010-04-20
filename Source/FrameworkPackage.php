@@ -12,6 +12,8 @@ class FrameworkPackage extends Package
 		return array();
 	}
 
+	public function registerPaths() {}
+
 	public function registerWiring(IContainerBuilder $builder)
 	{
 		$components = include dirname(__FILE__) . '/Components/Resources/ComponentsConfiguration.php';

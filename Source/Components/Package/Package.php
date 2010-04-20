@@ -2,8 +2,7 @@
 
 abstract class Package implements IPackage
 {
-	private
-		$classLoaders;
+	private	$classLoaders;
 
 	/**
 	 * Template method for registering class loaders, nested packages and
@@ -11,7 +10,7 @@ abstract class Package implements IPackage
 	 *
 	 * @param IContainerBuilder $builder
 	 */
-	public function register(IContainerBuilder $builder)
+	public function register(IContainerBuilder $builder, PathCollection $paths)
 	{
 		$this->classLoaders = $this->registerClassLoaders();
 		if (is_array($this->classLoaders))
@@ -21,6 +20,10 @@ abstract class Package implements IPackage
 		}
 		else
 			$this->classLoaders = array();
+
+		$newPaths = $this->registerPaths();
+		if (is_object($newPaths))
+			$paths->merge($newPaths);
 
 		$this->registerWiring($builder);
 	}
