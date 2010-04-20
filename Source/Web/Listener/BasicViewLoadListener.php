@@ -3,35 +3,40 @@
 class BasicViewLoadListener
 {
 	protected
-		$directory,
+		$paths,
 		$defaultExt;
 
-	public function __construct($directory, $defaultExt = '.html')
+	public function __construct(PathCollection $paths, $defaultExt = '.html')
 	{
-		$this->directory  = $directory;
+		$this->paths      = $paths;
 		$this->defaultExt = $defaultExt;
 	}
 
 	public function handle(IEvent $event)
 	{
 		$response = $event->getParameter('response');
+		$route    = $event->getParameter('route');
 
-		$filename = $this->directory . '/' . $response->getViewName() . $this->defaultExt;
-		if (! file_exists($filename))
-			return false;
-
-		$rendered = $response->getOriginalResponse();
-		$rendered->setContent($this->renderView($filename, $response->getVariables()));
-
-		$event->setValue($rendered);
-		return true;
+		$paths = $this->paths->getPaths($route->getPackage() . '.views');
+		foreach ($paths as $path)
+		{
+			$filename = $path . '/' . $response->getViewName() . $this->defaultExt;
+			if (file_exists($filename))
+			{
+				$rendered = $response->getOriginalResponse();
+				$rendered->setContent($this->renderView($filename, $response->getVariables()));
+				$event->setValue($rendered);
+				return true;
+			}
+		}
+		return false;
 	}
 
-	protected function renderView($filename, $variables)
+	protected function renderView($_filename, $_variables)
 	{
 		ob_start();
-		extract($variables);
-		include $filename;
+		extract($_variables);
+		include $_filename;
 		return ob_get_clean();
 	}
 }

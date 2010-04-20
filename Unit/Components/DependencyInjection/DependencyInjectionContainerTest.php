@@ -345,9 +345,16 @@ class DependencyInjectionContainerTest extends PHPUnit_Framework_TestCase
 			$this->isInstanceOf('StrongPunch')
 		);
 
+		$weak = $this->object->getInstanceOf('punch_service')->punchable;
+
+		$this->assertThat(
+			$weak,
+			$this->isInstanceOf('WeakPunch')
+		);
+
 		$this->assertThat(
 			$this->object->getInstanceOf('punch_service')->punchable,
-			$this->isInstanceOf('WeakPunch')
+			$this->identicalTo($weak)
 		);
 	}
 

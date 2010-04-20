@@ -56,7 +56,7 @@ abstract class Application
 		else
 			$this->packagePaths = array();
 
-		$this->container->setConstant('application.package_paths', $this->packagePaths);
+		$this->container->setConstant('package.paths', $this->packagePaths);
 	}
 
 	protected function loadPackages()

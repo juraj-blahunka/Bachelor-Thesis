@@ -28,4 +28,14 @@ abstract class WebApplication extends Application
 				));
 		}
 	}
+
+	protected function loadPackages()
+	{
+		parent::loadPackages();
+		$this->container->addConstants(array(
+			'controller.paths' => $this->paths->getPaths('controllers'),
+			'command.paths'    => $this->paths->getPaths('commands'),
+			'view.paths'       => $this->paths->getPaths('views'),
+		));
+	}
 }
