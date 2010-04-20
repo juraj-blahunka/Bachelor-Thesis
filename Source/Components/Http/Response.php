@@ -33,6 +33,7 @@ class Response implements IResponse
 	public function setContent($content)
 	{
 		$this->content = $content;
+		return $this;
 	}
 
 	public function getContent()
@@ -43,6 +44,7 @@ class Response implements IResponse
 	public function write($content)
 	{
 		$this->content .= $content;
+		return $this;
 	}
 
 	protected function dispatchContent()
