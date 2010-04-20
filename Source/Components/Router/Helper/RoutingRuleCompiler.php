@@ -30,7 +30,7 @@ class RoutingRuleCompiler implements IRoutingRuleCompiler
 	 */
 	public function compile(IRoutingRule $rule)
 	{
-		$regex = str_replace('/', '\/', $rule->getPattern());
+		$regex = $this->escapePattern($rule->getPattern());
 
 		list($variableStrings, $variableNames) =
 			$this->findVariablesInPattern($regex);
@@ -104,5 +104,14 @@ class RoutingRuleCompiler implements IRoutingRuleCompiler
 				'(?<'.$name.'>'.$pattern.')';
 		}
 		return $requirements;
+	}
+
+	private function escapePattern($pattern)
+	{
+		return str_replace(
+			array('/',  '.'),
+			array('\/', '\.'),
+			$pattern
+		);
 	}
 }
