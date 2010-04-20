@@ -4,14 +4,14 @@ class ControllerLoader implements IControllerLoader
 {
 	protected
 		$container,
-		$directories,
-		$naming;
+		$paths,
+		$controllerNaming;
 
-	public function __construct(array $directories, IDependencyInjectionContainer $container, INameStrategy $naming)
+	public function __construct(PathCollection $paths, IDependencyInjectionContainer $container, INameStrategy $controllerNaming)
 	{
-		$this->directories = $directories;
-		$this->container   = $container;
-		$this->naming      = $naming;
+		$this->paths            = $paths;
+		$this->container        = $container;
+		$this->controllerNaming = $controllerNaming;
 	}
 
 	/**
@@ -23,11 +23,12 @@ class ControllerLoader implements IControllerLoader
 	 */
 	public function loadController(IRoute $route)
 	{
+		$package  = $route->getPackage();
 		$name     = $route->getController();
-		$fileName = $this->naming->getFileName($name);
-		$class    = $this->naming->getClassName($name);
+		$fileName = $this->controllerNaming->getFileName($name);
+		$class    = $this->controllerNaming->getClassName($name);
 
-		if (! $this->includeController($class, $fileName))
+		if (! $this->includeController($package, $class, $fileName))
 			return false;
 		else
 		{
@@ -45,12 +46,13 @@ class ControllerLoader implements IControllerLoader
 	 * @param string $fileName
 	 * @return Boolean
 	 */
-	protected function includeController($class, $fileName)
+	protected function includeController($package, $class, $fileName)
 	{
 		if (class_exists($class, true))
 			return true;
 
-		foreach ($this->directories as $dir)
+		$paths = $this->paths->getPaths($package.'.controllers');
+		foreach ($paths as $dir)
 		{
 			$location = $dir . DIRECTORY_SEPARATOR . $fileName . '.php';
 			if (! file_exists($location))

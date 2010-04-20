@@ -3,27 +3,29 @@
 class CommandActionInvoker implements IActionInvoker
 {
 	private
-		$directories,
+		$paths,
 		$container,
 		$cache,
-		$naming;
+		$commandNaming;
 
-	public function __construct(array $directories, IDependencyInjectionContainer $container, IReflectionCache $cache, INameStrategy $naming)
+	public function __construct(PathCollection $paths, IDependencyInjectionContainer $container, IReflectionCache $cache, INameStrategy $commandNaming)
 	{
-		$this->directories = $directories;
-		$this->container   = $container;
-		$this->cache       = $cache;
-		$this->naming      = $naming;
+		$this->paths         = $paths;
+		$this->container     = $container;
+		$this->cache         = $cache;
+		$this->commandNaming = $commandNaming;
 	}
 
 	public function canInvoke($controller, IRoute $route)
 	{
-		$commandName = $this->naming->getName($route->getAction());
+		$commandName = $this->commandNaming->getName($route->getAction());
+		$package     = $route->getPackage();
+
 		if (!($location = $this->findCommandLocation($commandName, $controller->getCommands())))
 			return false;
 
-		$commandClass = $this->naming->getClassName($location);
-		if (! $this->includeCommand($location, $commandClass))
+		$commandClass = $this->commandNaming->getClassName($location);
+		if (! $this->includeCommand($package, $location, $commandClass))
 			return false;
 
 		$reflection = $this->getCommandClassReflection($commandClass);
@@ -39,18 +41,20 @@ class CommandActionInvoker implements IActionInvoker
 
 	public function invoke($controller, IRoute $route)
 	{
-		$location = $this->findCommandLocation($this->naming->getName($route->getAction()), $controller->getCommands());
-		$commandClass = $this->naming->getClassName($location);
+		$location = $this->findCommandLocation($this->commandNaming->getName($route->getAction()), $controller->getCommands());
+		$commandClass = $this->commandNaming->getClassName($location);
 		$commandClass = $this->container->getInstanceOf($commandClass);
 		$commandClass->setContainer($this->container);
 		return call_user_func(array($commandClass, 'execute'));
 	}
 
-	protected function includeCommand($location, $class)
+	protected function includeCommand($package, $location, $class)
 	{
 		if (class_exists($class, true))
 			return true;
-		foreach ($this->directories as $dir)
+
+		$paths = $this->paths->getPaths($package.'.commands');
+		foreach ($paths as $dir)
 		{
 			$file = $dir . DIRECTORY_SEPARATOR . $location . '.php';
 			if (! file_exists($file))
@@ -79,6 +83,6 @@ class CommandActionInvoker implements IActionInvoker
 		if (! isset($commands[$name]))
 			return false;
 		$location = $commands[$name];
-		return $this->naming->getFileName($location);
+		return $this->commandNaming->getFileName($location);
 	}
 }

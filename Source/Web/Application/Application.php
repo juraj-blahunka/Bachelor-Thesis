@@ -70,7 +70,6 @@ abstract class Application
 		else
 			$packageArray = array();
 
-
 		$this->packages->setPackages($packageArray);
 	}
 

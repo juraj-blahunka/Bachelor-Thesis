@@ -24,6 +24,7 @@ require $dir.'Components/Package/Interface/IPackage.php';
 require $dir.'Components/Package/Interface/IPackageCollection.php';
 require $dir.'Components/Package/Interface/IClassLoader.php';
 require $dir.'Components/Package/Package.php';
+require $dir.'Components/Package/MvcPackage.php';
 require $dir.'Components/Package/PackageCollection.php';
 require $dir.'Components/Package/Loader/AbstractClassLoader.php';
 require $dir.'Components/Package/Loader/ClassMapLoader.php';
