@@ -9,7 +9,8 @@ class RenderableResponse implements IRenderableResponse
 
 	public function __construct(IResponse $response)
 	{
-		$this->response = $response;
+		$this->response  = $response;
+		$this->variables = array();
 	}
 
 	public function getOriginalResponse()
