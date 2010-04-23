@@ -138,14 +138,6 @@ class ResponseTest extends PHPUnit_Framework_TestCase
 		$this->object->deleteHeader('undefined');
 	}
 
-	public function testGetCookies()
-	{
-		$this->assertThat(
-			$this->object->getCookies(),
-			$this->equalTo($this->cookies)
-		);
-	}
-
 	public function testSetContent()
 	{
 		$this->object->setContent('some new content');
@@ -180,5 +172,103 @@ class ResponseTest extends PHPUnit_Framework_TestCase
 			$this->object->getHttpStatus()->getCode(),
 			$this->equalTo(404)
 		);
+	}
+
+	public function testGetCookies()
+	{
+		$this->assertThat(
+			$this->object->getCookies(),
+			$this->equalTo($this->cookies)
+		);
+	}
+
+	public function testSetCookies()
+	{
+		$this->object->setCookies(array(
+			'user' => array(
+				'value'    => 'john doe',
+				'expire'   => null,
+				'path'     => '/',
+				'domain'   => '',
+				'secure'   => false,
+				'httponly' => false,
+			)
+		));
+		$this->assertThat(
+			$this->object->getCookie('user'),
+			$this->equalTo(array(
+				'name'     => 'user',
+				'value'    => 'john doe',
+				'expire'   => null,
+				'path'     => '/',
+				'domain'   => '',
+				'secure'   => false,
+				'httponly' => false,
+			))
+		);
+	}
+
+	public function testSetCookie()
+	{
+		$this->object->setCookie('user', 'john doe');
+		$this->assertThat(
+			$this->object->getCookie('user'),
+			$this->equalTo(array(
+				'name'     => 'user',
+				'value'    => 'john doe',
+				'expire'   => null,
+				'path'     => '/',
+				'domain'   => '',
+				'secure'   => false,
+				'httponly' => false,
+			))
+		);
+	}
+
+	public function testSetCookie_NumericExpire()
+	{
+		$this->object->setCookie('user', 'john doe', '12345');
+		$this->assertThat(
+			$this->object->getCookie('user'),
+			$this->equalTo(array(
+				'name'     => 'user',
+				'value'    => 'john doe',
+				'expire'   => 12345,
+				'path'     => '/',
+				'domain'   => '',
+				'secure'   => false,
+				'httponly' => false,
+			))
+		);
+	}
+
+	public function testSetCookie_StringExpire()
+	{
+		$this->object->setCookie('user', 'john doe', 'now');
+		$this->assertThat(
+			$this->object->getCookie('user'),
+			$this->equalTo(array(
+				'name'     => 'user',
+				'value'    => 'john doe',
+				'expire'   => time(),
+				'path'     => '/',
+				'domain'   => '',
+				'secure'   => false,
+				'httponly' => false,
+			))
+		);
+	}
+
+	public function testSetCookie_InvalidStringExpire()
+	{
+		$this->setExpectedException('InvalidArgumentException');
+		$this->object->setCookie('user', 'john doe', 'some invalid string');
+	}
+
+	public function testDeleteCookie()
+	{
+		$this->object->deleteCookie('user');
+		$cookie = $this->object->getCookie('user');
+		$this->assertTrue($cookie['expire'] < time());
 	}
 }

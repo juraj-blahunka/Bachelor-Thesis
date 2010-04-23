@@ -89,13 +89,61 @@ class Response implements IResponse
 		$this->cookies = array();
 		foreach ($cookies as $name => $value)
 		{
-			$this->setCookie($name);
+			$this->setCookie(
+				$name,
+				isset($value['value']) ? $value['value'] : null,
+				isset($value['expire']) ? $value['expire'] : null,
+				isset($value['path']) ? $value['path'] : '/',
+				isset($value['domain']) ? $value['domain'] : '',
+				isset($value['secure']) ? $value['secure'] : false,
+				isset($value['httponly']) ? $value['httponly'] : false
+			);
 		}
 		return $this;
 	}
 
-	public function setCookie($name, $value, $expire, $path, $domain, $secure, $httponly)
+	public function setCookie($name, $value, $expire = null, $path = '/', $domain = '', $secure = false, $httponly = false)
 	{
+		if (! is_null($expire))
+		{
+			if (is_numeric($expire))
+			{
+				$expire = (int) $expire;
+			}
+			else
+			{
+				$expire = strtotime($expire);
+				if (($expire === false) || ($expire === -1))
+				{
+				  throw new InvalidArgumentException("Cookie[expire] parameter '{$expire}' is not valid");
+				}
+			}
+		}
+
+		$this->cookies[$name] = array(
+			'name'     => $name,
+			'value'    => $value,
+			'expire'   => $expire,
+			'path'     => $path,
+			'domain'   => $domain,
+			'secure'   => (Boolean) $secure,
+			'httponly' => (Boolean) $httponly,
+		);
+
+		return $this;
+	}
+
+	public function getCookie($name, $default = null)
+	{
+		return isset($this->cookies[$name])
+			? $this->cookies[$name]
+			: $default;
+	}
+
+	public function deleteCookie($name)
+	{
+		$hourAgo = time() - 3600;
+		$this->setCookie($name, "", $hourAgo);
 		return $this;
 	}
 
