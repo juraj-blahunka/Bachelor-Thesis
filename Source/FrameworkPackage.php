@@ -118,6 +118,7 @@ class FrameworkPackage extends Package
 'Request'          => 'Http/Request.php',
 'Response'         => 'Http/Response.php',
 'RenderableResponse'  => 'Http/RenderableResponse.php',
+'HttpStatusCode'   => 'Http/HttpStatusCode.php',
 
 // Cache
 'IClassReflectionCache'  => 'Cache/Reflection/Interface/IClassReflectionCache.php',
