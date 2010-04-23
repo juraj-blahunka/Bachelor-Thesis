@@ -6,11 +6,6 @@ return array(
 	),
 	'components' => array(
 
-		// events
-		'event_emitter_service' => array(
-			'class' => 'LazyEventEmitter'
-		),
-
 		// paths
 		'path_collection_service' => array(
 			'class' => 'PathCollection'

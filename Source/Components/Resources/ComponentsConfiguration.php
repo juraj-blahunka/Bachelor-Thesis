@@ -8,7 +8,7 @@ return array(
 
 		// Events
 		'event_emitter_service' => array(
-			'class' => 'EventEmitter',
+			'class' => 'LazyEventEmitter',
 		),
 
 		// Cache
@@ -32,7 +32,7 @@ return array(
 		'router_service' => array(
 			'class' => 'RouterManager',
 		),
-		
+
 		// Http
 		'request_service' => array(
 			'class' => 'Request',

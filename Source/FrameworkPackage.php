@@ -69,11 +69,12 @@ class FrameworkPackage extends Package
 'ComponentArgument'             => 'DependencyInjection/Argument/ComponentArgument.php',
 'ArrayArgument'                 => 'DependencyInjection/Argument/ArrayArgument.php',
 
-// Event Dispatcher
-'IEvent'        => 'Events/Interface/IEvent.php',
-'IEventEmitter' => 'Events/Interface/IEventEmitter.php',
-'Event'         => 'Events/Event.php',
-'EventEmitter'  => 'Events/EventEmitter.php',
+// Event Emitter
+'IEvent'           => 'Events/Interface/IEvent.php',
+'IEventEmitter'    => 'Events/Interface/IEventEmitter.php',
+'Event'            => 'Events/Event.php',
+'EventEmitter'     => 'Events/EventEmitter.php',
+'LazyEventEmitter' => 'Events/LazyEventEmitter.php',
 
 // Router
 'IRouter'              => 'Router/Interface/IRouter.php',
@@ -140,9 +141,6 @@ class FrameworkPackage extends Package
 'ActionNameStrategy'     => 'Naming/ActionNameStrategy.php',
 'CommandNameStrategy'    => 'Naming/CommandNameStrategy.php',
 'ControllerNameStrategy' => 'Naming/ControllerNameStrategy.php',
-
-// Events
-'LazyEventEmitter' => 'Events/LazyEventEmitter.php',
 
 // Listener
 'RouteLoadListener'        => 'Listener/RouteLoadListener.php',
