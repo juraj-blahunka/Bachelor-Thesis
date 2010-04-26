@@ -1,6 +1,6 @@
 <?php
 
-class BaseController implements IController
+abstract class BaseController implements IController
 {
 	protected $container;
 
