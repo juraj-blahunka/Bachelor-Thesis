@@ -106,7 +106,8 @@ class FrameworkPackage extends Package
 // Http
 'IRequest'              => 'Http/Interface/IRequest.php',
 'IResponse'             => 'Http/Interface/IResponse.php',
-'IRenderableResponse' => 'Http/Interface/IRenderableResponse.php',
+'IRenderableResponse'   => 'Http/Interface/IRenderableResponse.php',
+'IStatusCode'           => 'Http/Interface/IStatusCode.php',
 
 'BaseCollection'        => 'Http/Collection/BaseCollection.php',
 'CookieCollection'      => 'Http/Collection/CookieCollection.php',
@@ -115,10 +116,10 @@ class FrameworkPackage extends Package
 'HttpException'         => 'Http/Exception/HttpException.php',
 'NotFoundHttpException' => 'Http/Exception/NotFoundHttpException.php',
 
-'Request'          => 'Http/Request.php',
-'Response'         => 'Http/Response.php',
-'RenderableResponse'  => 'Http/RenderableResponse.php',
-'HttpStatusCode'   => 'Http/HttpStatusCode.php',
+'Request'               => 'Http/Request.php',
+'Response'              => 'Http/Response.php',
+'RenderableResponse'    => 'Http/RenderableResponse.php',
+'HttpStatusCode'        => 'Http/HttpStatusCode.php',
 
 // Cache
 'IClassReflectionCache'  => 'Cache/Reflection/Interface/IClassReflectionCache.php',

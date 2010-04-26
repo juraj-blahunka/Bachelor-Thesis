@@ -8,12 +8,12 @@ class Response implements IResponse
 		$content,
 		$status;
 
-	public function __construct(array $headers = array(), array $cookies = array(), HttpStatusCode $status = null)
+	public function __construct(array $headers = array(), array $cookies = array(), IStatusCode $status = null)
 	{
+		$this->setContent('');
 		$this->setHeaders($headers);
 		$this->setCookies($cookies);
 		$this->status = is_null($status) ? new HttpStatusCode(200) : $status;
-		$this->setContent('');
 	}
 
 	public function dispatch()
@@ -176,6 +176,8 @@ class Response implements IResponse
 
 	protected function dispatchHeaders()
 	{
+		header($this->status->getHeaderText());
+
 		foreach ($this->headers as $name => $value)
 		{
 			$string = $name . ': ' . $value;

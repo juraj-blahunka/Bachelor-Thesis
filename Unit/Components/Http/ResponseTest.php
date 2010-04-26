@@ -55,6 +55,7 @@ class ResponseTest extends PHPUnit_Framework_TestCase
 		$content = '<html><head><title>Response sample text</title></head><body><p>Response text</p></body></html>';
 		$this->object->setContent($content);
 		$this->object->setHeader('Content-Type', 'text/html');
+		$this->object->setCookie('new', 'with value');
 		$response = $this->getDispatchedResponse();
 
 		$this->assertThat(
@@ -171,6 +172,14 @@ class ResponseTest extends PHPUnit_Framework_TestCase
 		$this->assertThat(
 			$this->object->getHttpStatus()->getCode(),
 			$this->equalTo(404)
+		);
+	}
+
+	public function testGetHttpStatusCode()
+	{
+		$this->assertThat(
+			$this->object->getHttpStatus()->getCode(),
+			$this->equalTo('200')
 		);
 	}
 

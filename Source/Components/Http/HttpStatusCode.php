@@ -1,12 +1,15 @@
 <?php
 
-class HttpStatusCode
+class HttpStatusCode implements IStatusCode
 {
-	protected $code;
+	protected
+		$code,
+		$version;
 
-	public function __construct($code = 200)
+	public function __construct($code = 200, $version = '1.0')
 	{
 		$this->setCode($code);
+		$this->setProtocolVersion($version);
 	}
 
 	public function setCode($code)
@@ -22,9 +25,28 @@ class HttpStatusCode
 		return $this->code;
 	}
 
-	public function getText()
+	public function getCodeText()
 	{
 		return self::$statusCodes[$this->code];
+	}
+
+	public function setProtocolVersion($version)
+	{
+		$this->version = $version;
+	}
+
+	public function getProtocolVersion()
+	{
+		return $this->version;
+	}
+
+	public function getHeaderText()
+	{
+		$version = $this->getProtocolVersion();
+		$code    = $this->getCode();
+		$text    = $this->getCodeText();
+
+		return sprintf('HTTP/%s %s %s', $version, $code, $text);
 	}
 
 	/**

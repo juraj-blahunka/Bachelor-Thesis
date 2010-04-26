@@ -47,8 +47,33 @@ class HttpStatusCodeTest extends PHPUnit_Framework_TestCase
 	public function testGetText()
 	{
 		$this->assertThat(
-			$this->object->getText(),
+			$this->object->getCodeText(),
 			$this->equalTo('OK')
+		);
+	}
+
+	public function testSetProtocolVersion()
+	{
+		$this->object->setProtocolVersion('1.1');
+		$this->assertThat(
+			$this->object->getProtocolVersion(),
+			$this->equalTo('1.1')
+		);
+	}
+
+	public function testGetProtocolVersion()
+	{
+		$this->assertThat(
+			$this->object->getProtocolVersion(),
+			$this->equalTo('1.0')
+		);
+	}
+
+	public function testGetHeaderText()
+	{
+		$this->assertThat(
+			$this->object->getHeaderText(),
+			$this->equalTo('HTTP/1.0 200 OK')
 		);
 	}
 }
