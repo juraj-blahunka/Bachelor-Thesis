@@ -1,6 +1,6 @@
 <?php
 
-class Controller extends BaseController
+abstract class Controller extends BaseController
 {
 	private $_response;
 
