@@ -8,7 +8,6 @@ class Request implements IRequest
 		$server,
 		$httpHost,
 		$basePath,
-		$baseUrl,
 		$requestUri,
 		$pathInfo;
 
@@ -25,7 +24,6 @@ class Request implements IRequest
 
 		$this->httpHost   = null;
 		$this->basePath   = null;
-		$this->baseUrl    = null;
 		$this->requestUri = null;
 		$this->pathInfo   = null;
 
@@ -119,13 +117,6 @@ class Request implements IRequest
 		return $this->basePath;
 	}
 
-	public function getBaseUrl()
-	{
-		if ($this->baseUrl === null)
-			$this->baseUrl = $this->fetchBaseUrl();
-		return $this->baseUrl;
-	}
-
 	public function getRequestUri()
 	{
 		if ($this->requestUri === null)
@@ -154,7 +145,7 @@ class Request implements IRequest
 		$name     = $this->getServer('SERVER_NAME');
 		$port     = $this->getServer('SERVER_PORT');
 
-		return ($protocol === 'http' && $port === 80) || ($protocol === 'https' && $port === 443)
+		return ($protocol === 'http' && $port == 80) || ($protocol === 'https' && $port == 443)
 			? $name
 			: $name . ':' . $port;
 	}
@@ -168,7 +159,7 @@ class Request implements IRequest
 		elseif (basename($this->getServer('PHP_SELF')) === $filename)
 			$basePath = $this->getServer('PHP_SELF');
 		else
-			throw new RuntimeException("Cannot decide base url");
+			throw new RuntimeException("Cannot decide base path");
 
 		$requestUri = $this->getRequestUri();
 
@@ -177,20 +168,13 @@ class Request implements IRequest
 			return $basePath;
 		}
 
-		if (0 === strpos($requestUri, dirname($basePath)))
+		if (strpos($requestUri, dirname($basePath)) === 0)
 		{
 			$dir = dirname($basePath);
 			return rtrim(dirname($basePath), '/');
 		}
 
 		return rtrim($basePath, '/');
-	}
-
-	protected function fetchBaseUrl()
-	{
-		$filename = basename($this->getServer('SCRIPT_FILENAME', ''));
-		$basePath = $this->getBasePath();
-		return $basePath;
 	}
 
 	protected function fetchRequestUri()

@@ -27,13 +27,18 @@ abstract class Application
 
 		$this->container->define('package_collection_service')->setClass('PackageCollection');
 		$this->packages = $this->container->getInstanceOf('package_collection_service');
+
+		$this->container->addConstants(array(
+			'application.debug' => (bool) $debug,
+			'application.env'   => $environment
+		));
 	}
 
 	public function configure()
 	{
 		$this->loadPackagePaths();
 		$this->loadPackages();
-		$this->loadWiring();
+		$this->loadConfiguration();
 		$this->loadEvents();
 	}
 
@@ -43,7 +48,7 @@ abstract class Application
 
 	abstract function registerPackagePaths();
 
-	abstract function registerWiring();
+	abstract function registerConfiguration();
 
 	protected function loadPackagePaths()
 	{
@@ -73,9 +78,9 @@ abstract class Application
 		$this->packages->setPackages($packageArray);
 	}
 
-	protected function loadWiring()
+	protected function loadConfiguration()
 	{
-		$builder = $this->registerWiring();
+		$builder = $this->registerConfiguration();
 		if (is_object($builder))
 			$this->container->merge($builder);
 	}

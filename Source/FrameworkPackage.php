@@ -43,12 +43,14 @@ class FrameworkPackage extends Package
 'IInjecteeArgument'             => 'DependencyInjection/Interface/IInjecteeArgument.php',
 'IComponentDefinition'          => 'DependencyInjection/Interface/IComponentDefinition.php',
 'IComponentDefinitionToComponentAdapter' => 'DependencyInjection/Interface/IComponentDefinitionToComponentAdapter.php',
+'IContainerLoader'              => 'DependencyInjection/Interface/IContainerLoader.php',
 
 'InjecteeArgumentException'     => 'DependencyInjection/Exception/InjecteeArgumentException.php',
 'CyclicInstantiationException'  => 'DependencyInjection/Exception/CyclicInstantiationException.php',
 'AmbiguousArgumentException'    => 'DependencyInjection/Exception/AmbiguousArgumentException.php',
 
 'ContainerArrayLoader'          => 'DependencyInjection/Loader/ContainerArrayLoader.php',
+'ContainerPhpFileLoader'        => 'DependencyInjection/Loader/ContainerPhpFileLoader.php',
 
 'ContainerBuilder'              => 'DependencyInjection/ContainerBuilder.php',
 'DependencyInjectionContainer'  => 'DependencyInjection/DependencyInjectionContainer.php',

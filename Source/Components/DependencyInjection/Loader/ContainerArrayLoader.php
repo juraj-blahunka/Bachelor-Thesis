@@ -41,7 +41,7 @@
  * </code>
  */
 
-class ContainerArrayLoader
+class ContainerArrayLoader implements IContainerLoader
 {
 	protected $factory;
 
@@ -52,8 +52,11 @@ class ContainerArrayLoader
 			: $factory;
 	}
 
-	public function load(array $data)
+	public function load($data)
 	{
+		if (! is_array($data))
+			throw new UnexpectedValueException("ContainerArrayLoader can load only from array of data");
+
 		$builder = $this->factory->createContainerBuilder();
 
 		$this->loadConstants(

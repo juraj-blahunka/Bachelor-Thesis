@@ -23,36 +23,7 @@ class ContainerArrayLoaderTest extends PHPUnit_Framework_TestCase
 
 	public function testLoad()
 	{
-		$data = array(
-			'constants' => array(
-				'my.constant' => '1',
-				'my.second'   => '2',
-			),
-			'components' => array(
-				'MyComponent' => array(
-					'class' => 'My_Special_Component',
-					'constructor' => array(
-						array('value', 'my value'),
-						array('constant', 'my.constant'),
-						array('component', 'Other'),
-					),
-					'methods' => array(
-						array('resolve', array(
-							array('constant', 'my.second')
-						)),
-						array('otherMethod', array())
-					),
-					'notes' => array(
-						'remember' => 'this',
-						'controller.load' => 'resolve',
-					),
-					'scope' => 'transient',
-				),
-				'Other' => array(
-
-				)
-			)
-		);
+		$data = include(FIXTURES_ROOT.'/Components/DependencyInjection/Loader/SampleArrayConfig.php');
 		$builder = $this->object->load($data);
 		$this->assertThat($builder->getConstants(), $this->equalTo(array(
 			'my.constant' => '1',
@@ -86,5 +57,11 @@ class ContainerArrayLoaderTest extends PHPUnit_Framework_TestCase
 		$this->assertThat($def->getMethods(), $this->equalTo(array()));
 		$this->assertThat($def->getNotes(), $this->equalTo(array()));
 		$this->assertThat($def->getScope(), $this->equalTo('shared'));
+	}
+
+	public function testLoad_NotAnArray()
+	{
+		$this->setExpectedException('UnexpectedValueException');
+		$this->object->load('some string');
 	}
 }

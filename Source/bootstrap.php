@@ -8,6 +8,7 @@ require $dir.'Components/DependencyInjection/Interface/IComponentDefinitionToCom
 require $dir.'Components/DependencyInjection/Interface/IDependencyInjectionContainerFactory.php';
 require $dir.'Components/DependencyInjection/Interface/IContainerBuilder.php';
 require $dir.'Components/DependencyInjection/Interface/IDependencyInjectionContainer.php';
+require $dir.'Components/DependencyInjection/Interface/IContainerLoader.php';
 require $dir.'Components/DependencyInjection/Adapter/BaseComponentAdapter.php';
 require $dir.'Components/DependencyInjection/Adapter/DecoratingComponentAdapter.php';
 require $dir.'Components/DependencyInjection/Adapter/SharedComponentAdapter.php';
@@ -19,6 +20,7 @@ require $dir.'Components/DependencyInjection/DefaultContainerFactory.php';
 require $dir.'Components/DependencyInjection/ContainerBuilder.php';
 require $dir.'Components/DependencyInjection/DependencyInjectionContainer.php';
 require $dir.'Components/DependencyInjection/Loader/ContainerArrayLoader.php';
+require $dir.'Components/DependencyInjection/Loader/ContainerPhpFileLoader.php';
 
 require $dir.'Components/Package/Interface/IPackage.php';
 require $dir.'Components/Package/Interface/IPackageCollection.php';
