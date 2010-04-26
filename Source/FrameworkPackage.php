@@ -129,6 +129,10 @@ class FrameworkPackage extends Package
 'MethodReflectionCache'  => 'Cache/Reflection/MethodReflectionCache.php',
 'ReflectionCache'        => 'Cache/Reflection/ReflectionCache.php',
 
+// Storage
+'IStorage'          => 'Storage/Interface/IStorage.php',
+'SessionStorage'    => 'Storage/SessionStorage.php',
+
 
 				) // end array
 			),
@@ -166,6 +170,10 @@ class FrameworkPackage extends Package
 'IController'     => 'Controller/Interface/IController.php',
 'BaseController'  => 'Controller/BaseController.php',
 'Controller'      => 'Controller/Controller.php',
+
+// User
+'IUser' => 'User/Interface/IUser.php',
+'User'  => 'User/User.php',
 
 				)
 			) // end class loader

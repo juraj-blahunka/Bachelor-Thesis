@@ -103,6 +103,15 @@ return array(
 					array('controller.view', 'handle'),
 				)
 			),
+		),
+
+		// user
+		'user_service' => array(
+			'class' => 'User',
+			'constructor' => array(
+				array('component', 'storage_service'),
+				array('component', 'event_emitter_service')
+			)
 		)
 	)
 );

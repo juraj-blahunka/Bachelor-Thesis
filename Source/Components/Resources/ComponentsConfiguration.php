@@ -46,5 +46,10 @@ return array(
 			'class' => 'RenderableResponse',
 			'scope' => 'transient',
 		),
+
+		// Storage
+		'storage_service' => array(
+			'class' => 'SessionStorage',
+		),
 	)
 );
