@@ -14,8 +14,6 @@ class ControllerLoadListenerTest extends PHPUnit_Framework_TestCase
 
 	protected function setUp()
 	{
-		$mock = $this->getMock('IControllerLoader');
-		$this->object = new ControllerLoadListener($mock);
 	}
 
 	protected function tearDown()
@@ -24,5 +22,36 @@ class ControllerLoadListenerTest extends PHPUnit_Framework_TestCase
 
 	public function testHandle()
 	{
+		$loader = $this->getMock('IControllerLoader');
+		$loader->expects($this->once())->method('loadController')
+			->will($this->returnValue('controller instance'));
+		$route = $this->getMock('IRoute');
+		$this->object = new ControllerLoadListener($loader);
+		$event = new Event($this, '', array('route' => $route));
+
+		$this->assertThat(
+			$this->object->handle($event),
+			$this->equalTo(true)
+		);
+
+		$this->assertThat(
+			$event->getValue(),
+			$this->equalTo('controller instance')
+		);
+	}
+
+	public function testHandle_NotSuccessful()
+	{
+		$loader = $this->getMock('IControllerLoader');
+		$loader->expects($this->once())->method('loadController')
+			->will($this->returnValue(null));
+		$route = $this->getMock('IRoute');
+		$this->object = new ControllerLoadListener($loader);
+		$event = new Event($this, '', array('route' => $route));
+
+		$this->assertThat(
+			$this->object->handle($event),
+			$this->equalTo(false)
+		);
 	}
 }

@@ -14,8 +14,6 @@ class RouteLoadListenerTest extends PHPUnit_Framework_TestCase
 
 	protected function setUp()
 	{
-		$mock = $this->getMock('IRouter');
-		$this->object = new RouteLoadListener($mock);
 	}
 
 	protected function tearDown()
@@ -24,5 +22,42 @@ class RouteLoadListenerTest extends PHPUnit_Framework_TestCase
 
 	public function testHandle()
 	{
+		$router  = $this->getMock('IRouter');
+		$router->expects($this->once())->method('fetchRoute')
+			->will($this->returnValue('route instance'));
+		$request = $this->getMock('IRequest');
+		$this->object = new RouteLoadListener($router);
+
+		$event = new Event($this, 'route.load', array(
+			'request' => $request
+		));
+
+		$this->assertThat(
+			$this->object->handle($event),
+			$this->equalTo(true)
+		);
+
+		$this->assertThat(
+			$event->getValue(),
+			$this->equalTo('route instance')
+		);
+	}
+
+	public function testHandle_NotSuccessful()
+	{
+		$router  = $this->getMock('IRouter');
+		$router->expects($this->once())->method('fetchRoute')
+			->will($this->returnValue(false));
+		$request = $this->getMock('IRequest');
+		$this->object = new RouteLoadListener($router);
+
+		$event = new Event($this, 'route.load', array(
+			'request' => $request
+		));
+
+		$this->assertThat(
+			$this->object->handle($event),
+			$this->equalTo(false)
+		);
 	}
 }

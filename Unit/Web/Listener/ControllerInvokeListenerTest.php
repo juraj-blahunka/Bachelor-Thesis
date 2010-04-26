@@ -14,8 +14,6 @@ class ControllerInvokeListenerTest extends PHPUnit_Framework_TestCase
 
 	protected function setUp()
 	{
-		$mock = $this->getMock('IActionInvoker');
-		$this->object = new ControllerInvokeListener($mock);
 	}
 
 	protected function tearDown()
@@ -24,5 +22,44 @@ class ControllerInvokeListenerTest extends PHPUnit_Framework_TestCase
 
 	public function testHandle()
 	{
+		$mock = $this->getMock('IActionInvoker');
+		$this->object = new ControllerInvokeListener($mock);
+		$mock->expects($this->once())->method('canInvoke')
+			->will($this->returnValue(true));
+		$mock->expects($this->once())->method('invoke')
+			->will($this->returnValue('response instance'));
+
+		$event = new Event($this, 'controller.invoke', array(
+			'route' => $this->getMock('IRoute'),
+			'controller' => null
+		));
+
+		$this->assertThat(
+			$this->object->handle($event),
+			$this->equalTo(true)
+		);
+
+		$this->assertThat(
+			$event->getValue(),
+			$this->equalTo('response instance')
+		);
+	}
+
+	public function testHandle_NotSuccessful()
+	{
+		$mock = $this->getMock('IActionInvoker');
+		$this->object = new ControllerInvokeListener($mock);
+		$mock->expects($this->once())->method('canInvoke')
+			->will($this->returnValue(false));
+
+		$event = new Event($this, 'controller.invoke', array(
+			'route' => $this->getMock('IRoute'),
+			'controller' => null
+		));
+
+		$this->assertThat(
+			$this->object->handle($event),
+			$this->equalTo(false)
+		);
 	}
 }
