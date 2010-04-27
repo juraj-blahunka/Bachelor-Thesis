@@ -28,11 +28,25 @@ abstract class Controller extends BaseController
 		return $this->container->getInstanceOf('router_service');
 	}
 
+	public function generateUrl($name, array $parameters = array())
+	{
+		return $this->getRouter()->generateUrl($name, $parameters);
+	}
+
 	public function render($view, $variables)
 	{
 		$response = $this->getRenderableResponse($this->getResponse());
 		$response->setViewName($view);
 		$response->setVariables($variables);
+		return $response;
+	}
+
+	public function redirect($url, $permanent = false)
+	{
+		$response = $this->getResponse()
+			->setHttpStatusCode($permanent ? 301 : 302)
+			->setHeader('Location', $url);
+
 		return $response;
 	}
 

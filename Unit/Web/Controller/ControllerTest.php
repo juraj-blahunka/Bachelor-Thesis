@@ -80,6 +80,12 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		);
 	}
 
+	public function testGenerateUrl()
+	{
+		$this->setExpectedException('RuntimeException');
+		$this->object->generateUrl('by-some-name', array('router not configured'));
+	}
+
 	public function testRender()
 	{
 		$params = array('param1' => 'value1');
@@ -102,6 +108,34 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	{
 		$this->setExpectedException('NotFoundHttpException');
 		$this->object->forward('package', 'controller', 'action', array('params'));
+	}
+
+	public function testRedirect_Temporary()
+	{
+		$response = $this->object->redirect('http://www.example.com/');
+
+		$this->assertThat(
+			$response->getHttpStatus()->getCode(),
+			$this->equalTo(302)
+		);
+		$this->assertThat(
+			$response->getHeader('Location'),
+			$this->equalTo('http://www.example.com/')
+		);
+	}
+
+	public function testRedirect_Permanent()
+	{
+		$response = $this->object->redirect('http://www.example.com/', true);
+
+		$this->assertThat(
+			$response->getHttpStatus()->getCode(),
+			$this->equalTo(301)
+		);
+		$this->assertThat(
+			$response->getHeader('Location'),
+			$this->equalTo('http://www.example.com/')
+		);
 	}
 }
 

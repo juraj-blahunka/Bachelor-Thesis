@@ -46,7 +46,7 @@ class RouterManager implements IRouter
 	public function generateUrl($name, array $parameters = array())
 	{
 		if (! isset($this->rules[$name]))
-			throw new Exception("Routing rule {$name} not found");
+			throw new RuntimeException("Routing rule {$name} not found");
 
 		$rule = $this->rules[$name]->getRule();
 		$part = $this->creator->makeUrl($rule, $parameters);
