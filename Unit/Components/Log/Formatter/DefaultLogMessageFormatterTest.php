@@ -28,13 +28,13 @@ class DefaultLogMessageFormatterTest extends PHPUnit_Framework_TestCase
 			'timestamp' => $timestamp
 		));
 		$message = $this->object->format($log);
-		$this->assertThat($message, $this->equalTo("{$timestamp}: my message"));
+		$this->assertThat($message, $this->equalTo("{$timestamp} (NO LEVEL) my message"));
 	}
 
 	public function testFormat_NoTimestamp()
 	{
 		$log = new LogMessage('my message');
 		$message = $this->object->format($log);
-		$this->assertThat($message, $this->equalTo('no timestamp: my message'));
+		$this->assertThat($message, $this->equalTo('no timestamp (NO LEVEL) my message'));
 	}
 }

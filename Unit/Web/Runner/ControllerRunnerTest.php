@@ -20,7 +20,7 @@ class ControllerRunnerTest extends PHPUnit_Framework_TestCase
 	protected function setUp()
 	{
 		$this->emitter = new EventEmitter();
-		$this->object = new ControllerRunner($this->emitter);
+		$this->object  = new ControllerRunner($this->emitter);
 	}
 
 	protected function tearDown()

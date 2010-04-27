@@ -2,7 +2,7 @@
 
 class ControllerRunner implements IControllerRunner
 {
-	private $emitter;
+	protected $emitter;
 
 	public function __construct(IEventEmitter $emitter)
 	{
@@ -53,7 +53,7 @@ class ControllerRunner implements IControllerRunner
 		));
 		$this->emitter->notifyUntil($event);
 		if (! $event->isHandled())
-			throw new NotFoundHttpException("No route found for request");
+			throw new NotFoundHttpException("No route found for '{$request->getPathInfo()}' request");
 		return $event->getValue();
 	}
 
