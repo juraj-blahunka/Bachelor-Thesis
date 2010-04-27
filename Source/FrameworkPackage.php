@@ -134,6 +134,7 @@ class FrameworkPackage extends Package
 
 'AbstractLogMessageHandler'  => 'Log/Handler/AbstractLogMessageHandler.php',
 'ArrayLogMessageHandler'     => 'Log/Handler/ArrayLogMessageHandler.php',
+'LogMessageHandlerComposite' => 'Log/Handler/LogMessageHandlerComposite.php',
 
 'Logger'               => 'Log/Logger.php',
 'LogMessage'           => 'Log/LogMessage.php',
