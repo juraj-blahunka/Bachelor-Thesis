@@ -33,6 +33,11 @@ abstract class Controller extends BaseController
 		return $this->container->getInstanceOf('user_service');
 	}
 
+	public function getLogger()
+	{
+		return $this->container->getInstanceOf('logger_service');
+	}
+
 	public function generateUrl($name, array $parameters = array())
 	{
 		return $this->getRouter()->generateUrl($name, $parameters);

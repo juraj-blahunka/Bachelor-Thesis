@@ -34,6 +34,8 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		$container->define('user_service')->setClass('User')
 			->addArgument('component', 'ArrayStorage')
 			->addArgument('component', 'EventEmitter');
+		$container->define('logger_service')->setClass('Logger')
+			->addArgument('component', 'ArrayLogMessageHandler');
 
 		$this->object = new ControllerStub();
 		$this->object->setContainer($container);
@@ -90,6 +92,15 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		$this->assertThat(
 			$user,
 			$this->isInstanceOf('IUser')
+		);
+	}
+
+	public function testGetLogger()
+	{
+		$logger = $this->object->getLogger();
+		$this->assertThat(
+			$logger,
+			$this->isInstanceOf('ILogger')
 		);
 	}
 

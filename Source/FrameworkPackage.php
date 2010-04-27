@@ -139,6 +139,7 @@ class FrameworkPackage extends Package
 
 'Logger'               => 'Log/Logger.php',
 'LogMessage'           => 'Log/LogMessage.php',
+'NullLogger'           => 'Log/NullLogger.php',
 
 // Cache
 'IClassReflectionCache'  => 'Cache/Reflection/Interface/IClassReflectionCache.php',

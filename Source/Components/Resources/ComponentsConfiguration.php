@@ -11,6 +11,18 @@ return array(
 			'class' => 'LazyEventEmitter',
 		),
 
+		// Logger
+		'logger_handler_service' => array(
+			'class' => 'ArrayLogMessageHandler'
+		),
+
+		'logger_service' => array(
+			'class' => 'Logger',
+			'constructor' => array(
+				array('component', 'logger_handler_service')
+			)
+		),
+
 		// Cache
 		'ClassReflectionCache', 'MethodReflectionCache',
 
