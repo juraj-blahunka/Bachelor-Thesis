@@ -134,6 +134,7 @@ class FrameworkPackage extends Package
 // Storage
 'IStorage'          => 'Storage/Interface/IStorage.php',
 'SessionStorage'    => 'Storage/SessionStorage.php',
+'ArrayStorage'      => 'Storage/ArrayStorage.php',
 
 
 				) // end array

@@ -112,6 +112,6 @@ return array(
 				array('component', 'storage_service'),
 				array('component', 'event_emitter_service')
 			)
-		)
+		),
 	)
 );

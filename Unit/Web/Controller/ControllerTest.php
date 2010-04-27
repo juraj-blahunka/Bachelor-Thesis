@@ -31,6 +31,10 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		$container->define('EventEmitter');
 		$container->define('controller_runner_service')
 			->setClass('ControllerRunner');
+		$container->define('user_service')->setClass('User')
+			->addArgument('component', 'ArrayStorage')
+			->addArgument('component', 'EventEmitter');
+
 		$this->object = new ControllerStub();
 		$this->object->setContainer($container);
 	}
@@ -77,6 +81,15 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		$this->assertThat(
 			$this->object->getRouter(),
 			$this->isInstanceOf('IRouter')
+		);
+	}
+
+	public function testGetUser()
+	{
+		$user = $this->object->getUser();
+		$this->assertThat(
+			$user,
+			$this->isInstanceOf('IUser')
 		);
 	}
 
