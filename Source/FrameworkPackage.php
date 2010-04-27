@@ -123,6 +123,21 @@ class FrameworkPackage extends Package
 'RenderableResponse'    => 'Http/RenderableResponse.php',
 'HttpStatusCode'        => 'Http/HttpStatusCode.php',
 
+// Log
+'ILogMessage'          => 'Log/Interface/ILogMessage.php',
+'ILogMessageFormatter' => 'Log/Interface/ILogMessageFormatter.php',
+'ILogMessageHandler'   => 'Log/Interface/ILogMessageHandler.php',
+'ILogMessageFilter'    => 'Log/Interface/ILogMessageFilter.php',
+'ILogger'              => 'Log/Interface/ILogger.php',
+
+'DefaultLogMessageFormatter' => 'Log/Formatter/DefaultLogMessageFormatter.php',
+
+'AbstractLogMessageHandler'  => 'Log/Handler/AbstractLogMessageHandler.php',
+'ArrayLogMessageHandler'     => 'Log/Handler/ArrayLogMessageHandler.php',
+
+'Logger'               => 'Log/Logger.php',
+'LogMessage'           => 'Log/LogMessage.php',
+
 // Cache
 'IClassReflectionCache'  => 'Cache/Reflection/Interface/IClassReflectionCache.php',
 'IMethodReflectionCache' => 'Cache/Reflection/Interface/IMethodReflectionCache.php',
