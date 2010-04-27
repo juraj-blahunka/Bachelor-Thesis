@@ -59,6 +59,7 @@ class ArrayStorageTest extends PHPUnit_Framework_TestCase
 
 	public function testRegenerate()
 	{
-		// nothing to test
+		// nothing to test, nothing happens
+		$this->object->regenerate();
 	}
 }
