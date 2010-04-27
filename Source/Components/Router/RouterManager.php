@@ -43,6 +43,18 @@ class RouterManager implements IRouter
 		}
 	}
 
+	public function getRules()
+	{
+		return $this->rules;
+	}
+
+	public function getRule($name)
+	{
+		return isset($this->rules[$name])
+			? $this->rules[$name]
+			: null;
+	}
+
 	public function generateUrl($name, array $parameters = array())
 	{
 		if (! isset($this->rules[$name]))
