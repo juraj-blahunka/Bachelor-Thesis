@@ -12,10 +12,17 @@ class LoggerTest extends PHPUnit_Framework_TestCase
 	 */
 	protected $object;
 
+	/**
+	 * @var ILogMessageHandler
+	 */
+	protected $handler;
+
 	protected function setUp()
 	{
-		$handler = $this->getMock('ILogMessageHandler');
-		$this->object = new Logger($handler);
+		$this->handler = $this->getMock('ILogMessageHandler');
+		$this->handler->expects($this->once())->method('handle')
+			->with($this->isInstanceOf('ILogMessage'));
+		$this->object = new Logger($this->handler);
 	}
 
 	protected function tearDown()
@@ -24,33 +31,46 @@ class LoggerTest extends PHPUnit_Framework_TestCase
 
 	public function testEmergency()
 	{
+		$this->object->emergency('message');
 	}
 
 	public function testAlert()
 	{
+		$this->object->alert('message');
 	}
 
 	public function testCritical()
 	{
+		$this->object->critical('message');
 	}
 
 	public function testError()
 	{
+		$this->object->error('message');
 	}
 
 	public function testWarning()
 	{
+		$this->object->warning('message');
 	}
 
 	public function testNotice()
 	{
+		$this->object->notice('message');
 	}
 
 	public function testInfo()
 	{
+		$this->object->info('message');
 	}
 
 	public function testDebug()
 	{
+		$this->object->debug('message');
+	}
+
+	public function testEmergency_WithAdditional()
+	{
+		$this->object->emergency('message', 'additional');
 	}
 }
