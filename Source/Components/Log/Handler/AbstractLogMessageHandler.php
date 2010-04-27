@@ -28,7 +28,7 @@ abstract class AbstractLogMessageHandler implements ILogMessageHandler
 	{
 		foreach ($this->filters as $filter)
 		{
-			if (! $filter->filter($log))
+			if (! $filter->accept($log))
 				return false;
 		}
 		return true;

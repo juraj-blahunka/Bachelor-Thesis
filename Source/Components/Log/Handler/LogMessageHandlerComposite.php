@@ -4,9 +4,9 @@ class LogMessageHandlerComposite extends AbstractLogMessageHandler
 {
 	protected $handlers;
 
-	public function __construct(array $handlers, ILogMessageFormatter $formatter = null, array $filters = array())
+	public function __construct(array $handlers, array $filters = array())
 	{
-		parent::__construct($formatter, $filters);
+		parent::__construct(null, $filters);
 		$this->handlers = $handlers;
 	}
 
