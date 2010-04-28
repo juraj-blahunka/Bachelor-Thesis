@@ -35,12 +35,15 @@ class ContainerBuilder implements IContainerBuilder
 	 *
 	 * @param string $key
 	 * @return mixed
+	 *
+	 * @throws RuntimeException on accessing undefined constant
 	 */
 	public function getConstant($key)
 	{
-		return isset($this->constants[$key])
-			? $this->constants[$key]
-			: null;
+		if (! isset($this->constants[$key]))
+			throw new RuntimeException("Access to undefined constant '{$key}'");
+
+		return $this->constants[$key];
 	}
 
 	/**

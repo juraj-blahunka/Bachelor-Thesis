@@ -34,53 +34,22 @@
  */
 class DependencyInjectionContainer extends ContainerBuilder implements IDependencyInjectionContainer
 {
-	const
-		CONTAINER_KEY = 'container_service';
+	const CONTAINER_KEY = 'container_service';
 
-	protected
-		$parent,
-		$adapters;
+	protected $adapters;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param IDependencyInjectionContainer $parent
 	 * @param IDependencyInjectionContainerFactory $factory
 	 */
-	public function __construct(IDependencyInjectionContainer $parent = null, IDependencyInjectionContainerFactory $factory = null)
+	public function __construct(IDependencyInjectionContainerFactory $factory = null)
 	{
 		parent::__construct($factory);
-		$this->parent   = $parent;
 		$this->adapters = array();
 
 		$adapter = $this->factory->createInstanceAdapter(self::CONTAINER_KEY, $this);
 		$this->setComponentAdapter($adapter);
-	}
-
-	/**
-	 * Create child container, child container refers to Parent, if requested
-	 * adapters or constants are not found in child's repository.
-	 *
-	 * @return DependencyInjectionContainer The child container
-	 */
-	public function createChildContainer()
-	{
-		return new DependencyInjectionContainer($this, $this->factory);
-	}
-
-	/**
-	 * Get constant assigned to $key, if searched constant is not found,
-	 * look into parent's constant repository.
-	 *
-	 * @param string $key
-	 * @return mixed
-	 */
-	public function getConstant($key)
-	{
-		$constant = parent::getConstant($key);
-		return (is_null($constant) && (!is_null($this->parent)))
-			? $this->parent->getConstant($key)
-			: $constant;
 	}
 
 	/**
@@ -110,8 +79,6 @@ class DependencyInjectionContainer extends ContainerBuilder implements IDependen
 	 * If specified adapter is found, return the associated adapter.
 	 * If a definition assigned to $component is found, create and add new
 	 * adapter to adapter repository, return adapter.
-	 * If container has parent, try to retrieve adapter from it's repository.
-	 * Else return null.
 	 *
 	 * @param string $component
 	 * @return IComponentAdapter
@@ -128,9 +95,7 @@ class DependencyInjectionContainer extends ContainerBuilder implements IDependen
 			return $adapter;
 		}
 
-		return !is_null($this->parent)
-			? $this->parent->getComponentAdapter($component)
-			: null;
+		return null;
 	}
 
 	/**

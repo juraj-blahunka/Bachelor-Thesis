@@ -30,12 +30,10 @@ class ContainerBuilderTest extends PHPUnit_Framework_TestCase
 		);
 	}
 
-	public function testGetConstant()
+	public function testGetConstant_Undefined()
 	{
-		$this->assertThat(
-			$this->object->getConstant('undefined'),
-			$this->equalTo(null)
-		);
+		$this->setExpectedException('RuntimeException');
+		$this->object->getConstant('undefined');
 	}
 
 	public function testAddConstants()

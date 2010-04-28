@@ -14,11 +14,6 @@ class DependencyInjectionContainerTest extends PHPUnit_Framework_TestCase
 	 */
 	protected $object;
 
-	/**
-	 * @var DependencyInjectionContainer
-	 */
-	protected $child;
-
 	protected function setUp()
 	{
 		$this->object = new DependencyInjectionContainer;
@@ -26,7 +21,6 @@ class DependencyInjectionContainerTest extends PHPUnit_Framework_TestCase
 			'test.first' => 'first default',
 			'test.second' => 'second default',
 		));
-		$this->child = $this->object->createChildContainer();
 	}
 
 	protected function tearDown()
@@ -55,10 +49,8 @@ class DependencyInjectionContainerTest extends PHPUnit_Framework_TestCase
 
 	public function testGetConstant_UndefinedConstant()
 	{
-		$this->assertThat(
-			$this->object->getConstant('test.undefined'),
-			$this->equalTo(null)
-		);
+		$this->setExpectedException('RuntimeException');
+		$this->object->getConstant('test.undefined');
 	}
 
 	public function testSetConstant()
@@ -355,48 +347,6 @@ class DependencyInjectionContainerTest extends PHPUnit_Framework_TestCase
 		$this->assertThat(
 			$this->object->getInstanceOf('punch_service')->punchable,
 			$this->identicalTo($weak)
-		);
-	}
-
-	public function testChild_getConstant()
-	{
-		$this->assertThat(
-			$this->child->getConstant('test.first'),
-			$this->equalTo('first default')
-		);
-	}
-
-	public function testChild_getConstants_Empty()
-	{
-		$this->assertThat(
-			$this->child->getConstants(),
-			$this->equalTo(array())
-		);
-	}
-
-	public function testChild_getInstanceOf()
-	{
-		$this->object->define('MediumPunch');
-		$this->object->define('DecoratedPunchable')
-			->addArgument('component', 'MediumPunch');
-		$this->object->define('DependsOnPunchable')
-			->addArgument('component', 'DecoratedPunchable');
-
-		$instance = $this->child->getInstanceOf('DependsOnPunchable');
-
-		$this->assertThat(
-			$instance,
-			$this->isInstanceOf('DependsOnPunchable')
-		);
-
-		$this->assertThat(
-			$instance->punchable,
-			$this->isInstanceOf('DecoratedPunchable')
-		);
-
-		$this->assertThat(
-			$instance->punchable->delegate,
-			$this->isInstanceOf('MediumPunch')
 		);
 	}
 

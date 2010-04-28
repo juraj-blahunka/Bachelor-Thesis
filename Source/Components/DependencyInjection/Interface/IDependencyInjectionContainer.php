@@ -2,9 +2,6 @@
 
 interface IDependencyInjectionContainer extends IContainerBuilder
 {
-	// child container
-	function createChildContainer();
-
 	// components adapters
 	function setComponentAdapter(IComponentAdapter $adapter);
 	function getComponentAdapter($key);

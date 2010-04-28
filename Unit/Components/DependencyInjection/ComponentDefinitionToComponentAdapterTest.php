@@ -64,6 +64,33 @@ class ComponentDefinitionToComponentAdapterTest extends PHPUnit_Framework_TestCa
 		$this->assertThat($args[3], $this->isInstanceOf('ArrayArgument'));
 	}
 
+	public function testWithArguments_AssociativeArrayArgument()
+	{
+		$definition = new ComponentDefinition('HelloClass');
+		$definition->setTransient()->addArgument('array', array(
+			'first'  => array('value', '1'),
+			'second' => array('value', '2'),
+			'third'  => array('value', '3'),
+		));
+		$adapter = $this->object->convert(null, $definition);
+
+		$args  = $adapter->getArguments();
+		$arrayArgument = $args[0];
+
+		$this->assertThat($arrayArgument, $this->isInstanceOf('ArrayArgument'));
+
+		$container = $this->getMock('IDependencyInjectionContainer');
+		$adapter   = $this->getMock('IComponentAdapter');
+
+		$resolved = $arrayArgument->resolve($container, $adapter);
+
+		$this->assertThat($resolved, $this->equalTo(array(
+			'first'  => '1',
+			'second' => '2',
+			'third'  => '3'
+		)));
+	}
+
 	public function testWithUnrecognizedArguments()
 	{
 		$definition = new ComponentDefinition('HelloClass');
