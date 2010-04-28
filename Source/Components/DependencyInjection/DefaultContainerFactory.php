@@ -32,8 +32,8 @@ class DefaultContainerFactory implements IDependencyInjectionContainerFactory
 		return new ConstructorComponentAdapter($key, $class, $arguments);
 	}
 
-	public function createAdapterFromDef($key, IComponentDefinition $definition)
+	public function createAdapterFromDef(IComponentDefinition $definition)
 	{
-		return $this->converter->convert($key, $definition);
+		return $this->converter->convert($definition);
 	}
 }

@@ -90,7 +90,7 @@ class DependencyInjectionContainer extends ContainerBuilder implements IDependen
 
 		if (isset($this->definitions[$component]))
 		{
-			$adapter = $this->factory->createAdapterFromDef($component, $this->definitions[$component]);
+			$adapter = $this->factory->createAdapterFromDef($this->definitions[$component]);
 			$this->setComponentAdapter($adapter);
 			return $adapter;
 		}
@@ -196,7 +196,7 @@ class DependencyInjectionContainer extends ContainerBuilder implements IDependen
 		else
 			$definition = $this->factory->createComponentDefinition($component, $arguments)->setTransient();
 
-		$adapter    = $this->factory->createAdapterFromDef($component, $definition);
+		$adapter    = $this->factory->createAdapterFromDef($definition);
 		return $adapter->getInstance($this);
 	}
 

@@ -2,5 +2,5 @@
 
 interface IComponentDefinitionToComponentAdapter
 {
-	function convert($componentKey, IComponentDefinition $definition);
+	function convert(IComponentDefinition $definition);
 }

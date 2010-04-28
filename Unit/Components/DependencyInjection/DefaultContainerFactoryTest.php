@@ -49,7 +49,7 @@ class DefaultContainerFactoryTest extends PHPUnit_Framework_TestCase
 
 	public function testCreateAdapterFromDef()
 	{
-		$adapter = $this->object->createAdapterFromDef(null, new ComponentDefinition('HelloClass'));
+		$adapter = $this->object->createAdapterFromDef(new ComponentDefinition('HelloClass'));
 		$this->assertThat($adapter, $this->isInstanceOf('IComponentAdapter'));
 	}
 }

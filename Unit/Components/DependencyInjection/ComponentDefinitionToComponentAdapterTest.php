@@ -26,10 +26,10 @@ class ComponentDefinitionToComponentAdapterTest extends PHPUnit_Framework_TestCa
 	{
 		$definition = new ComponentDefinition('HelloClass');
 		$definition->setTransient();
-		$adapter = $this->object->convert(null, $definition);
+		$adapter = $this->object->convert($definition);
 
 		$this->assertThat($adapter, $this->isInstanceOf('ConstructorComponentAdapter'));
-		$this->assertThat(null, $this->equalTo($adapter->getKey()));
+		$this->assertThat('HelloClass', $this->equalTo($adapter->getKey()));
 		$this->assertThat('HelloClass', $this->equalTo($adapter->getClass()));
 	}
 
@@ -37,7 +37,7 @@ class ComponentDefinitionToComponentAdapterTest extends PHPUnit_Framework_TestCa
 	{
 		$definition = new ComponentDefinition('HelloClass');
 
-		$adapter = $this->object->convert(null, $definition);
+		$adapter = $this->object->convert($definition);
 
 		$this->assertThat($adapter, $this->isInstanceOf('SharedComponentAdapter'));
 		$this->assertThat($adapter->getAdapter(), $this->isInstanceOf('ConstructorComponentAdapter'));
@@ -52,11 +52,11 @@ class ComponentDefinitionToComponentAdapterTest extends PHPUnit_Framework_TestCa
 			->addArgument('array', array(array('value', 'another value')))
 			->setTransient();
 
-		$adapter = $this->object->convert(null, $definition);
+		$adapter = $this->object->convert($definition);
 
 		$args = $adapter->getArguments();
 		$this->assertThat('HelloClass', $this->equalTo($adapter->getClass()));
-		$this->assertThat(null,     $this->equalTo($adapter->getKey()));
+		$this->assertThat('HelloClass', $this->equalTo($adapter->getKey()));
 		$this->assertThat($adapter, $this->isInstanceOf('ConstructorComponentAdapter'));
 		$this->assertThat($args[0], $this->isInstanceOf('ValueArgument'));
 		$this->assertThat($args[1], $this->isInstanceOf('ConstantArgument'));
@@ -72,7 +72,7 @@ class ComponentDefinitionToComponentAdapterTest extends PHPUnit_Framework_TestCa
 			'second' => array('value', '2'),
 			'third'  => array('value', '3'),
 		));
-		$adapter = $this->object->convert(null, $definition);
+		$adapter = $this->object->convert($definition);
 
 		$args  = $adapter->getArguments();
 		$arrayArgument = $args[0];
@@ -98,7 +98,7 @@ class ComponentDefinitionToComponentAdapterTest extends PHPUnit_Framework_TestCa
 			->setTransient();
 
 		$this->setExpectedException('InvalidArgumentException');
-		$adapter = $this->object->convert(null, $definition);
+		$adapter = $this->object->convert($definition);
 	}
 
 	public function testWithMethodAfterConstruction()
@@ -107,7 +107,7 @@ class ComponentDefinitionToComponentAdapterTest extends PHPUnit_Framework_TestCa
 		$definition->addMethod('methodName')
 			->setTransient();
 
-		$adapter = $this->object->convert(null, $definition);
+		$adapter = $this->object->convert($definition);
 
 		$methods = $adapter->getMethods();
 		$this->assertThat($adapter, $this->isInstanceOf('MethodsAfterConstructionAdapter'));
