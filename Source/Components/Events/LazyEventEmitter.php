@@ -4,11 +4,26 @@ class LazyEventEmitter extends EventEmitter
 {
 	protected $container;
 
+	/**
+	 * Constructor.
+	 *
+	 * @param IDependencyInjectionContainer $container
+	 */
 	public function __construct(IDependencyInjectionContainer $container)
 	{
 		$this->container = $container;
 	}
 
+	/**
+	 * Retrieve listeners attached to $name event.
+	 *
+	 * If listener is declared lazy ($listener[0] === 'lazy'), the listener
+	 * is substitutes with new instantiated listener. Instantiation is
+	 * provided by IDependencyInjectionContainer instance.
+	 *
+	 * @param string $name
+	 * @return array
+	 */
 	public function getListeners($name)
 	{
 		if (! isset($this->listeners[$name]))
