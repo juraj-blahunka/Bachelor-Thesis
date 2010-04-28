@@ -119,4 +119,3 @@ class EventEmitterTest extends PHPUnit_Framework_TestCase
 		$this->dispatcher->notifyUntil($e, true);
 	}
 }
-?>

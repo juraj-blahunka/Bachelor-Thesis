@@ -82,4 +82,3 @@ class ConstructorComponentAdapterTest extends PHPUnit_Framework_TestCase
 		);
 	}
 }
-?>

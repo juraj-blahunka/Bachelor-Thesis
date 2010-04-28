@@ -48,4 +48,3 @@ class PearClassLoaderTest extends PHPUnit_Framework_TestCase
 	}
 
 }
-?>

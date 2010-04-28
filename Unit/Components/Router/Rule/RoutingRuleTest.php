@@ -95,4 +95,3 @@ class RoutingRuleTest extends PHPUnit_Framework_TestCase
 	}
 
 }
-?>
