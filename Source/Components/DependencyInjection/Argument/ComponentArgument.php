@@ -2,14 +2,30 @@
 
 class ComponentArgument implements IInjecteeArgument
 {
-	protected
-		$component;
+	/**
+	 * Component identified by its Key or Classname.
+	 *
+	 * @var string
+	 */
+	protected $component;
 
+	/**
+	 * Constructor.
+	 *
+	 * @param string $component
+	 */
 	public function __construct($component)
 	{
 		$this->component = $component;
 	}
 
+	/**
+	 * Resolve the Component string into an Object instance.
+	 *
+	 * @param IDependencyInjectionContainer $container
+	 * @param IComponentAdapter $adapter
+	 * @return mixed
+	 */
 	public function resolve(IDependencyInjectionContainer $container, IComponentAdapter $adapter)
 	{
 		$instance = $container->getInstanceOf($this->component);

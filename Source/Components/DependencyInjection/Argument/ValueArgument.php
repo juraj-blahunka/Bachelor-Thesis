@@ -2,13 +2,30 @@
 
 class ValueArgument implements IInjecteeArgument
 {
-	protected
-		$value;
+	/**
+	 * The value.
+	 *
+	 * @var mixed
+	 */
+	protected $value;
 
+	/**
+	 * Constructor.
+	 *
+	 * @param mixed $value
+	 */
 	public function __construct($value)
 	{
 		$this->value = $value;
 	}
+
+	/**
+	 * Resolve the argument by returning the Value.
+	 *
+	 * @param IDependencyInjectionContainer $container
+	 * @param IComponentAdapter $adapter
+	 * @return mixed
+	 */
 	public function resolve(IDependencyInjectionContainer $container, IComponentAdapter $adapter)
 	{
 		return $this->value;
