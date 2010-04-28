@@ -2,8 +2,16 @@
 
 class ComponentDefinitionToComponentAdapter implements IComponentDefinitionToComponentAdapter
 {
-	public function convert($componentKey, IComponentDefinition $definition)
+	/**
+	 * Converts the Component Definition to the appropriate Component Adapter
+	 * representation.
+	 *
+	 * @param IComponentDefinition $definition
+	 * @return IComponentAdapter
+	 */
+	public function convert(IComponentDefinition $definition)
 	{
+		$componentKey = $definition->getId();
 		$class        = $definition->getClass();
 		$arguments    = $this->createArgumentObjectsFromArray($definition->getArguments());
 		$instantiater = new ConstructorComponentAdapter($componentKey, $class, $arguments);
@@ -17,6 +25,12 @@ class ComponentDefinitionToComponentAdapter implements IComponentDefinitionToCom
 		return $scoper;
 	}
 
+	/**
+	 * Transform array of arguments into array of instanceof of IInjecteeArgument.
+	 *
+	 * @param array $arguments
+	 * @return array of IInjecteeArgument
+	 */
 	protected function createArgumentObjectsFromArray(array $arguments)
 	{
 		$objectArguments = array();
@@ -34,6 +48,21 @@ class ComponentDefinitionToComponentAdapter implements IComponentDefinitionToCom
 		return $objectArguments;
 	}
 
+	/**
+	 * Create single argument instance of IInjecteeArgument.
+	 *
+	 * Available types of argument are:
+	 *		value
+	 *		constant
+	 *		component
+	 *		array
+	 *
+	 * @param string $type
+	 * @param mixed $value
+	 * @return IInjecteeArgument
+	 *
+	 * @throws InvalidArgumentException when argument type was not found in enabled argument types
+	 */
 	protected function createArgument($type, $value)
 	{
 		if (in_array($type, array('value', 'constant', 'component')))
@@ -54,7 +83,14 @@ class ComponentDefinitionToComponentAdapter implements IComponentDefinitionToCom
 		else
 			throw new InvalidArgumentException("Argument of type '{$type}' is not valid, value = '{$value}'");
 	}
-
+	
+	/**
+	 * Transforms array of methods into array of methods with array of instances
+	 * of IInjecteeArgument
+	 *
+	 * @param array $methods
+	 * @return array
+	 */
 	protected function createMethodsArray(array $methods)
 	{
 		$bulkedMethods = array();
