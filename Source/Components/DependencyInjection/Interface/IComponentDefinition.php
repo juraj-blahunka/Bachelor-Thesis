@@ -2,6 +2,8 @@
 
 interface IComponentDefinition
 {
+	function getId();
+
 	function setClass($class);
 	function getClass();
 
