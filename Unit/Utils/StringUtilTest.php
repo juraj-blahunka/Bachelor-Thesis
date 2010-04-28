@@ -29,4 +29,27 @@ class StringUtilTest extends PHPUnit_Framework_TestCase
 			$this->equalTo('SomeUndefinedWords')
 		);
 	}
+
+	public function testSlugify()
+	{
+		$this->assertThat(
+			StringUtil::slugify('Hello World!'),
+			$this->equalTo('hello-world')
+		);
+
+		$this->assertThat(
+			StringUtil::slugify('Mäkčene a dĺžne'),
+			$this->equalTO('makcene-a-dlzne')
+		);
+
+		$this->assertThat(
+			StringUtil::slugify('more  hyphens -- and   blanks'),
+			$this->equalTo('more-hyphens-and-blanks')
+		);
+
+		$this->assertThat(
+			StringUtil::slugify('verbose (with explanation in parens)'),
+			$this->equalTo('verbose-with-explanation-in-parens')
+		);
+	}
 }
