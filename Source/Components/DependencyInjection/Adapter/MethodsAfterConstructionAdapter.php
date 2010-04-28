@@ -2,20 +2,42 @@
 
 class MethodsAfterConstructionAdapter extends DecoratingComponentAdapter
 {
-	private
-		$methods;
+	/**
+	 * Methods to be called after component instantiation.
+	 *
+	 * @var array
+	 */
+	private $methods;
 
+	/**
+	 * Constructor.
+	 *
+	 * @param array $methods
+	 * @param IComponentAdapter $adapter
+	 */
 	public function __construct(array $methods, IComponentAdapter $adapter)
 	{
 		parent::__construct($adapter);
 		$this->methods = $methods;
 	}
 
+	/**
+	 * Get Methods.
+	 *
+	 * @return array
+	 */
 	public function getMethods()
 	{
 		return $this->methods;
 	}
 
+	/**
+	 * Get instance of decorated adapter instantiation.
+	 * Apply methods on object instance.
+	 *
+	 * @param IDependencyInjectionContainer $container
+	 * @return mixed The object instance
+	 */
 	public function getInstance(IDependencyInjectionContainer $container)
 	{
 		$instance = parent::getInstance($container);

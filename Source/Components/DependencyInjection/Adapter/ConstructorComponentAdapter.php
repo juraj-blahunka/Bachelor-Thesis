@@ -8,6 +8,13 @@ class ConstructorComponentAdapter extends BaseComponentAdapter
 		$arguments,
 		$preventCyclic;
 
+	/**
+	 * Constructor.
+	 *
+	 * @param string $key
+	 * @param string $class
+	 * @param array $arguments array of IInjecteeArgument
+	 */
 	public function __construct($key, $class, array $arguments = array())
 	{
 		$this->key   = $key;
@@ -16,21 +23,46 @@ class ConstructorComponentAdapter extends BaseComponentAdapter
 		$this->preventCyclic = false;
 	}
 
+	/**
+	 * Get Key.
+	 *
+	 * @return string
+	 */
 	public function getKey()
 	{
 		return $this->key;
 	}
 
+	/**
+	 * Get Class name.
+	 *
+	 * @return string
+	 */
 	public function getClass()
 	{
 		return $this->class;
 	}
 
+	/**
+	 * Get Arguments.
+	 *
+	 * @return array of IInjecteeArgument
+	 */
 	public function getArguments()
 	{
 		return $this->arguments;
 	}
 
+	/**
+	 * Instantiate the component based on provided class and arguments.
+	 * If no arguments are passed, try to resolve them automatically by
+	 * using Reflection.
+	 *
+	 * @param IDependencyInjectionContainer $container
+	 * @return mixed
+	 *
+	 * @throws CyclicInstantiationException when Adapter tries to instantiate itself
+	 */
 	public function getInstance(IDependencyInjectionContainer $container)
 	{
 		if ($this->preventCyclic)

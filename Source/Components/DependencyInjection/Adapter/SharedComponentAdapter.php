@@ -2,9 +2,21 @@
 
 class SharedComponentAdapter extends DecoratingComponentAdapter
 {
-	protected
-		$sharedInstance = null;
+	/**
+	 * The shared instance.
+	 *
+	 * @var mixed
+	 */
+	protected $sharedInstance = null;
 
+	/**
+	 * Get shared instance.
+	 * If shared instance is null, the decorated Adapter provides
+	 * object instance.
+	 *
+	 * @param IDependencyInjectionContainer $container
+	 * @return mixed
+	 */
 	public function getInstance(IDependencyInjectionContainer $container)
 	{
 		if (is_null($this->sharedInstance))
