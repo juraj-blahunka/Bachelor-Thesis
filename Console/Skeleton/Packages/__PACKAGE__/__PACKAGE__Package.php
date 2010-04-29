@@ -4,7 +4,7 @@ class {{ package }}Package extends MvcPackage
 {
 	public function getPackageName()
 	{
-		return '{{ name }}';
+		return '{{ package }}';
 	}
 
 	public function registerClassLoaders() {}

@@ -4,6 +4,11 @@ abstract class Controller extends BaseController
 {
 	private $_response;
 
+	public function getCommands()
+	{
+		return array();
+	}
+
 	public function getRequest()
 	{
 		return $this->container->getInstanceOf('request_service');
@@ -43,7 +48,7 @@ abstract class Controller extends BaseController
 		return $this->getRouter()->generateUrl($name, $parameters);
 	}
 
-	public function render($view, $variables)
+	public function render($view, array $variables = array())
 	{
 		$response = $this->getRenderableResponse($this->getResponse());
 		$response->setViewName($view);

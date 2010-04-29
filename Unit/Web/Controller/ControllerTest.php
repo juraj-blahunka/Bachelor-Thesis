@@ -54,6 +54,15 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		);
 	}
 
+	public function testGetCommands()
+	{
+		$defaultValue = array();
+		$this->assertThat(
+			$this->object->getCommands(),
+			$this->equalTo($defaultValue)
+		);
+	}
+
 	public function testGetRequest()
 	{
 		$this->assertThat(

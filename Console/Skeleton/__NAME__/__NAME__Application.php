@@ -6,19 +6,19 @@ class {{ name }}Application extends WebApplication
 	{
 		return array(
 			new FrameworkPackage(),
-			new {{ name }}Package(),
+			new {{ package }}Package(),
 		);
 	}
 
 	public function registerPackagePaths()
 	{
 		return array(
-			dirname(__FILE__).'/path_to_framework_package/FrameworkPackage.php',
+			dirname(__FILE__).'/../../../Bachelor-Thesis/Source/FrameworkPackage.php',
 			dirname(__FILE__).'/../Packages/{{ package }}/{{ package }}Package.php',
 		);
 	}
 
-	public function registerWiring()
+	public function registerConfiguration()
 	{
 		$loader = new ContainerPhpFileLoader(new ContainerArrayLoader());
 		return $loader->load(dirname(__FILE__).'/Resources/{{ name }}Configuration.php');
@@ -27,7 +27,7 @@ class {{ name }}Application extends WebApplication
 	public function registerRouting()
 	{
 		$data = include dirname(__FILE__).'/Resources/{{ name }}Routing.php';
-		$loader = new RoutingRuleArrayLoader({{ name }});
+		$loader = new RoutingRuleArrayLoader('{{ package }}');
 		return $loader->load($data);
 	}
 }

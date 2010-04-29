@@ -16,14 +16,5 @@ return array(
 			)
 		),
 
-		'controller_view_listener' => array(
-			'class' => 'TwigViewLoadListener',
-			'notes' => array(
-				'listener' => array(
-					array('controller.view', 'handle')
-				)
-			)
-		)
-
 	)
 );

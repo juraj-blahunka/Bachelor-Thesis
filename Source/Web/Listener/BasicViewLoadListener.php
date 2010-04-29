@@ -6,7 +6,7 @@ class BasicViewLoadListener
 		$paths,
 		$defaultExt;
 
-	public function __construct(PathCollection $paths, $defaultExt = '.html')
+	public function __construct(PathCollection $paths, $defaultExt = '.php')
 	{
 		$this->paths      = $paths;
 		$this->defaultExt = $defaultExt;
