@@ -5,7 +5,7 @@ class DefaultController extends Controller
 	public function getCommands()
 	{
 		return array(
-			'SayHello' => 'SayHello',
+			'sayHelloAction' => 'Welcome/SayHello',
 		);
 	}
 
