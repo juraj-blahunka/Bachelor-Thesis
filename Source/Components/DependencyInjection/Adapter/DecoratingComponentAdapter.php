@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * For adapter decorating purposes.
+ *
+ * @package    BachelorThesis
+ * @subpackage DependencyInjection
+ */
 abstract class DecoratingComponentAdapter extends BaseComponentAdapter
 {
 	/**

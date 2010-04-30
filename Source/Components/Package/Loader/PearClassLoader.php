@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Lazily loads classes, which are named after PEAR conventions.
+ *
+ * @package    BachelorThesis
+ * @subpackage Package
+ */
 class PearClassLoader extends AbstractClassLoader
 {
 	protected

@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Layer between the interface and concrete implementations.
+ * Defines two methods to implement.
+ *
+ * @package    BachelorThesis
+ * @subpackage Package
+ */
 abstract class AbstractClassLoader implements IClassLoader
 {
 	protected $callback;

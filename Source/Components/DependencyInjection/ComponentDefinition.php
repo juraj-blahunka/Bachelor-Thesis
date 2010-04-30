@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Holds data about component, designed after the Builder pattern.
+ *
+ * @package    BachelorThesis
+ * @subpackage DependencyInjection
+ */
 class ComponentDefinition implements IComponentDefinition
 {
 	protected

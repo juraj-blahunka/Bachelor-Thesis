@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Uniform controller names.
+ *
+ * @package    BachelorThesis
+ * @subpackage Naming
+ */
 class ControllerNameStrategy extends AbstractNameStrategy
 {
 	public function getClassName($name)

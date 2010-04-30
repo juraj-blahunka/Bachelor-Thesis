@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Main framework package with basic configuration.
+ *
+ * @package    BachelorThesis
+ */
 class FrameworkPackage extends Package
 {
 	public function getPackageName()

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Definition of default service implementations.
+ *
+ * @package    BachelorThesis
+ * @subpackage Resources
+ */
 return array(
 	'constants'  => array(
 

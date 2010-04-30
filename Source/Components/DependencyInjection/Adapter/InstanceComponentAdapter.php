@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Stores and provides an instance of object.
+ *
+ * @package    BachelorThesis
+ * @subpackage DependencyInjection
+ */
 class InstanceComponentAdapter implements IComponentAdapter
 {
 	protected

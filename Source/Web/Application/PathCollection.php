@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Collection of important paths.
+ *
+ * @package    BachelorThesis
+ * @subpackage Application
+ */
 class PathCollection
 {
 	protected $paths;

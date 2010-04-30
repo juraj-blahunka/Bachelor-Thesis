@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Generates url from routing rule pattern and provided parameters.
+ *
+ * @package    BachelorThesis
+ * @subpackage Router
+ */
 class UrlCreator implements IUrlCreator
 {
 	public function makeUrl(IRoutingRule $rule, array $parameters = array())

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Collection of packages.
+ *
+ * @package    BachelorThesis
+ * @subpackage Package
+ */
 interface IPackageCollection
 {
 	function addPackage(IPackage $package);

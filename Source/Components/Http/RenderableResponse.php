@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Carries a Response to which the rendered content will be written.
+ *
+ * @package    BachelorThesis
+ * @subpackage Http
+ */
 class RenderableResponse implements IRenderableResponse
 {
 	protected

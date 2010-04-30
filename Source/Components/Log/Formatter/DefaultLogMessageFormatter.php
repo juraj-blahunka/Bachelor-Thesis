@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Default formatting for a Log Message.
+ *
+ * @package    BachelorThesis
+ * @subpackage Log
+ */
 class DefaultLogMessageFormatter implements ILogMessageFormatter
 {
 	public function format(ILogMessage $log)

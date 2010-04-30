@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Extended services with application functionality.
+ *
+ * @package    BachelorThesis
+ * @subpackage Resources
+ */
 return array(
 	'constants'  => array(
 		'twig.options.auto_reload' => true,

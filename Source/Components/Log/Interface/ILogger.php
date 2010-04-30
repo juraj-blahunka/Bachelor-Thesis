@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Creator of Log Messages, each method bears its own level of importance.
+ *
+ * @package    BachelorThesis
+ * @subpackage Log
+ */
 interface ILogger
 {
 	function emergency($log, $additional = null);

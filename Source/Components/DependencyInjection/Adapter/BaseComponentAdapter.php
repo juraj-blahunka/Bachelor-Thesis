@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Helper class with extracted methods.
+ *
+ * @package    BachelorThesis
+ * @subpackage DependencyInjection
+ */
 abstract class BaseComponentAdapter implements IComponentAdapter
 {
 	/**

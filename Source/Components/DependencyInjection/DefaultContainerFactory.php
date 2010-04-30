@@ -1,9 +1,14 @@
 <?php
 
+/**
+ * A factory.
+ *
+ * @package    BachelorThesis
+ * @subpackage DependencyInjection
+ */
 class DefaultContainerFactory implements IDependencyInjectionContainerFactory
 {
-	private
-		$converter;
+	private $converter;
 
 	public function __construct(IComponentDefinitionToComponentAdapter $converter = null)
 	{

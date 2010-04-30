@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Collective argument with nested evaluation.
+ *
+ * @package    BachelorThesis
+ * @subpackage DependencyInjection
+ */
 class ArrayArgument implements IInjecteeArgument
 {
 	/**

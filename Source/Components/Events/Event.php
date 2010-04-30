@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Event variable holder.
+ *
+ * @package    BachelorThesis
+ * @subpackage Events
+ */
 class Event implements IEvent
 {
 	protected

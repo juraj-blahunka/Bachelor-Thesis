@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Listener to invoke controller's action.
+ *
+ * @package    BachelorThesis
+ * @subpackage Listener
+ */
 class ControllerInvokeListener
 {
 	private $invoker;

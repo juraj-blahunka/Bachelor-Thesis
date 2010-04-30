@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Collections of Package instances.
+ *
+ * @package    BachelorThesis
+ * @subpackage Package
+ */
 class PackageCollection implements IPackageCollection
 {
 	protected $packages;

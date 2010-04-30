@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Loads a controller instance based on provided routing information.
+ *
+ * @package    BachelorThesis
+ * @subpackage Runner
+ */
 interface IControllerLoader
 {
 	/**

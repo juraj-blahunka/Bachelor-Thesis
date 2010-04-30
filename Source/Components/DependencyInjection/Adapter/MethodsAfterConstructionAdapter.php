@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Executes methods on an instance.
+ *
+ * @package    BachelorThesis
+ * @subpackage DependencyInjection
+ */
 class MethodsAfterConstructionAdapter extends DecoratingComponentAdapter
 {
 	/**

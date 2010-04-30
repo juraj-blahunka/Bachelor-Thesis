@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Invokes Controller instances.
+ *
+ * @package    BachelorThesis
+ * @subpackage Runner
+ */
 class ControllerActionInvoker implements IActionInvoker
 {
 	protected $cache;

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Loads Routing Rules from a well formed array.
+ *
+ * @package    BachelorThesis
+ * @subpackage Router
+ */
 class RoutingRuleArrayLoader
 {
 	protected

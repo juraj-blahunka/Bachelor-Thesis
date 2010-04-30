@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Session persistent storage.
+ *
+ * @package    BachelorThesis
+ * @subpackage Storage
+ */
 class SessionStorage implements IStorage
 {
 	static protected

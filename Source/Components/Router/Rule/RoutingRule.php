@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Routing rule data storage.
+ *
+ * @package    BachelorThesis
+ * @subpackage Router
+ */
 class RoutingRule implements IRoutingRule
 {
 	private

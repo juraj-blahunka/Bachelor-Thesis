@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Lazily loads classes from their provided locations.
+ *
+ * @package    BachelorThesis
+ * @subpackage Package
+ */
 class ClassMapLoader extends AbstractClassLoader
 {
 	private

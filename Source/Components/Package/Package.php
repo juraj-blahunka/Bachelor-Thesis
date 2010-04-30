@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Class grouping and configuring functionality.
+ *
+ * @package    BachelorThesis
+ * @subpackage Package
+ */
 abstract class Package implements IPackage
 {
 	private	$classLoaders;

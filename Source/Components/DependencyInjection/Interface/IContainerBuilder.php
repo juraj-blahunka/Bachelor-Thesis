@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Ability to define and retrieve component and constant related data.
+ *
+ * @package    BachelorThesis
+ * @subpackage DependencyInjection
+ */
 interface IContainerBuilder
 {
 	// constants

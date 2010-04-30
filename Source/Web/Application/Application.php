@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * A configurable application, which isn't able to run.
+ *
+ * @package    BachelorThesis
+ * @subpackage Application
+ */
 abstract class Application
 {
 	protected

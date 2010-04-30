@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Handles conversion from definition to adapter.
+ *
+ * @package    BachelorThesis
+ * @subpackage DependencyInjection
+ */
 class ComponentDefinitionToComponentAdapter implements IComponentDefinitionToComponentAdapter
 {
 	/**

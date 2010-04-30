@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Abstraction around persistent data, which allows event based data hydration.
+ *
+ * @package    BachelorThesis
+ * @subpackage User
+ */
 class User implements IUser
 {
 	protected

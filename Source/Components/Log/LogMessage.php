@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * The data representation of a Log Message.
+ *
+ * @package    BachelorThesis
+ * @subpackage Log
+ */
 class LogMessage implements ILogMessage
 {
 	protected

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Compiles Rule pattern in regular expression.
+ *
+ * @package    BachelorThesis
+ * @subpackage Router
+ */
 class RoutingRuleCompiler implements IRoutingRuleCompiler
 {
 	/**

@@ -1,8 +1,9 @@
 <?php
 
 /**
- * DependencyInjectionContainer.
- * @package Components
+ * Works with resolvable component types, instantiates components.
+ *
+ * @package    BachelorThesis
  * @subpackage DependencyInjection
  *
  * usage:

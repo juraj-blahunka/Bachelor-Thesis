@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Data representation of a Routing Rule.
+ *
+ * @package    BachelorThesis
+ * @subpackage Router
+ */
 interface IRoutingRule
 {
 	function getName();

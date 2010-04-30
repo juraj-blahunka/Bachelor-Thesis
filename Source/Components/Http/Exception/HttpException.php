@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Base class for Http exceptions (404, 403, ..).
+ *
+ * @package    BachelorThesis
+ * @subpackage Http
+ */
 class HttpException extends Exception
 {
 	private $statusCode;

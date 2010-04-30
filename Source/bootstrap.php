@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Classes needed to be loaded before class loaders.
+ *
+ * @package    BachelorThesis
+ */
 $root  = dirname(__FILE__).DIRECTORY_SEPARATOR;
 $comps = $root.'Components'.DIRECTORY_SEPARATOR;
 $dic    = $comps.'DependencyInjection'.DIRECTORY_SEPARATOR;

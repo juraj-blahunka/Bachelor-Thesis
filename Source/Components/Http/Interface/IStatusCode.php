@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Http status.
+ *
+ * @package    BachelorThesis
+ * @subpackage Http
+ */
 interface IStatusCode
 {
 	function setCode($code);

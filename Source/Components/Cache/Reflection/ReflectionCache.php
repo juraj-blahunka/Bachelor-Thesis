@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * A facade on top of IClassReflectionCache and IMethodReflectionCache.
+ *
+ * @package    BachelorThesis
+ * @subpackage Cache_Reflection
+ */
 class ReflectionCache implements IReflectionCache
 {
 	protected

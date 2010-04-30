@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * User data definition.
+ *
+ * @package    BachelorThesis
+ * @subpackage User
+ */
 interface IUser
 {
 	function setProperty($key, $value);

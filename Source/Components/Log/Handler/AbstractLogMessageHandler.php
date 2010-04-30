@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Layer between the actual handler and required logic.
+ *
+ * @package    BachelorThesis
+ * @subpackage Log
+ */
 abstract class AbstractLogMessageHandler implements ILogMessageHandler
 {
 	protected

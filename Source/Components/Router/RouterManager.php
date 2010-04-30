@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * A facade around Helper classes, with added compiled routing rule storage.
+ *
+ * @package    BachelorThesis
+ * @subpackage Router
+ */
 class RouterManager implements IRouter
 {
 	private

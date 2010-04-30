@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Access to _GET, _POST, _COOKIE, _SERVER variables with added functionality.
+ *
+ * @package    BachelorThesis
+ * @subpackage Http
+ */
 interface IRequest
 {
 	function hasParameter($parameterKey);

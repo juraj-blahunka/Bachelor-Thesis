@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * _GET, _POST, _SERVER, _COOKIE variables with URL functionality.
+ *
+ * @package    BachelorThesis
+ * @subpackage Http
+ */
 class Request implements IRequest
 {
 	private

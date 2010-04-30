@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Invokes Command instances.
+ *
+ * @package    BachelorThesis
+ * @subpackage Runner
+ */
 class CommandActionInvoker implements IActionInvoker
 {
 	private

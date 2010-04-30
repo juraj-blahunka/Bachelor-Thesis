@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Creates a view from renderable response.
+ *
+ * @package    BachelorThesis
+ * @subpackage Listener
+ */
 class BasicViewLoadListener
 {
 	protected

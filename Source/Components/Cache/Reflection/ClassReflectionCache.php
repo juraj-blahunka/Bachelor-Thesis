@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Stores class reflection objects.
+ *
+ * @package    BachelorThesis
+ * @subpackage Cache_Reflection
+ */
 class ClassReflectionCache implements IClassReflectionCache
 {
 	protected $collection = array();

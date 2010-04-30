@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Loads controller instances.
+ *
+ * @package    BachelorThesis
+ * @subpackage Runner
+ */
 class ControllerLoader implements IControllerLoader
 {
 	protected

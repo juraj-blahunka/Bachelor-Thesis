@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * A factory.
+ *
+ * @package    BachelorThesis
+ * @subpackage DependencyInjection
+ */
 interface IDependencyInjectionContainerFactory
 {
 	function createContainerBuilder();

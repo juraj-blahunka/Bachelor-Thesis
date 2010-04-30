@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Provides always the same instance.
+ *
+ * @package    BachelorThesis
+ * @subpackage DependencyInjection
+ */
 class SharedComponentAdapter extends DecoratingComponentAdapter
 {
 	/**

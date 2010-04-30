@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Constructor adapter for a class with arguments.
+ *
+ * @package    BachelorThesis
+ * @subpackage DependencyInjection
+ */
 class ConstructorComponentAdapter extends BaseComponentAdapter
 {
 	private

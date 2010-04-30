@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Interface to define the data required in an Event.
+ *
+ * @package    BachelorThesis
+ * @subpackage Events
+ */
 interface IEvent
 {
 	function getSender();

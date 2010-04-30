@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Class loaders defining Framework Package.
+ *
+ * @package    BachelorThesis
+ * @subpackage Resources
+ */
 return array(
 
 	new ClassMapLoader(dirname(__FILE__).'/../Utils', array(

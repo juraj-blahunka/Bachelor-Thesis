@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Connected with a Dependency Injection Container, instantiation of
+ * listeners happens only when event is notified.
+ *
+ * @package    BachelorThesis
+ * @subpackage Events
+ */
 class LazyEventEmitter extends EventEmitter
 {
 	protected $container;

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Provides base url from request.
+ *
+ * @package    BachelorThesis
+ * @subpackage Router
+ */
 class RequestBaseUrlStrategy implements IUrlStrategy
 {
 	protected $request;

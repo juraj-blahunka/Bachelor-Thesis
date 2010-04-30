@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Listens to controller.load events.
+ *
+ * @package    BachelorThesis
+ * @subpackage Listener
+ */
 class ControllerLoadListener
 {
 	private $loader;

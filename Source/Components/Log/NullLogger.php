@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Does nothing, empty implementation.
+ *
+ * @package    BachelorThesis
+ * @subpackage Log
+ */
 class NullLogger implements ILogger
 {
 	public function alert($log, $additional = null)

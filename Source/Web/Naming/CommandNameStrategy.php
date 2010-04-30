@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Commands naming from their specific directory nesting.
+ *
+ * @package    BachelorThesis
+ * @subpackage Naming
+ */
 class CommandNameStrategy extends AbstractNameStrategy
 {
 	public function getClassName($name)

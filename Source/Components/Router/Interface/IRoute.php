@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Data representation of routing information.
+ *
+ * @package    BachelorThesis
+ * @subpackage Router
+ */
 interface IRoute
 {
 	function setPackage($package);

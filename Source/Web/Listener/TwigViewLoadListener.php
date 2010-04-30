@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Listener with advanced Templating engine.
+ *
+ * @package    BachelorThesis
+ * @subpackage Listener
+ */
 class TwigViewLoadListener
 {
 	protected

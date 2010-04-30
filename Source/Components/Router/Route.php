@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Routing information.
+ *
+ * @package    BachelorThesis
+ * @subpackage Router
+ */
 class Route implements IRoute
 {
 	private

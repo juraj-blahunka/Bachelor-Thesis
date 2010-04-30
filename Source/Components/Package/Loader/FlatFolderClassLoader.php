@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Lazily loads classes by looking into a flat folder filesystem.
+ *
+ * @package    BachelorThesis
+ * @subpackage Package
+ */
 class FlatFolderClassLoader extends AbstractClassLoader
 {
 	protected

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Http status codes with preinitialized numbers to texts.
+ *
+ * @package    BachelorThesis
+ * @subpackage Http
+ */
 class HttpStatusCode implements IStatusCode
 {
 	protected

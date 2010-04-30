@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Stores method reflection objects.
+ *
+ * @package    BachelorThesis
+ * @subpackage Cache_Reflection
+ */
 class MethodReflectionCache implements IMethodReflectionCache
 {
 	protected $collection = array();

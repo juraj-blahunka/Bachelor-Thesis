@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Array mock storage.
+ *
+ * @package    BachelorThesis
+ * @subpackage Storage
+ */
 class ArrayStorage implements IStorage
 {
 	protected $collection = array();

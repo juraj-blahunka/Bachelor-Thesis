@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Writable response with headers, cookies.
+ *
+ * @package    BachelorThesis
+ * @subpackage Http
+ */
 class Response implements IResponse
 {
 	private

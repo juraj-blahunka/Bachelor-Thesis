@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Grouping class for defining main functionality locations.
+ *
+ * @package    BachelorThesis
+ * @subpackage Package
+ */
 abstract class MvcPackage extends Package
 {
 	public function register(IContainerBuilder $builder, PathCollection $paths)

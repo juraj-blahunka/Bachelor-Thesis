@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Stores Log messages into a file.
+ *
+ * @package    BachelorThesis
+ * @subpackage Log
+ */
 class FileLogMessageHandler extends AbstractLogMessageHandler
 {
 	protected

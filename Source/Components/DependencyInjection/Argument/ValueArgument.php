@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Provides a value, which is injected in constructor.
+ *
+ * @package    BachelorThesis
+ * @subpackage DependencyInjection
+ */
 class ValueArgument implements IInjecteeArgument
 {
 	/**

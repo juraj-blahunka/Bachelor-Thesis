@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Retrieves the argument value from constants repository.
+ *
+ * @package    BachelorThesis
+ * @subpackage DependencyInjection
+ */
 class ConstantArgument implements IInjecteeArgument
 {
 	/**

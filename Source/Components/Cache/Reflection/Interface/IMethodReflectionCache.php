@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Interface to store method reflection objects.
+ *
+ * @package    BachelorThesis
+ * @subpackage Cache_Reflection
+ */
 interface IMethodReflectionCache
 {
 	function storeMethod(ReflectionMethod $reflection);

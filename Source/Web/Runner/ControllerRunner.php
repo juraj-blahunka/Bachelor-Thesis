@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Responds to request or runs routing information.
+ *
+ * @package    BachelorThesis
+ * @subpackage Runner
+ */
 class ControllerRunner implements IControllerRunner
 {
 	protected $emitter;

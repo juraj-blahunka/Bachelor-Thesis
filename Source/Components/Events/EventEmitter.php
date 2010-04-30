@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Notifies listeners, handles attaching and detaching listeners to events.
+ *
+ * @package    BachelorThesis
+ * @subpackage Events
+ */
 class EventEmitter implements IEventEmitter
 {
 	protected $listeners = array();

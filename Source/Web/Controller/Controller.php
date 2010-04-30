@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Application specific helper methods.
+ *
+ * @package    BachelorThesis
+ * @subpackage Controller
+ */
 abstract class Controller extends BaseController
 {
 	private $_response;

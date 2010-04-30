@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Helper class for string manipulation.
+ *
+ * @package    BachelorThesis
+ * @subpackage Utils
+ */
 class StringUtil
 {
 	/**

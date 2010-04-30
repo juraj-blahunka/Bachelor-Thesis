@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Component Adapter instantiates components.
+ *
+ * @package    BachelorThesis
+ * @subpackage DependencyInjection
+ */
 interface IComponentAdapter
 {
 	function getKey();

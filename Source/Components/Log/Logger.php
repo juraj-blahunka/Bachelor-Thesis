@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Creates Log Messages, which are passed to message handler.
+ *
+ * @package    BachelorThesis
+ * @subpackage Log
+ */
 class Logger implements ILogger
 {
 	const

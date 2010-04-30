@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Listens to route.load events.
+ *
+ * @package    BachelorThesis
+ * @subpackage Listener
+ */
 class RouteLoadListener
 {
 	protected $router;

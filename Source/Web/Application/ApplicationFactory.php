@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * A factory.
+ *
+ * @package    BachelorThesis
+ * @subpackage Application
+ */
 class ApplicationFactory
 {
 	public function createContainer()

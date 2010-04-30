@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Loads a php file and passes its contents to another loader.
+ *
+ * @package    BachelorThesis
+ * @subpackage DependencyInjection
+ */
 class ContainerPhpFileLoader implements IContainerLoader
 {
 	protected $loader;

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Wrapper around multiple handlers with same acceptance filters.
+ *
+ * @package    BachelorThesis
+ * @subpackage Log
+ */
 class LogMessageHandlerComposite extends AbstractLogMessageHandler
 {
 	protected $handlers;

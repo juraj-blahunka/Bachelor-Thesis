@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * A factory.
+ *
+ * @package    BachelorThesis
+ * @subpackage Router
+ */
 class RouterFactory implements IRouterFactory
 {
 	public function createCompiledRule($rule, $regex)

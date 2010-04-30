@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * A Runnable application, with Routing.
+ *
+ * @package    BachelorThesis
+ * @subpackage Application
+ */
 abstract class WebApplication extends Application
 {
 	public function run()

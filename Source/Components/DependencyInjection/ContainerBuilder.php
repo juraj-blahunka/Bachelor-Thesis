@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Handles component and constant definition and retrieval.
+ *
+ * @package    BachelorThesis
+ * @subpackage DependencyInjection
+ */
 class ContainerBuilder implements IContainerBuilder
 {
 	protected

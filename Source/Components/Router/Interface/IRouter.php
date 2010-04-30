@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * A facade grouping functionality around Helper classes.
+ *
+ * @package    BachelorThesis
+ * @subpackage Router
+ */
 interface IRouter
 {
 	function addRule(IRoutingRule $rule);

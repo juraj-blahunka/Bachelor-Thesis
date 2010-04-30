@@ -3,6 +3,9 @@
 /**
  * ContainerArrayLoader.
  *
+ * @package    BachelorThesis
+ * @subpackage DependencyInjection
+ *
  * Loads an array resource into a ContainerBuilder, which is returned for
  * further configuration.
  *
@@ -40,7 +43,6 @@
  *  $builder = $loader->load($data);
  * </code>
  */
-
 class ContainerArrayLoader implements IContainerLoader
 {
 	protected $factory;

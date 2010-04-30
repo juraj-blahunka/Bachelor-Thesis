@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Provides injected url.
+ *
+ * @package    BachelorThesis
+ * @subpackage Router
+ */
 class ValueUrlStrategy implements IUrlStrategy
 {
 	protected $url;

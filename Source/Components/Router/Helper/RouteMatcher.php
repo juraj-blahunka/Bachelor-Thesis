@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Creates Route instances, when a pattern is matched against URL.
+ *
+ * @package    BachelorThesis
+ * @subpackage Router
+ */
 class RouteMatcher implements IRouteMatcher
 {
 	public function match($url, ICompiledRule $rule, IRoute $route)

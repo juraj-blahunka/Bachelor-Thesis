@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Component Definition holds information about a component.
+ *
+ * @package    BachelorThesis
+ * @subpackage DependencyInjection
+ */
 interface IComponentDefinition
 {
 	function getId();

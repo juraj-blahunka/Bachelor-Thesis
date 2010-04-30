@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * A Persistent storage interface.
+ *
+ * @package    BachelorThesis
+ * @subpackage Storage
+ */
 interface IStorage
 {
 	function read($key, $default = null);

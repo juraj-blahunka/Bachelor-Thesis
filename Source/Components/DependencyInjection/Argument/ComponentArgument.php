@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Creates instance of a component by specifying its id or class.
+ *
+ * @package    BachelorThesis
+ * @subpackage DependencyInjection
+ */
 class ComponentArgument implements IInjecteeArgument
 {
 	/**

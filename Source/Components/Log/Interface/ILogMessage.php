@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Data required for Log Message
+ *
+ * @package    BachelorThesis
+ * @subpackage Log
+ */
 interface ILogMessage
 {
 	function setMessage($log);
