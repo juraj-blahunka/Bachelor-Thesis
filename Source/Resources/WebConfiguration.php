@@ -51,12 +51,16 @@ return array(
 			)
 		),
 
+		'action_name_strategy_service' => array(
+			'class' => 'ActionNameStrategy'
+		),
+
 		// controller action invoker with listener
 		'controller_action_invoker_service' => array(
 			'class' => 'ControllerActionInvoker',
 			'constructor' => array(
 				array('component', 'reflection_cache_service'),
-				array('component', 'ActionNameStrategy')
+				array('component', 'action_name_strategy_service')
 			),
 		),
 
@@ -79,6 +83,7 @@ return array(
 				array('component', 'path_collection_service'),
 				array('component', 'container_service'),
 				array('component', 'reflection_cache_service'),
+				array('component', 'action_name_strategy_service'),
 				array('component', 'CommandNameStrategy'),
 			)
 		),

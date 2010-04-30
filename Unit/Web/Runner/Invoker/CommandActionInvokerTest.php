@@ -28,6 +28,11 @@ class CommandActionInvokerTest extends PHPUnit_Framework_TestCase
 	protected $container;
 
 	/**
+	 * @var ActionNameStrategy
+	 */
+	protected $actionNaming;
+
+	/**
 	 * @var CommandNameStrategy
 	 */
 	protected $naming;
@@ -37,8 +42,9 @@ class CommandActionInvokerTest extends PHPUnit_Framework_TestCase
 		$this->paths     = new PathCollection(array('Sample.commands' => array(FIXTURES_ROOT.'/Web/Runner/Invoker')));
 		$this->container = new DependencyInjectionContainer();
 		$this->cache     = $this->container->getInstanceOfWith('ReflectionCache', array(array('component', 'ClassReflectionCache'), array('component', 'MethodReflectionCache')));
+		$this->actionNaming = new ActionNameStrategy();
 		$this->naming    = new CommandNameStrategy();
-		$this->object    = new CommandActionInvoker($this->paths, $this->container, $this->cache, $this->naming);
+		$this->object    = new CommandActionInvoker($this->paths, $this->container, $this->cache, $this->actionNaming, $this->naming);
 	}
 
 	protected function tearDown()
@@ -69,12 +75,26 @@ class CommandActionInvokerTest extends PHPUnit_Framework_TestCase
 		);
 	}
 
+	public function testInvoke_OnRemote()
+	{
+		$result = $this->object->invoke($this->createController(), $this->createRoute()->setAction('remote'));
+		$this->assertThat($result, $this->equalTo('Another OK'));
+	}
+
 	public function testCanInvoke_OnFalsy()
 	{
+		// can invoke, because it is declared in ControllerStub, but invocation will fail
 		$this->assertThat(
 			$this->object->canInvoke($this->createController(), $this->createRoute()->setAction('falsy')),
-			$this->equalTo(false)
+			$this->equalTo(true)
 		);
+	}
+
+	public function testInvoke_OnFalsy()
+	{
+		// cannot find command class inside the specified directory
+		$this->setExpectedException('RuntimeException');
+		$this->object->invoke($this->createController(), $this->createRoute()->setAction('falsy'));
 	}
 
 	protected function createRoute()
@@ -96,9 +116,9 @@ class ControllerStub_CommandActionInvokerTest extends Controller
 	public function getCommands()
 	{
 		return array(
-			'Sample' => 'SampleCommandActionInvokerTest',
-			'Remote' => 'RemoteStub',
-			'Falsy'  => 'Not/In/Reach'
+			'sampleAction' => 'SampleCommandActionInvokerTest',
+			'remoteAction' => 'Inside/RemoteStub',
+			'falsyAction'  => 'Not/In/Reach'
 		);
 	}
 }
