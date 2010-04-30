@@ -8,7 +8,7 @@
  */
 return array(
 	'constants'  => array(
-		'twig.options.auto_reload' => true,
+
 	),
 	'components' => array(
 
@@ -114,24 +114,6 @@ return array(
 					array('controller.view', 'handle'),
 				)
 			),
-		),
-
-		// basic twig configuration, just add TwigViewLoadListener
-		'Twig_Loader_Filesystem' => array(
-			'constructor' => array(
-				array('constant', 'view.paths')
-			),
-		),
-
-		'Twig_Environment' => array(
-			'constructor' => array(
-				array('component', 'Twig_Loader_Filesystem'),
-				array('array', array(
-					'cache'       => array('constant', 'application.cache'),
-					'debug'       => array('constant', 'application.debug'),
-					'auto_reload' => array('constant', 'twig.options.auto_reload'),
-				)),
-			)
 		),
 
 		// user
