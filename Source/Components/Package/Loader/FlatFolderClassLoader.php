@@ -8,6 +8,7 @@ class FlatFolderClassLoader extends AbstractClassLoader
 
 	public function __construct($directory, $extension = '.php')
 	{
+		parent::__construct();
 		$this->directory = $directory;
 		$this->extension = $extension;
 	}
