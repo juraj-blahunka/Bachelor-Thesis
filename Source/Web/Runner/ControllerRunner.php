@@ -38,10 +38,9 @@ class ControllerRunner implements IControllerRunner
 		$response   = $this->notifyInvokeController($route, $controller);
 
 		// decorate controller with appropriate view
-		$response   = ($response instanceof IRenderableResponse)
-			? $this->notifyView($route, $response)
-			: $response;
-
+		$response   = ($response instanceof IResponse)
+			? $response
+			: $this->notifyView($route, $response);
 
 		return $this->filterResponse($response);
 	}
@@ -82,15 +81,19 @@ class ControllerRunner implements IControllerRunner
 		return $event->getValue();
 	}
 
-	protected function notifyView(IRoute $route, IRenderableResponse $response)
+	protected function notifyView(IRoute $route, IRenderableResponse $renderable)
 	{
+		$this->emitter->notify(new Event($this, 'controller.view_context', array(
+			'route'      => $route,
+			'renderable' => $renderable,
+		)));
 		$event = new Event($this, 'controller.view', array(
-			'route'    => $route,
-			'response' => $response,
+			'route'      => $route,
+			'renderable' => $renderable,
 		));
 		$this->emitter->notifyUntil($event);
 		if (! $event->isHandled())
-			throw new RuntimeException("No template applied for '{$response->getViewName()}' view name, which was called by '{$route->getController()}/{$route->getAction()}'");
+			throw new RuntimeException("No template applied for '{$renderable->getViewName()}' view name, which was called by '{$route->getController()}/{$route->getAction()}'");
 		return $event->getValue();
 	}
 

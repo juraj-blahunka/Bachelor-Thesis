@@ -69,6 +69,7 @@ class ControllerRunnerTest extends PHPUnit_Framework_TestCase
 	{
 		$this->emitter->attach('controller.load',   array($this, 'handleControllerLoad'));
 		$this->emitter->attach('controller.invoke', array($this, 'handleControllerInvoke_Renderable'));
+		$this->emitter->attach('controller.view_context', array($this, 'handleControllerViewContext'));
 		$this->emitter->attach('controller.view', array($this, 'handleControllerView'));
 		$response = $this->object->run($this->createRoute());
 		$this->assertThat($response, $this->isInstanceOf('IResponse'));
@@ -105,9 +106,23 @@ class ControllerRunnerTest extends PHPUnit_Framework_TestCase
 		return true;
 	}
 
+	public function handleControllerViewContext(IEvent $e)
+	{
+		$renderable = $e->getParameter('renderable');
+		$renderable->addVariables(array(
+			'parameter' => '<h1>hello</h1>',
+		));
+		$renderable->getOriginalResponse()->expects($this->once())
+			->method('setContent')->with($this->equalTo('<h1>hello</h1>'));
+	}
+
 	public function handleControllerView(IEvent $e)
 	{
-		$e->setValue($e->getParameter('response')->getOriginalResponse());
+		$renderable = $e->getParameter('renderable');
+		$response   = $renderable->getOriginalResponse();
+		$variables  = $renderable->getVariables();
+		$response->setContent($variables['parameter']);
+		$e->setValue($response);
 		return true;
 	}
 }

@@ -55,8 +55,8 @@ class BasicViewLoadListenerTest extends PHPUnit_Framework_TestCase
 		$route->expects($this->once())->method('getPackage')->will($this->returnValue('Basic'));
 
 		$e = new Event($this, 'controller.view', array(
-			'response' => $renderable,
-			'route'    => $route,
+			'renderable' => $renderable,
+			'route'      => $route,
 		));
 
 		$this->assertThat(
@@ -81,8 +81,8 @@ class BasicViewLoadListenerTest extends PHPUnit_Framework_TestCase
 		$route->expects($this->once())->method('getPackage')->will($this->returnValue('Basic'));
 
 		$e = new Event($this, 'controller.view', array(
-			'response' => $renderable,
-			'route'    => $route,
+			'renderable' => $renderable,
+			'route'      => $route,
 		));
 
 		$this->assertThat(

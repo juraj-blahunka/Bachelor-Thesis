@@ -14,17 +14,17 @@ class BasicViewLoadListener
 
 	public function handle(IEvent $event)
 	{
-		$response = $event->getParameter('response');
-		$route    = $event->getParameter('route');
+		$renderable = $event->getParameter('renderable');
+		$route      = $event->getParameter('route');
 
 		$paths = $this->paths->getPaths($route->getPackage() . '.views');
 		foreach ($paths as $path)
 		{
-			$filename = $path . '/' . $response->getViewName() . $this->defaultExt;
+			$filename = $path . '/' . $renderable->getViewName() . $this->defaultExt;
 			if (file_exists($filename))
 			{
-				$rendered = $response->getOriginalResponse();
-				$rendered->setContent($this->renderView($filename, $response->getVariables()));
+				$rendered = $renderable->getOriginalResponse();
+				$rendered->setContent($this->renderView($filename, $renderable->getVariables()));
 				$event->setValue($rendered);
 				return true;
 			}

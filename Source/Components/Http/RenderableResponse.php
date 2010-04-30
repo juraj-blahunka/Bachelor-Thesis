@@ -28,6 +28,11 @@ class RenderableResponse implements IRenderableResponse
 		return $this->variables;
 	}
 
+	public function addVariables(array $variables)
+	{
+		$this->variables = array_merge($this->variables, $variables);
+	}
+
 	public function setViewName($view)
 	{
 		$this->viewName = $view;

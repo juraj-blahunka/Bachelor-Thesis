@@ -56,6 +56,24 @@ class RenderableResponseTest extends PHPUnit_Framework_TestCase
 		);
 	}
 
+	public function testAddVariables()
+	{
+		$this->object->setVariables(array(
+			'first'     => '1',
+			'untouched' => 'value',
+		));
+		$this->object->addVariables(array(
+			'some_context' => 'value',
+			'first'        => '2',
+		));
+
+		$this->assertThat($this->object->getVariables(), $this->equalTo(array(
+			'some_context' => 'value',
+			'first'        => '2',
+			'untouched'    => 'value',
+		)));
+	}
+
 	public function testSetViewName()
 	{
 		$this->object->setViewName('view/name');

@@ -14,13 +14,13 @@ class TwigViewLoadListener
 
 	public function handle(IEvent $event)
 	{
-		$response  = $event->getParameter('response');
+		$renderable = $event->getParameter('renderable');
 
-		$view      = $response->getViewName() . $this->defaultExtension;
-		$variables = $response->getVariables();
+		$viewname   = $renderable->getViewName() . $this->defaultExtension;
+		$variables  = $renderable->getVariables();
 		try
 		{
-			$template  = $this->twig->loadTemplate($view);
+			$template  = $this->twig->loadTemplate($viewname);
 		}
 		catch (RuntimeException $e)
 		{
@@ -32,12 +32,12 @@ class TwigViewLoadListener
 
 			throw $e;
 		}
-		$content   = $template->render($response->getVariables());
+		$content   = $template->render($renderable->getVariables());
 
-		$rendered  = $response->getOriginalResponse();
-		$rendered->write($content);
+		$response = $renderable->getOriginalResponse();
+		$response->write($content);
 
-		$event->setValue($rendered);
+		$event->setValue($response);
 		return true;
 	}
 }

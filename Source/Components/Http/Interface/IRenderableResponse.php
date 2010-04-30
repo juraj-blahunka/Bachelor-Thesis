@@ -7,4 +7,5 @@ interface IRenderableResponse
 	function getViewName();
 	function setVariables(array $variables);
 	function getVariables();
+	function addVariables(array $variables);
 }
