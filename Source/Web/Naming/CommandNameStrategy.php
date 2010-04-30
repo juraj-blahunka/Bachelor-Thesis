@@ -4,11 +4,21 @@ class CommandNameStrategy extends AbstractNameStrategy
 {
 	public function getClassName($name)
 	{
-		return StringUtil::camelize(str_replace('/', '-', $name)) . 'Command';
+		$command = '';
+		if (strpos($name, '/') === false)
+		{
+			$command = $name;
+		}
+		else
+		{
+			$parts = explode('/', $name);
+			$command = array_pop($parts);
+		}
+		return StringUtil::camelize($command) . 'Command';
 	}
 
 	public function getFileName($name)
 	{
-		return StringUtil::camelize(str_replace('/', '/ ', $name));
+		return StringUtil::camelize(str_replace('/', '/ ', $name)) . 'Command';
 	}
 }

@@ -38,7 +38,7 @@ class CommandNameStrategyTest extends PHPUnit_Framework_TestCase
 	{
 		$this->assertThat(
 			$this->object->getClassName('Search/Special/Location'),
-			$this->equalTo('SearchSpecialLocationCommand')
+			$this->equalTo('LocationCommand')
 		);
 
 		$this->assertThat(
@@ -48,7 +48,7 @@ class CommandNameStrategyTest extends PHPUnit_Framework_TestCase
 
 		$this->assertThat(
 			$this->object->getClassName('Complicated/Within_and-nested/class'),
-			$this->equalTo('ComplicatedWithinAndNestedClassCommand')
+			$this->equalTo('ClassCommand')
 		);
 	}
 
@@ -56,17 +56,17 @@ class CommandNameStrategyTest extends PHPUnit_Framework_TestCase
 	{
 		$this->assertThat(
 			$this->object->getFileName('Search/Special/Location'),
-			$this->equalTo('Search/Special/Location')
+			$this->equalTo('Search/Special/LocationCommand')
 		);
 
 		$this->assertThat(
 			$this->object->getFileName('Complicated/Within_and-nested/class'),
-			$this->equalTo('Complicated/WithinAndNested/Class')
+			$this->equalTo('Complicated/WithinAndNested/ClassCommand')
 		);
 
 		$this->assertThat(
 			$this->object->getFileName('simple-Location'),
-			$this->equalTo('SimpleLocation')
+			$this->equalTo('SimpleLocationCommand')
 		);
 	}
 }
