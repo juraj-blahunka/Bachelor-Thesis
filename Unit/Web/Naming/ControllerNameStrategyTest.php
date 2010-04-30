@@ -52,16 +52,16 @@ class ControllerNameStrategyTest extends PHPUnit_Framework_TestCase
 		);
 	}
 
-	public function getFileName()
+	public function testGetFileName()
 	{
 		$this->assertThat(
-			$this->object->getName('some-inline-controller'),
-			$this->equalTo('SomeInlineController')
+			$this->object->getFileName('some-inline-controller'),
+			$this->equalTo('SomeInlineControllerController')
 		);
 
 		$this->assertThat(
-			$this->object->getName('underscored_name'),
-			$this->equalTo('UnderscoredName')
+			$this->object->getFileName('underscored_name'),
+			$this->equalTo('UnderscoredNameController')
 		);
 	}
 }

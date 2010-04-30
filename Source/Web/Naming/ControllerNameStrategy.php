@@ -6,4 +6,9 @@ class ControllerNameStrategy extends AbstractNameStrategy
 	{
 		return StringUtil::camelize($name) . 'Controller';
 	}
+
+	public function getFileName($name)
+	{
+		return StringUtil::camelize($name) . 'Controller';
+	}
 }
