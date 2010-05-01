@@ -21,7 +21,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 			->setClass('Response');
 		$container->define('renderable_response_service')
 			->setClass('RenderableResponse');
-		$container->define('RequestBaseUrlStrategy');
+		$container->define('RequestBasePathStrategy');
 		$container->define('RouterFactory');
 		$container->define('RouteMatcher');
 		$container->define('RoutingRuleCompiler');
