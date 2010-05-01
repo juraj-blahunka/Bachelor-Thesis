@@ -56,10 +56,10 @@ abstract class Controller extends BaseController
 
 	public function render($view, array $variables = array())
 	{
-		$response = $this->getRenderableResponse($this->getResponse());
-		$response->setViewName($view);
-		$response->setVariables($variables);
-		return $response;
+		$renderable = $this->getRenderableResponse($this->getResponse());
+		$renderable->setViewName($view);
+		$renderable->addVariables($variables);
+		return $renderable;
 	}
 
 	public function redirect($url, $permanent = false)
