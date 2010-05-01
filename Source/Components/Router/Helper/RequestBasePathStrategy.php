@@ -6,7 +6,7 @@
  * @package    BachelorThesis
  * @subpackage Router
  */
-class RequestBaseUrlStrategy implements IUrlStrategy
+class RequestBasePathStrategy implements IUrlStrategy
 {
 	protected $request;
 

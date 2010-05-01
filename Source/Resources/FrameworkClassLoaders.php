@@ -77,8 +77,8 @@ return array(
 
 		'RoutingRuleArrayLoader' => 'Router/Loader/RoutingRuleArrayLoader.php',
 
-		'ValueUrlStrategy'       => 'Router/Helper/ValueUrlStrategy.php',
-		'RequestBaseUrlStrategy' => 'Router/Helper/RequestBaseUrlStrategy.php',
+		'ValueUrlStrategy'        => 'Router/Helper/ValueUrlStrategy.php',
+		'RequestBasePathStrategy' => 'Router/Helper/RequestBasePathStrategy.php',
 
 		'RouteMatcher'         => 'Router/Helper/RouteMatcher.php',
 		'RoutingRuleCompiler'  => 'Router/Helper/RoutingRuleCompiler.php',

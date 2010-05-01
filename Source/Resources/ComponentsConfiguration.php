@@ -44,7 +44,7 @@ return array(
 		'RouterFactory', 'RouteMatcher', 'RoutingRuleCompiler', 'UrlCreator',
 
 		'base_path_strategy_service' => array(
-			'class' => 'RequestBaseUrlStrategy',
+			'class' => 'RequestBasePathStrategy',
 		),
 
 		'router_service' => array(
