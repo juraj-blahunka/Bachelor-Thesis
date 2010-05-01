@@ -26,6 +26,7 @@ interface IRequest
 	function getMethod();
 
 	function getBasePath();
+	function getBaseUrl();
 	function getRequestUri();
 	function getPathInfo();
 

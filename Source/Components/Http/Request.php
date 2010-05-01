@@ -14,6 +14,7 @@ class Request implements IRequest
 		$server,
 		$httpHost,
 		$basePath,
+		$baseUrl,
 		$requestUri,
 		$pathInfo;
 
@@ -123,6 +124,13 @@ class Request implements IRequest
 		return $this->basePath;
 	}
 
+	public function getBaseUrl()
+	{
+		if ($this->baseUrl === null)
+			$this->baseUrl = $this->fetchBaseUrl();
+		return $this->baseUrl;
+	}
+
 	public function getRequestUri()
 	{
 		if ($this->requestUri === null)
@@ -181,6 +189,21 @@ class Request implements IRequest
 		}
 
 		return rtrim($basePath, '/');
+	}
+
+	protected function fetchBaseUrl()
+	{
+		$baseUrl = '';
+		$basePath = $this->getBasePath();
+		$filename = basename($this->getServer('SCRIPT_FILENAME', ''));
+
+		//if a filename is at the end for base path, remove it
+		if (basename($basePath) == $filename)
+			$baseUrl = rtrim(dirname($basePath), '/') . '/';
+		else
+			$baseUrl = $basePath;
+
+		return $baseUrl;
 	}
 
 	protected function fetchRequestUri()

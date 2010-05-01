@@ -255,7 +255,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 		$server = array(
 			'REQUEST_URI'     => '/Bachelor-Thesis/Source/Tryout/index.php/',
 			'SCRIPT_FILENAME' => 'E:/Documents/Domains/localhost/Bachelor-Thesis/Source/Tryout/index.php',
-			'SCRIPT_NAME'        => '/Bachelor-Thesis/Source/Tryout/index.php'
+			'SCRIPT_NAME'     => '/Bachelor-Thesis/Source/Tryout/index.php'
 		);
 		$request = new Request(array(), array(), array(), $server);
 		$this->assertThat(
@@ -275,6 +275,28 @@ class RequestTest extends PHPUnit_Framework_TestCase
 		$this->assertThat(
 			$request->getBasePath(),
 			$this->equalTo('/Bachelor-Thesis/Source/Tryout/index.php')
+		);
+	}
+
+	public function testGetBaseUrl()
+	{
+		$this->assertThat(
+			$this->object->getBaseUrl(),
+			$this->equalTo(rtrim($this->object->getBasePath(), '/'))
+		);
+	}
+
+	public function testGetBaseUrl_WithFilenameAtEndOfBasePath()
+	{
+		$server = array(
+			'REQUEST_URI'     => '/Bachelor-Thesis/Source/Tryout/index.php/',
+			'SCRIPT_FILENAME' => 'E:/Documents/Domains/localhost/Bachelor-Thesis/Source/Tryout/index.php',
+			'SCRIPT_NAME'     => '/Bachelor-Thesis/Source/Tryout/index.php'
+		);
+		$request = new Request(array(), array(), array(), $server);
+		$this->assertThat(
+			$request->getBaseUrl(),
+			$this->equalTo('/Bachelor-Thesis/Source/Tryout/')
 		);
 	}
 
