@@ -37,6 +37,7 @@ class StringUtil
 		$slug = preg_replace('/[^a-z0-9- ]/', '', $slug ); // remove all non-alphanumeric characters except for spaces and hyphens
 		$slug = str_replace(' ', '-', $slug);              // substitute spaces with hyphens
 		$slug = preg_replace('/(\-)+/', '-', $slug);       // remove continuous hyphens
+		$slug = trim($slug, '-');                          // remove hyphens from around the string
 		return $slug;
 	}
 }

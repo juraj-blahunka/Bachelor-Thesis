@@ -51,5 +51,10 @@ class StringUtilTest extends PHPUnit_Framework_TestCase
 			StringUtil::slugify('verbose (with explanation in parens)'),
 			$this->equalTo('verbose-with-explanation-in-parens')
 		);
+
+		$this->assertThat(
+			StringUtil::slugify('with not standard characters at end !!>?>:'),
+			$this->equalTo('with-not-standard-characters-at-end')
+		);
 	}
 }
