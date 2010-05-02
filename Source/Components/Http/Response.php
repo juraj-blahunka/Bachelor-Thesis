@@ -66,6 +66,11 @@ class Response implements IResponse
 		return $this;
 	}
 
+	public function hasHeader($name)
+	{
+		return isset($this->headers[$this->normalizeHeaderName($name)]);
+	}
+
 	public function getHeader($name, $default = null)
 	{
 		$name = $this->normalizeHeaderName($name);
@@ -183,6 +188,9 @@ class Response implements IResponse
 	protected function dispatchHeaders()
 	{
 		header($this->status->getHeaderText());
+
+		if (! $this->getHeader('Content-type'))
+			$this->setHeader('Content-type', 'text/html; charset=utf-8');
 
 		foreach ($this->headers as $name => $value)
 		{

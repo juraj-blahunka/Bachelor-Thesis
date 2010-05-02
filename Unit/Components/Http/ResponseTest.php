@@ -119,6 +119,19 @@ class ResponseTest extends PHPUnit_Framework_TestCase
 		);
 	}
 
+	public function testHasHeader()
+	{
+		$this->assertThat(
+			$this->object->hasHeader('udnefined-header'),
+			$this->equalTo(false)
+		);
+		$this->object->setHeader('Some header', 'val');
+		$this->assertThat(
+			$this->object->hasHeader('some header'),
+			$this->equalTo(true)
+		);
+	}
+
 	public function testDeleteHeader()
 	{
 		$this->object->setHeader('Sample', 'value');
