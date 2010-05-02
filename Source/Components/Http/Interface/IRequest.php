@@ -11,6 +11,7 @@ interface IRequest
 	function hasParameter($parameterKey);
 	function getParameter($parameterKey, $defaultValue = null);
 	function setParameter($parameterKey, $parameterValue);
+	function getParameters();
 
 	function hasCookie($cookieKey);
 	function getCookie($cookieKey, $defaultValue = null);

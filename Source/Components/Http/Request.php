@@ -54,6 +54,11 @@ class Request implements IRequest
 		$this->parameters[$parameterKey] = $parameterValue;
 	}
 
+	public function getParameters()
+	{
+		return $this->parameters;
+	}
+
 	public function hasCookie($cookieKey)
 	{
 		return isset($this->cookies[$cookieKey]);

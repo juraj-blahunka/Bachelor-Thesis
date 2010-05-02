@@ -83,6 +83,17 @@ class RequestTest extends PHPUnit_Framework_TestCase
 		);
 	}
 
+	public function testGetParameters()
+	{
+		$this->assertThat(
+			$this->object->getParameters(),
+			$this->equalTo(array(
+				'get1' => 'value',
+				'post1' => 'another value',
+			))
+		);
+	}
+
 	public function testHasCookie()
 	{
 		$this->assertThat(
