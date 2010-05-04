@@ -6,7 +6,7 @@
  * @package    BachelorThesis
  * @subpackage Http
  */
-class RenderableResponse implements IRenderableResponse
+class ResponsePresenter implements IResponsePresenter
 {
 	protected
 		$response,

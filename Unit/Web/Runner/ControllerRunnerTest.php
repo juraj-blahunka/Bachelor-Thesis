@@ -61,14 +61,14 @@ class ControllerRunnerTest extends PHPUnit_Framework_TestCase
 	{
 		$this->setExpectedException('RuntimeException');
 		$this->emitter->attach('controller.load',   array($this, 'handleControllerLoad'));
-		$this->emitter->attach('controller.invoke', array($this, 'handleControllerInvoke_Renderable'));
+		$this->emitter->attach('controller.invoke', array($this, 'handleControllerInvoke_Presenter'));
 		$this->object->run($this->createRoute());
 	}
 
 	public function testRun_RenderableAndResponse()
 	{
 		$this->emitter->attach('controller.load',   array($this, 'handleControllerLoad'));
-		$this->emitter->attach('controller.invoke', array($this, 'handleControllerInvoke_Renderable'));
+		$this->emitter->attach('controller.invoke', array($this, 'handleControllerInvoke_Presenter'));
 		$this->emitter->attach('controller.view_context', array($this, 'handleControllerViewContext'));
 		$this->emitter->attach('controller.view', array($this, 'handleControllerView'));
 		$response = $this->object->run($this->createRoute());
@@ -100,27 +100,27 @@ class ControllerRunnerTest extends PHPUnit_Framework_TestCase
 		return true;
 	}
 
-	public function handleControllerInvoke_Renderable(IEvent $e)
+	public function handleControllerInvoke_Presenter(IEvent $e)
 	{
-		$e->setValue(new RenderableResponse($this->getMock('IResponse')));
+		$e->setValue(new ResponsePresenter($this->getMock('IResponse')));
 		return true;
 	}
 
 	public function handleControllerViewContext(IEvent $e)
 	{
-		$renderable = $e->getParameter('renderable');
-		$renderable->addVariables(array(
+		$presenter = $e->getParameter('presenter');
+		$presenter->addVariables(array(
 			'parameter' => '<h1>hello</h1>',
 		));
-		$renderable->getOriginalResponse()->expects($this->once())
+		$presenter->getOriginalResponse()->expects($this->once())
 			->method('setContent')->with($this->equalTo('<h1>hello</h1>'));
 	}
 
 	public function handleControllerView(IEvent $e)
 	{
-		$renderable = $e->getParameter('renderable');
-		$response   = $renderable->getOriginalResponse();
-		$variables  = $renderable->getVariables();
+		$presenter = $e->getParameter('presenter');
+		$response  = $presenter->getOriginalResponse();
+		$variables = $presenter->getVariables();
 		$response->setContent($variables['parameter']);
 		$e->setValue($response);
 		return true;

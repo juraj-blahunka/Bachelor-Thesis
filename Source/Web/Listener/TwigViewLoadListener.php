@@ -20,10 +20,10 @@ class TwigViewLoadListener
 
 	public function handle(IEvent $event)
 	{
-		$renderable = $event->getParameter('renderable');
+		$presenter = $event->getParameter('presenter');
 
-		$viewname   = $renderable->getViewName() . $this->defaultExtension;
-		$variables  = $renderable->getVariables();
+		$viewname   = $presenter->getViewName() . $this->defaultExtension;
+		$variables  = $presenter->getVariables();
 		try
 		{
 			$template  = $this->twig->loadTemplate($viewname);
@@ -38,9 +38,9 @@ class TwigViewLoadListener
 
 			throw $e;
 		}
-		$content   = $template->render($renderable->getVariables());
+		$content   = $template->render($presenter->getVariables());
 
-		$response = $renderable->getOriginalResponse();
+		$response = $presenter->getOriginalResponse();
 		$response->write($content);
 
 		$event->setValue($response);

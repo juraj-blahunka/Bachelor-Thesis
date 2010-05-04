@@ -19,8 +19,8 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 			->setClass('Request');
 		$container->define('response_service')
 			->setClass('Response');
-		$container->define('renderable_response_service')
-			->setClass('RenderableResponse');
+		$container->define('response_presenter_service')
+			->setClass('ResponsePresenter');
 		$container->define('RequestBasePathStrategy');
 		$container->define('RouterFactory');
 		$container->define('RouteMatcher');
@@ -79,11 +79,11 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		);
 	}
 
-	public function testGetRenderableResponse()
+	public function testGetResponsePresenter()
 	{
 		$this->assertThat(
-			$this->object->getRenderableResponse(),
-			$this->isInstanceOf('IRenderableResponse')
+			$this->object->getResponsePresenter(),
+			$this->isInstanceOf('IResponsePresenter')
 		);
 	}
 
@@ -125,7 +125,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		$renderable = $this->object->render('some/view', $params);
 		$this->assertThat(
 			$renderable,
-			$this->isInstanceOf('IRenderableResponse')
+			$this->isInstanceOf('IResponsePresenter')
 		);
 		$this->assertThat(
 			$renderable->getViewName(),

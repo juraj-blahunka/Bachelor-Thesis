@@ -6,7 +6,7 @@
  * @package    BachelorThesis
  * @subpackage Http
  */
-interface IRenderableResponse
+interface IResponsePresenter
 {
 	function getOriginalResponse();
 	function setViewName($view);

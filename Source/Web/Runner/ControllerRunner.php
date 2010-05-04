@@ -87,19 +87,19 @@ class ControllerRunner implements IControllerRunner
 		return $event->getValue();
 	}
 
-	protected function notifyView(IRoute $route, IRenderableResponse $renderable)
+	protected function notifyView(IRoute $route, IResponsePresenter $presenter)
 	{
 		$this->emitter->notify(new Event($this, 'controller.view_context', array(
 			'route'      => $route,
-			'renderable' => $renderable,
+			'presenter'  => $presenter,
 		)));
 		$event = new Event($this, 'controller.view', array(
 			'route'      => $route,
-			'renderable' => $renderable,
+			'presenter'  => $presenter,
 		));
 		$this->emitter->notifyUntil($event);
 		if (! $event->isHandled())
-			throw new RuntimeException("No template applied for '{$renderable->getViewName()}' view name, which was called by '{$route->getController()}/{$route->getAction()}'");
+			throw new RuntimeException("No template applied for '{$presenter->getViewName()}' view name, which was called by '{$route->getController()}/{$route->getAction()}'");
 		return $event->getValue();
 	}
 

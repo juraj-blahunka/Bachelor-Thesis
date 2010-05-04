@@ -43,11 +43,11 @@ class BasicViewLoadListenerTest extends PHPUnit_Framework_TestCase
 	{
 		$response = new ResponseStub_BasicViewLoadListener();
 
-		$renderable = $this->getMock('IRenderableResponse');
-		$renderable->expects($this->once())->method('getViewName')->will($this->returnValue('sample'));
-		$renderable->expects($this->once())->method('getOriginalResponse')->will($this->returnValue($response));
-		$renderable->expects($this->once())->method('getVariables')->will($this->returnValue(array(
-			'heading' => 'View Listener',
+		$presenter = $this->getMock('IResponsePresenter');
+		$presenter->expects($this->once())->method('getViewName')->will($this->returnValue('sample'));
+		$presenter->expects($this->once())->method('getOriginalResponse')->will($this->returnValue($response));
+		$presenter->expects($this->once())->method('getVariables')->will($this->returnValue(array(
+			'heading'  => 'View Listener',
 			'subtitle' => 'Unit test',
 		)));
 
@@ -55,8 +55,8 @@ class BasicViewLoadListenerTest extends PHPUnit_Framework_TestCase
 		$route->expects($this->once())->method('getPackage')->will($this->returnValue('Basic'));
 
 		$e = new Event($this, 'controller.view', array(
-			'renderable' => $renderable,
-			'route'      => $route,
+			'presenter' => $presenter,
+			'route'     => $route,
 		));
 
 		$this->assertThat(
@@ -74,15 +74,15 @@ class BasicViewLoadListenerTest extends PHPUnit_Framework_TestCase
 
 	public function testHandle_FailingRender()
 	{
-		$renderable = $this->getMock('IRenderableResponse');
-		$renderable->expects($this->once())->method('getViewName')->will($this->returnValue('undefined'));
+		$presenter = $this->getMock('IResponsePresenter');
+		$presenter->expects($this->once())->method('getViewName')->will($this->returnValue('undefined'));
 
 		$route = $this->getMock('IRoute');
 		$route->expects($this->once())->method('getPackage')->will($this->returnValue('Basic'));
 
 		$e = new Event($this, 'controller.view', array(
-			'renderable' => $renderable,
-			'route'      => $route,
+			'presenter' => $presenter,
+			'route'     => $route,
 		));
 
 		$this->assertThat(

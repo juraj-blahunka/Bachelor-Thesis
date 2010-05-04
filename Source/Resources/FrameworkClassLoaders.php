@@ -88,7 +88,7 @@ return array(
 		// Http
 		'IRequest'              => 'Http/Interface/IRequest.php',
 		'IResponse'             => 'Http/Interface/IResponse.php',
-		'IRenderableResponse'   => 'Http/Interface/IRenderableResponse.php',
+		'IResponsePresenter'    => 'Http/Interface/IResponsePresenter.php',
 		'IStatusCode'           => 'Http/Interface/IStatusCode.php',
 
 		'BaseCollection'        => 'Http/Collection/BaseCollection.php',
@@ -100,7 +100,7 @@ return array(
 
 		'Request'               => 'Http/Request.php',
 		'Response'              => 'Http/Response.php',
-		'RenderableResponse'    => 'Http/RenderableResponse.php',
+		'ResponsePresenter'     => 'Http/ResponsePresenter.php',
 		'HttpStatusCode'        => 'Http/HttpStatusCode.php',
 
 		// Log

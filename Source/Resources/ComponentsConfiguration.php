@@ -60,8 +60,8 @@ return array(
 			'scope' => 'transient',
 		),
 
-		'renderable_response_service' => array(
-			'class' => 'RenderableResponse',
+		'response_presenter_service' => array(
+			'class' => 'ResponsePresenter',
 			'scope' => 'transient',
 		),
 

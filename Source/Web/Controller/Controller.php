@@ -43,14 +43,14 @@ abstract class Controller extends BaseController
 	}
 
 	/**
-	 * Returns RenderableResponse service.
+	 * Returns a Response Presenter service.
 	 *
 	 * @param IResponse $original
-	 * @return IRenderableResponse
+	 * @return IResponsePresenter
 	 */
-	public function getRenderableResponse(IResponse $original = null)
+	public function getResponsePresenter(IResponse $original = null)
 	{
-		return $this->container->getInstanceOfWith('renderable_response_service', array(
+		return $this->container->getInstanceOfWith('response_presenter_service', array(
 			array('value', is_null($original) ? $this->getResponse() : $original)
 		));
 	}
@@ -98,18 +98,18 @@ abstract class Controller extends BaseController
 	}
 
 	/**
-	 * Returns a filled RenderableResponse object.
+	 * Returns a filled Response Presenter object.
 	 *
 	 * @param mixed $view
 	 * @param array $variables
-	 * @return IRenderableResponse
+	 * @return IResponsePresenter
 	 */
 	public function render($view, array $variables = array())
 	{
-		$renderable = $this->getRenderableResponse($this->getResponse());
-		$renderable->setViewName($view);
-		$renderable->addVariables($variables);
-		return $renderable;
+		$presenter = $this->getResponsePresenter($this->getResponse());
+		$presenter->setViewName($view);
+		$presenter->addVariables($variables);
+		return $presenter;
 	}
 
 	/**
