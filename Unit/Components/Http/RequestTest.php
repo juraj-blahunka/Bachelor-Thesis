@@ -38,6 +38,24 @@ class RequestTest extends PHPUnit_Framework_TestCase
 	{
 	}
 
+	public function testGetRoute()
+	{
+		$this->assertThat(
+			$this->object->getRoute(),
+			$this->equalTo(null)
+		);
+	}
+
+	public function setRoute()
+	{
+		$route = $this->getMock('IRoute');
+		$this->object->setRoute($route);
+		$this->assertThat(
+			$this->object->getRoute(),
+			$this->identicalTo($route)
+		);
+	}
+
 	public function testHasParameter()
 	{
 		$this->assertThat(

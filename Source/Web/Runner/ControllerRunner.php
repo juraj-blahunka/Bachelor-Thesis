@@ -20,6 +20,7 @@ class ControllerRunner implements IControllerRunner
 		try
 		{
 			$route = $this->notifyLoadRoute($request);
+			$request->setRoute($route);
 			return $this->run($route);
 		}
 		catch (Exception $e)

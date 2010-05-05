@@ -146,6 +146,7 @@ abstract class Controller extends BaseController
 			->setController($controller)
 			->setAction($action)
 			->setParameters($parameters);
+		$this->getRequest()->setRoute($route);
 		$runner = $this->container->getInstanceOf('controller_runner_service');
 		return $runner->run($route);
 	}

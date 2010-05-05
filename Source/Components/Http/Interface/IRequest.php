@@ -8,6 +8,9 @@
  */
 interface IRequest
 {
+	function setRoute(IRoute $route);
+	function getRoute();
+
 	function hasParameter($parameterKey);
 	function getParameter($parameterKey, $defaultValue = null);
 	function setParameter($parameterKey, $parameterValue);
@@ -18,7 +21,6 @@ interface IRequest
 
 	function hasServer($serverKey);
 	function getServer($serverKey, $defaultValue = null);
-
 
 	function isSecure();
 	function getProtocol();

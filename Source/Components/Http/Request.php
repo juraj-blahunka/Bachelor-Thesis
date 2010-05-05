@@ -12,6 +12,7 @@ class Request implements IRequest
 		$parameters,
 		$cookies,
 		$server,
+		$route,
 		$httpHost,
 		$basePath,
 		$baseUrl,
@@ -29,12 +30,29 @@ class Request implements IRequest
 		$this->cookies    = $cookies;
 		$this->server     = $server;
 
+		$this->route      = null;
+
 		$this->httpHost   = null;
 		$this->basePath   = null;
 		$this->requestUri = null;
 		$this->pathInfo   = null;
 
 		$this->cleanRequest();
+	}
+
+	public function setRoute(IRoute $route)
+	{
+		$this->route = $route;
+	}
+
+	/**
+	 * Get the routing information associated with Request
+	 *
+	 * @return IRoute
+	 */
+	public function getRoute()
+	{
+		return $this->route;
 	}
 
 	public function hasParameter($parameterKey)
