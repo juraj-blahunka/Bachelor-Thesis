@@ -5,6 +5,10 @@ class ResponseStub_BasicViewLoadListener implements IResponse
 {
 	protected $c = '';
 
+	public $headers = array();
+
+	public $httstatus = null;
+
 	public function setContent ($c) { $this->content = $c; }
 
 	public function getContent () { return $this->content; }
@@ -12,6 +16,10 @@ class ResponseStub_BasicViewLoadListener implements IResponse
 	public function dispatch () {}
 
 	public function write ($c) { $this->content .= $c; }
+
+	public function setHeader($name, $value) { $this->headers[$name] = $value; }
+
+	public function setHttpStatusCode($code) { $this->httpstatus = $code; }
 }
 
 /**

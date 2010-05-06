@@ -12,34 +12,16 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	 */
 	protected $object;
 
+	/**
+	 * @var IDependencyInjectionContainer
+	 */
+	protected $container;
+
 	protected function setUp()
 	{
-		$container = new DependencyInjectionContainer();
-		$container->define('request_service')
-			->setClass('Request');
-		$container->define('response_service')
-			->setClass('Response');
-		$container->define('response_presenter_service')
-			->setClass('ResponsePresenter');
-		$container->define('RequestBasePathStrategy');
-		$container->define('RouterFactory');
-		$container->define('RouteMatcher');
-		$container->define('RoutingRuleCompiler');
-		$container->define('UrlCreator');
-		$container->define('router_service')
-			->setClass('RouterManager');
-		$container->define('EventEmitter');
-		$container->define('controller_runner_service')
-			->setClass('ControllerRunner');
-		$container->define('user_service')->setClass('User')
-			->addArgument('component', 'ArrayStorage')
-			->addArgument('component', 'EventEmitter');
-		$container->define('logger_service')->setClass('Logger')
-			->addArgument('component', 'ArrayLogMessageHandler');
-		$container->define('PresenterStub_ControllerSuite');
-
+		$this->container = $this->getMock('IDependencyInjectionContainer');
 		$this->object = new ControllerStub_ControllerSuite();
-		$this->object->setContainer($container);
+		$this->object->setContainer($this->container);
 	}
 
 	protected function tearDown()
@@ -66,6 +48,9 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 
 	public function testGetRequest()
 	{
+		$this->container->expects($this->once())->method('getInstanceOf')
+			->with($this->equalTo('request_service'))
+			->will($this->returnValue($this->getMock('IRequest')));
 		$this->assertThat(
 			$this->object->getRequest(),
 			$this->isInstanceOf('IRequest')
@@ -74,6 +59,9 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 
 	public function testGetResponse()
 	{
+		$this->container->expects($this->once())->method('getInstanceOf')
+			->with($this->equalTo('response_service'))
+			->will($this->returnValue($this->getMock('IResponse')));
 		$this->assertThat(
 			$this->object->getResponse(),
 			$this->isInstanceOf('IResponse')
@@ -82,6 +70,12 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 
 	public function testGetResponsePresenter()
 	{
+		$this->container->expects($this->once())->method('getInstanceOf')
+			->with($this->equalTo('response_service'))
+			->will($this->returnValue($this->getMock('IResponse')));
+		$this->container->expects($this->once())->method('getInstanceOfWith')
+			->with($this->equalTo('response_presenter_service'))
+			->will($this->returnValue($this->getMock('IResponsePresenter')));
 		$this->assertThat(
 			$this->object->getResponsePresenter(),
 			$this->isInstanceOf('IResponsePresenter')
@@ -90,6 +84,9 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 
 	public function testGetRouter()
 	{
+		$this->container->expects($this->once())->method('getInstanceOf')
+			->with($this->equalTo('router_service'))
+			->will($this->returnValue($this->getMock('IRouter')));
 		$this->assertThat(
 			$this->object->getRouter(),
 			$this->isInstanceOf('IRouter')
@@ -98,86 +95,131 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 
 	public function testGetUser()
 	{
-		$user = $this->object->getUser();
+		$this->container->expects($this->once())->method('getInstanceOf')
+			->with($this->equalTo('user_service'))
+			->will($this->returnValue($this->getMock('IUser')));
 		$this->assertThat(
-			$user,
+			$this->object->getUser(),
 			$this->isInstanceOf('IUser')
 		);
 	}
 
 	public function testGetLogger()
 	{
-		$logger = $this->object->getLogger();
+		$this->container->expects($this->once())->method('getInstanceOf')
+			->with($this->equalTo('logger_service'))
+			->will($this->returnValue($this->getMock('ILogger')));
 		$this->assertThat(
-			$logger,
+			$this->object->getLogger(),
 			$this->isInstanceOf('ILogger')
 		);
 	}
 
 	public function testGetPresenter()
 	{
-		$presenter = $this->object->getPresenter('PresenterStub_ControllerSuite');
+		$this->container->expects($this->once())->method('getInstanceOf')
+			->with($this->equalTo('some_presenter_service'))
+			->will($this->returnValue('presenter_object'));
 		$this->assertThat(
-			$presenter,
-			$this->isInstanceOf('PresenterStub_ControllerSuite')
+			$this->object->getPresenter('some_presenter_service'),
+			$this->equalTo('presenter_object')
+		);
+	}
+
+	public function testGetEventEmitter()
+	{
+		$this->container->expects($this->once())->method('getInstanceOf')
+			->with($this->equalTo('event_emitter_service'))
+			->will($this->returnValue($this->getMock('IEventEmitter')));
+		$this->assertThat(
+			$this->object->getEventEmitter(),
+			$this->isInstanceOf('IEventEmitter')
 		);
 	}
 
 	public function testGenerateUrl()
 	{
-		$this->setExpectedException('RuntimeException');
-		$this->object->generateUrl('by-some-name', array('router not configured'));
+		$router = $this->getMock('IRouter');
+		$router->expects($this->once())
+			->method('generateUrl')->will($this->returnValue('/new/url'));
+		$this->container->expects($this->once())->method('getInstanceOf')
+			->with($this->equalTo('router_service'))
+			->will($this->returnValue($router));
+		$this->assertThat(
+			$this->object->generateUrl('by-some-name', array('router not configured')),
+			$this->equalTo('/new/url')
+		);
 	}
 
 	public function testRender()
 	{
 		$params = array('param1' => 'value1');
-		$renderable = $this->object->render('some/view', $params);
-		$this->assertThat(
-			$renderable,
-			$this->isInstanceOf('IResponsePresenter')
-		);
-		$this->assertThat(
-			$renderable->getViewName(),
-			$this->equalTo('some/view')
-		);
-		$this->assertThat(
-			$renderable->getVariables(),
-			$this->equalTo($params)
-		);
-	}
-
-	public function testForward()
-	{
-		$this->setExpectedException('NotFoundHttpException');
-		$this->object->forward('package', 'controller', 'action', array('params'));
+		$mock = $this->getMock('IResponsePresenter');
+		$mock->expects($this->once())->method('setViewName')
+			->with($this->equalTo('some/view'));
+		$mock->expects($this->once())->method('addVariables')
+			->with($this->equalTo($params));
+		$this->container->expects($this->once())->method('getInstanceOfWith')
+			->with($this->equalTo('response_presenter_service'))
+			->will($this->returnValue($mock));
+		$presenter = $this->object->render('some/view', $params);
+		$this->assertThat($presenter, $this->identicalTo($mock));
 	}
 
 	public function testRedirect_Temporary()
 	{
-		$response = $this->object->redirect('http://www.example.com/');
+		$response = $this->getMock('IResponse');
+		$response->expects($this->once())->method('setHttpStatusCode')
+			->with($this->equalTo(302))->will($this->returnValue($response));
+		$response->expects($this->once())->method('setHeader')
+			->with($this->equalTo('Location'), $this->equalTo('http://www.example.com/'))
+			->will($this->returnValue($response));
 
+		$this->container->expects($this->once())->method('getInstanceOf')
+			->with($this->equalTo('response_service'))
+			->will($this->returnValue($response));
 		$this->assertThat(
-			$response->getHttpStatus()->getCode(),
-			$this->equalTo(302)
-		);
-		$this->assertThat(
-			$response->getHeader('Location'),
-			$this->equalTo('http://www.example.com/')
+			$this->object->redirect('http://www.example.com/'),
+			$this->identicalTo($response)
 		);
 	}
 
 	public function testRedirect_Permanent()
 	{
-		$response = $this->object->redirect('http://www.example.com/', true);
+		$response = $this->getMock('IResponse');
+		$response->expects($this->once())->method('setHttpStatusCode')
+			->with($this->equalTo(301))->will($this->returnValue($response));
+		$response->expects($this->once())->method('setHeader')
+			->with($this->equalTo('Location'), $this->equalTo('http://www.example.com/'))
+			->will($this->returnValue($response));
+
+		$this->container->expects($this->once())->method('getInstanceOf')
+			->with($this->equalTo('response_service'))
+			->will($this->returnValue($response));
+		$this->assertThat(
+			$this->object->redirect('http://www.example.com/', true),
+			$this->identicalTo($response)
+		);
+	}
+
+	public function testForward()
+	{
+		$route = $this->getMock('IRoute');
+		$route->expects($this->once())->method('setPackage')->will($this->returnValue($route));
+		$route->expects($this->once())->method('setController')->will($this->returnValue($route));
+		$route->expects($this->once())->method('setAction')->will($this->returnValue($route));
+		$route->expects($this->once())->method('setParameters')->will($this->returnValue($route));
+		$request = $this->getMock('IRequest');
+		$runner  = $this->getMock('IControllerRunner');
+		$runner->expects($this->once())->method('run')->with($this->equalTo($route))
+			->will($this->returnValue('ok'));
+
+		$this->container->expects($this->exactly(3))->method('getInstanceOf')
+			->will($this->onConsecutiveCalls($route, $request, $runner));
 
 		$this->assertThat(
-			$response->getHttpStatus()->getCode(),
-			$this->equalTo(301)
-		);
-		$this->assertThat(
-			$response->getHeader('Location'),
-			$this->equalTo('http://www.example.com/')
+			$this->object->forward('package', 'controller', 'action', array('params')),
+			$this->equalTo('ok')
 		);
 	}
 }

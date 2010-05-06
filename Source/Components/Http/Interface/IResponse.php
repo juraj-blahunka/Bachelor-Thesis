@@ -13,4 +13,7 @@ interface IResponse
 	function setContent($content);
 	function write($content);
 	function getContent();
+
+	function setHttpStatusCode($code);
+	function setHeader($name, $value);
 }
