@@ -170,6 +170,7 @@ return array(
 		'IController'     => 'Controller/Interface/IController.php',
 		'BaseController'  => 'Controller/BaseController.php',
 		'Controller'      => 'Controller/Controller.php',
+		'Presenter'       => 'Controller/Presenter.php',
 
 		// User
 		'IUser' => 'User/Interface/IUser.php',

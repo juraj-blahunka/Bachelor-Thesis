@@ -36,8 +36,9 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 			->addArgument('component', 'EventEmitter');
 		$container->define('logger_service')->setClass('Logger')
 			->addArgument('component', 'ArrayLogMessageHandler');
+		$container->define('PresenterStub_ControllerSuite');
 
-		$this->object = new ControllerStub();
+		$this->object = new ControllerStub_ControllerSuite();
 		$this->object->setContainer($container);
 	}
 
@@ -113,6 +114,15 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 		);
 	}
 
+	public function testGetPresenter()
+	{
+		$presenter = $this->object->getPresenter('PresenterStub_ControllerSuite');
+		$this->assertThat(
+			$presenter,
+			$this->isInstanceOf('PresenterStub_ControllerSuite')
+		);
+	}
+
 	public function testGenerateUrl()
 	{
 		$this->setExpectedException('RuntimeException');
@@ -172,4 +182,6 @@ class ControllerTest extends PHPUnit_Framework_TestCase
 	}
 }
 
-class ControllerStub extends Controller {}
+class ControllerStub_ControllerSuite extends Controller {}
+
+class PresenterStub_ControllerSuite extends Presenter {}
